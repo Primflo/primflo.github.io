@@ -3,276 +3,675 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>⚡ PLUTO ULTIMATE VAULT v2 ⚡ | Classified</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Pluto Vault · Aesthetic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        /* ============ LEVEL CONTAINERS ============ */
+        .level {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hidden-level {
+            display: none !important;
+        }
+
+        /* YOUR IMAGES - using .jpeg extension */
+        .level-bg-1 { background-image: url('images/image1.jpeg'); }
+        .level-bg-2 { background-image: url('images/image2.jpeg'); }
+        .level-bg-3 { background-image: url('images/image3.jpeg'); }
+        .level-bg-4 { background-image: url('images/image4.jpeg'); }
+        .level-bg-5 { background-image: url('images/image5.jpeg'); }
+        .level-bg-6 { background-image: url('images/image1.jpeg'); }
+
+        /* Dark overlay for text readability */
+        .level-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .level-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ============ TRANSPARENT GLASS CARDS (Mac OS Style) ============ */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 35px 28px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .dark-glass {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 35px 28px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-card h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dark-glass h2 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 28px;
+            font-size: 0.85rem;
+        }
+
+        /* Input fields - transparent */
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #007aff;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #0051d5;
+            transform: scale(1.01);
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .success-msg {
+            color: #69db7e;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        /* ============ ANIMAL FACES GRID ============ */
+        .animals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .animal-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .animal-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .animal-card.selected {
+            border-color: #007aff;
+            background: rgba(0, 122, 255, 0.2);
+        }
+
+        .animal-card.completed {
+            border-color: #34c759;
+            background: rgba(52, 199, 89, 0.2);
+        }
+
+        .animal-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .animal-name {
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .progress-text {
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ============ BIOMETRIC OPTIONS ============ */
+        .bio-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 18px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .bio-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .bio-option.verified {
+            border-color: #34c759;
+            background: rgba(52, 199, 89, 0.2);
+        }
+
+        .bio-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .bio-status {
+            color: #ffcc00;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        /* ============ PLUTO VAULT ============ */
+        .vault-card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .vault-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .vault-tabs {
+            display: flex;
+            gap: 12px;
+        }
+
+        .vault-tab {
+            background: transparent;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .vault-tab.active {
+            background: #007aff;
+        }
+
+        .timer {
+            font-family: monospace;
+            color: #00ff88;
+            font-size: 14px;
+        }
+
+        .items-grid {
+            display: grid;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            color: white;
+        }
+
+        .add-btn {
+            background: #007aff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+        .settings-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .settings-section h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .settings-section input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .hidden { display: none; }
+        .mt-4 { margin-top: 20px; }
+
+        @media (max-width: 600px) {
+            .animals-grid { grid-template-columns: repeat(2, 1fr); }
+            .vault-header { flex-direction: column; gap: 15px; }
+            .glass-card, .dark-glass { margin: 20px; padding: 25px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ============ EMERGENCY LOGOUT BUTTON (Visible on ALL Levels) ============ -->
-<div id="emergencyBtn" class="emergency-btn" title="Emergency Logout - Vanish instantly">
-    ⚡ EMERGENCY VANISH ⚡
-    <span class="emergency-error" id="emergencyError"></span>
-</div>
-
-<!-- ============ LEVEL 1: ANIME FUN (FREE IMAGES FROM GOOGLE CDN) ============ -->
-<div id="level1" class="level-container level1">
-    <div id="sakura-container"></div>
-    <div class="content-wrapper">
-        <h1 class="title">🌸 WELCOME TO ANIME VERSE 🌸</h1>
-        
-        <!-- Free Anime Images Row 1 -->
-        <div class="anime-gallery">
-            <div class="anime-card" data-secret="naruto">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/naruto.png" 
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Naruto+🍥'"
-                     alt="Naruto" class="anime-img">
-                <div class="anime-name">Naruto Uzumaki</div>
-                <div class="secret-spot-indicator">✨</div>
-            </div>
-            <div class="anime-card" data-secret="nezuko">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/nezuko.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Nezuko+🎀'"
-                     alt="Nezuko" class="anime-img">
-                <div class="anime-name">Nezuko Kamado</div>
-            </div>
-            <div class="anime-card" data-secret="goku">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/goku.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Goku+🐉'"
-                     alt="Goku" class="anime-img">
-                <div class="anime-name">Goku</div>
-            </div>
-            <div class="anime-card" data-secret="pikachu">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/pikachu.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Pikachu+⚡'"
-                     alt="Pikachu" class="anime-img">
-                <div class="anime-name">Pikachu</div>
-            </div>
-            <div class="anime-card" data-secret="tanjiro">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/tanjiro.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Tanjiro+🌊'"
-                     alt="Tanjiro" class="anime-img">
-                <div class="anime-name">Tanjiro Kamado</div>
-            </div>
-        </div>
-        
+<!-- LEVEL 1: WELCOME - Transparent glass card -->
+<div id="level1" class="level level-bg-1">
+    <div class="level-overlay"></div>
+    <div class="level-content">
         <div class="glass-card">
-            <h2>📝 Latest Anime Reviews</h2>
-            <p>Demon Slayer: 10/10 - Masterpiece!</p>
-            <p>Jujutsu Kaisen Season 2: 9.5/10</p>
-        </div>
-    </div>
-    <!-- Hidden Secret Spot -->
-    <div class="secret-spot" id="secretSpot1" style="top: 300px; left: 25%;"></div>
-</div>
-
-<!-- ============ LEVEL 2: ANIME MASTER (FREE IMAGES + TRANSFORMED) ============ -->
-<div id="level2" class="level-container level2 hidden-level">
-    <div class="content-wrapper">
-        <h1 class="title gold-text">⚡ SACRED REALM ⚡</h1>
-        
-        <div class="anime-gallery">
-            <div class="anime-card transformed" data-secret="sage">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/sage-naruto.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Sage+Naruto+🍥👁️'"
-                     alt="Sage Naruto" class="anime-img glow-border">
-                <div class="anime-name">Sage Naruto</div>
-            </div>
-            <div class="anime-card transformed" data-secret="demon">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/demon-nezuko.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Demon+Nezuko+🎀🔥'"
-                     alt="Demon Nezuko" class="anime-img glow-border">
-                <div class="anime-name">Demon Nezuko</div>
-            </div>
-            <div class="anime-card transformed" data-secret="ssj">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/ssj-goku.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=SSJ+Goku+🐉⚡'"
-                     alt="SSJ Goku" class="anime-img glow-border">
-                <div class="anime-name">Super Saiyan Goku</div>
-            </div>
-            <div class="anime-card transformed" data-secret="itachi">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/itachi.png"
-                     onerror="this.src='https://via.placeholder.com/200x200?text=Itachi+🍥👁️'"
-                     alt="Itachi" class="anime-img glow-border">
-                <div class="anime-name">Itachi Uchiha</div>
-            </div>
-        </div>
-        
-        <div class="hidden-leaf" id="hiddenLeaf">🍃</div>
-        <div class="secret-hint">✨ Find the hidden leaf... ✨</div>
-    </div>
-</div>
-
-<!-- ============ LEVEL 3: SCAN ZONE (ASK PASSWORDS FIRST) ============ -->
-<div id="level3" class="level-container level3 hidden-level">
-    <div class="matrix-rain" id="matrixRain"></div>
-    <div class="content-wrapper scan-zone">
-        <h1 class="neon-text">🔍 SCAN ZONE 🔍</h1>
-        
-        <!-- Free Anime Images for Level 3 -->
-        <div class="scanner-characters">
-            <div class="scanner-card" data-secret="neji">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/neji.png"
-                     onerror="this.src='https://via.placeholder.com/150x150?text=Neji+👁️'"
-                     alt="Neji" class="scanner-img">
-                <div>Neji (Byakugan)</div>
-            </div>
-            <div class="scanner-card" data-secret="trunks">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/trunks.png"
-                     onerror="this.src='https://via.placeholder.com/150x150?text=Trunks+⚔️'"
-                     alt="Trunks" class="scanner-img">
-                <div>Future Trunks</div>
-            </div>
-            <div class="scanner-card" data-secret="l">
-                <img src="https://animeimages.s3.us-east-2.amazonaws.com/l.png"
-                     onerror="this.src='https://via.placeholder.com/150x150?text=L+🍰'"
-                     alt="L" class="scanner-img">
-                <div>L (Death Note)</div>
-            </div>
-        </div>
-        
-        <!-- Password Modal Trigger - Secret Click Point -->
-        <div class="radar" id="radar">
-            <div class="radar-sweep"></div>
-            <div class="radar-center"></div>
-            <div class="radar-text">🔍 SECRET SCAN POINT</div>
-        </div>
-        
-        <!-- Secret Terminal -->
-        <div class="terminal-glass">
-            <div id="terminal" class="terminal">
-                > System ready.<br>
-                > Find the secret scanner...<br>
-                > Click the radar to begin<span class="cursor">_</span>
-            </div>
+            <h1>🌸 Pluto Vault</h1>
+            <div class="subtitle">Your aesthetic secret sanctuary</div>
+            <button id="startJourneyBtn" class="btn-primary">Begin Journey →</button>
         </div>
     </div>
 </div>
 
-<!-- ============ LEVEL 4: LOGIN PORTAL (ANIME BACKGROUND + MORSE CODE) ============ -->
-<div id="level4" class="level-container level4 hidden-level">
-    <!-- Anime Background Image -->
-    <div class="anime-bg-overlay"></div>
-    <div class="content-wrapper login-portal">
-        <div class="portal-card">
-            <h1 class="portal-title">🏯 LOGIN PORTAL 🏯</h1>
-            
-            <!-- Standard Login Fields -->
-            <div class="login-fields">
-                <input type="text" id="portalUsername" placeholder="Username" class="portal-input">
-                <input type="password" id="portalPassword" placeholder="Password" class="portal-input">
+<!-- LEVEL 2: 5 ANIMALS - Transparent glass card -->
+<div id="level2" class="level level-bg-2 hidden-level">
+    <div class="level-overlay"></div>
+    <div class="level-content">
+        <div class="glass-card">
+            <h1>🦊 Sacred Guardians</h1>
+            <div class="subtitle">Select all 5 animals (any order)</div>
+            <div class="animals-grid" id="animalsGrid">
+                <div class="animal-card" data-animal="fox"><span class="animal-emoji">🦊</span><span class="animal-name">Fox</span></div>
+                <div class="animal-card" data-animal="cat"><span class="animal-emoji">🐱</span><span class="animal-name">Cat</span></div>
+                <div class="animal-card" data-animal="dog"><span class="animal-emoji">🐶</span><span class="animal-name">Dog</span></div>
+                <div class="animal-card" data-animal="panda"><span class="animal-emoji">🐼</span><span class="animal-name">Panda</span></div>
+                <div class="animal-card" data-animal="owl"><span class="animal-emoji">🦉</span><span class="animal-name">Owl</span></div>
             </div>
-            
-            <!-- MORSE CODE INPUT SECTION -->
-            <div class="morse-section">
-                <h3>🔊 MORSE CODE VERIFICATION</h3>
-                <p class="morse-hint">Enter the secret morse code: <strong>.--. .-.. ..- - ---</strong></p>
-                <div class="morse-buttons">
-                    <button class="morse-btn" data-morse=".">● (Dot)</button>
-                    <button class="morse-btn" data-morse="-">━ (Dash)</button>
-                    <button class="morse-btn" id="morseSpace">␣ (Space)</button>
-                    <button class="morse-btn" id="morseClear">🗑️ Clear</button>
+            <div id="animalProgress" class="progress-text">Selected: 0 / 5</div>
+            <div id="animalMessage" class="error-msg"></div>
+        </div>
+    </div>
+</div>
+
+<!-- LEVEL 3: SCAN ZONE - Dark transparent card -->
+<div id="level3" class="level level-bg-3 hidden-level">
+    <div class="level-overlay"></div>
+    <div class="level-content">
+        <div class="dark-glass">
+            <h2>🔍 Scan Zone</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">Enter password</p>
+            <input type="password" id="scanPassword" class="input-field" placeholder="Password">
+            <button id="verifyScanBtn" class="btn-primary">Verify →</button>
+            <div id="scanError" class="error-msg"></div>
+        </div>
+    </div>
+</div>
+
+<!-- LEVEL 4: LOGIN PORTAL - Transparent glass card -->
+<div id="level4" class="level level-bg-4 hidden-level">
+    <div class="level-overlay"></div>
+    <div class="level-content">
+        <div class="glass-card">
+            <h1>Login Portal</h1>
+            <input type="text" id="loginUsername" class="input-field" placeholder="Username" value="admin">
+            <input type="password" id="loginPassword" class="input-field" placeholder="Password">
+            <button id="portalLoginBtn" class="btn-primary">Unlock →</button>
+            <div id="portalError" class="error-msg"></div>
+        </div>
+    </div>
+</div>
+
+<!-- LEVEL 5: BIOMETRIC - Dark transparent card -->
+<div id="level5" class="level level-bg-5 hidden-level">
+    <div class="level-overlay"></div>
+    <div class="level-content">
+        <div class="dark-glass">
+            <h2>🔐 Biometric Verification</h2>
+            <div id="faceOption" class="bio-option">
+                <div class="bio-icon">👤</div>
+                <div>Face ID</div>
+                <div id="faceStatus" class="bio-status">Tap to verify</div>
+            </div>
+            <div id="fingerOption" class="bio-option">
+                <div class="bio-icon">👆</div>
+                <div>Fingerprint</div>
+                <div id="fingerStatus" class="bio-status">Tap to verify</div>
+            </div>
+            <button id="finalVerifyBtn" class="btn-primary mt-4">Enter Pluto →</button>
+            <div id="bioError" class="error-msg"></div>
+        </div>
+    </div>
+</div>
+
+<!-- LEVEL 6: PLUTO VAULT -->
+<div id="level6" class="level level-bg-6 hidden-level">
+    <div class="level-overlay"></div>
+    <div class="level-content">
+        <div class="vault-card">
+            <div class="vault-header">
+                <div><strong>🔴 PLUTO VAULT</strong></div>
+                <div class="vault-tabs">
+                    <button class="vault-tab active" data-tab="passwords">Passwords</button>
+                    <button class="vault-tab" data-tab="secrets">Secrets</button>
+                    <button class="vault-tab" data-tab="settings">Settings</button>
                 </div>
-                <div class="morse-display" id="morseDisplay"></div>
-                <div class="morse-translation" id="morseTranslation"></div>
-                <input type="hidden" id="morseCodeValue">
+                <div class="timer" id="vaultTimer">Auto-lock: 5:00</div>
             </div>
-            
-            <button id="portalLoginBtn" class="portal-login-btn">🔓 ENTER SANCTUARY</button>
-            <div id="portalError" class="portal-error"></div>
+            <div id="passwordsTab">
+                <button id="addPasswordBtn" class="add-btn">+ Add Password</button>
+                <div id="passwordsList" class="items-grid"></div>
+            </div>
+            <div id="secretsTab" class="hidden">
+                <button id="addSecretBtn" class="add-btn">+ Add Secret</button>
+                <div id="secretsList" class="items-grid"></div>
+            </div>
+            <div id="settingsTab" class="hidden">
+                <div class="settings-section">
+                    <h3>Change Credentials</h3>
+                    <input type="text" id="newUsername" placeholder="New Username">
+                    <input type="password" id="newPassword" placeholder="New Password">
+                    <button id="saveSettingsBtn" class="btn-primary">Save</button>
+                </div>
+                <div class="settings-section">
+                    <h3>Backup & Restore</h3>
+                    <button id="exportBtn" class="btn-secondary">Export Backup</button>
+                    <button id="importBtn" class="btn-secondary">Import Backup</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- ============ LEVEL 5: BIOMETRIC GATEWAY (Before Pluto) ============ -->
-<div id="level5" class="level-container level5 hidden-level">
-    <div class="classified-watermark">CLASSIFIED - BIOMETRIC REQUIRED</div>
-    <div class="content-wrapper">
-        <h1 class="red-text">🔐 BIOMETRIC GATEWAY 🔐</h1>
-        <div class="gateway-card">
-            <h3>Final Verification Required for PLUTO Access</h3>
-            
-            <div class="bio-section">
-                <div class="bio-status">
-                    <span>👤 Face Recognition</span>
-                    <span id="faceStatus" class="status-pending">Not scanned</span>
-                </div>
-                <button id="scanFaceBtn" class="bio-btn">Start Face Scan</button>
-            </div>
-            
-            <div class="bio-section">
-                <div class="bio-status">
-                    <span>👆 Fingerprint</span>
-                    <span id="fingerprintStatus" class="status-pending">Not scanned</span>
-                </div>
-                <button id="scanFingerprintBtn" class="bio-btn">Scan Fingerprint</button>
-            </div>
-            
-            <div class="bio-section">
-                <div class="bio-status">
-                    <span>🎤 Voice Phrase</span>
-                    <span id="voiceStatus" class="status-pending">Not verified</span>
-                </div>
-                <button id="recordVoiceBtn" class="bio-btn">Record Voice</button>
-                <div class="voice-hint">Speak: "Pluto, reveal your secrets"</div>
-            </div>
-            
-            <button id="verifyBiometricBtn" class="verify-btn">🔓 VERIFY & ENTER PLUTO</button>
-        </div>
-    </div>
-</div>
-
-<!-- ============ PLUTO VAULT (Final Secrets) ============ -->
-<div id="plutoVault" class="level-container pluto-vault hidden-level">
-    <div class="vault-header">
-        <div class="vault-title">🔴 PLUTO - CLASSIFIED VAULT 🔴</div>
-        <div class="vault-tabs">
-            <button class="vault-tab active" data-tab="passwords">🔐 Passwords</button>
-            <button class="vault-tab" data-tab="secrets">🤫 Secrets</button>
-            <button class="vault-tab" data-tab="settings">⚙️ Settings</button>
-        </div>
-        <div class="vault-controls">
-            <div class="timer" id="vaultTimer">Auto-hide: 5:00</div>
-            <button id="closeVaultBtn" class="close-btn">🔒 Close Pluto</button>
-        </div>
-    </div>
+<script>
+    // ============ APP LOGIC ============
+    const DEFAULT_PASSWORD = "123";
+    let loginUsername = "admin";
+    let loginPassword = "123";
     
-    <div id="vaultContent" class="vault-content">
-        <div id="passwordsTab" class="vault-tab-content active">
-            <div class="tab-header">
-                <h2>🔐 Master Passwords</h2>
-                <button id="addPasswordBtn" class="add-btn">➕ Add Password</button>
-            </div>
-            <div id="passwordsList" class="passwords-grid"></div>
-        </div>
-        
-        <div id="secretsTab" class="vault-tab-content">
-            <div class="tab-header">
-                <h2>🤫 Private Secrets</h2>
-                <button id="addSecretBtn" class="add-btn">➕ Add Secret</button>
-            </div>
-            <div id="secretsList" class="secrets-grid"></div>
-        </div>
-        
-        <div id="settingsTab" class="vault-tab-content">
-            <h2>⚙️ Settings</h2>
-            <div class="settings-section">
-                <h3>🔐 Change Passwords</h3>
-                <input type="password" id="newScanPwd1" placeholder="New Scan Password 1">
-                <input type="password" id="newScanPwd2" placeholder="New Scan Password 2">
-                <input type="password" id="newScanPwd3" placeholder="New Scan Password 3">
-                <input type="password" id="newPortalPwd" placeholder="New Portal Password">
-                <button id="saveSecuritySettings" class="save-btn">Save</button>
-            </div>
-            <div class="settings-section">
-                <h3>💾 Backup & Restore</h3>
-                <button id="exportBackupBtn" class="backup-btn">📥 Export Backup</button>
-                <button id="importBackupBtn" class="backup-btn">📤 Import Backup</button>
-            </div>
-        </div>
-    </div>
-</div>
+    let plutoData = { passwords: [], secrets: [] };
+    let selectedAnimals = [];
+    let faceVerified = false;
+    let fingerVerified = false;
+    let autoHideTimer = null;
+    let autoHideMinutes = 5;
+    let currentLevel = 1;
 
-<script src="script.js"></script>
+    function showLevel(level) {
+        for (let i = 1; i <= 6; i++) {
+            const el = document.getElementById(`level${i}`);
+            if (el) el.classList.add('hidden-level');
+        }
+        document.getElementById(`level${level}`).classList.remove('hidden-level');
+        currentLevel = level;
+        if (level === 6) startAutoHideTimer();
+        else if (autoHideTimer) { clearInterval(autoHideTimer); autoHideTimer = null; }
+    }
+
+    function loadData() {
+        const saved = localStorage.getItem('plutoVaultData');
+        if (saved) { 
+            plutoData = JSON.parse(saved); 
+        } else {
+            plutoData.passwords.push({ id: Date.now(), name: "Example Account", username: "user@example.com", password: "pass123" });
+            plutoData.secrets.push({ id: Date.now(), title: "Welcome to Pluto", content: "Store your secrets here!" });
+            saveData();
+        }
+        refreshUI();
+    }
+
+    function saveData() { localStorage.setItem('plutoVaultData', JSON.stringify(plutoData)); }
+
+    function refreshUI() {
+        const pwdList = document.getElementById('passwordsList');
+        if (pwdList) {
+            pwdList.innerHTML = '';
+            plutoData.passwords.forEach((item, idx) => {
+                const div = document.createElement('div'); 
+                div.className = 'item-card';
+                div.innerHTML = `<div><strong>${escapeHtml(item.name)}</strong><br>${escapeHtml(item.username)}</div>
+                    <div><button class="btn-secondary" onclick="copyToClipboard('${item.password}')">Copy</button>
+                    <button class="btn-secondary" style="background:#ff3b30;" onclick="deleteItem('passwords', ${idx})">Del</button></div>`;
+                pwdList.appendChild(div);
+            });
+        }
+        const secList = document.getElementById('secretsList');
+        if (secList) {
+            secList.innerHTML = '';
+            plutoData.secrets.forEach((item, idx) => {
+                const div = document.createElement('div'); 
+                div.className = 'item-card';
+                div.innerHTML = `<div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(item.content.substring(0, 50))}</div>
+                    <div><button class="btn-secondary" onclick="deleteItem('secrets', ${idx})">Del</button></div>`;
+                secList.appendChild(div);
+            });
+        }
+    }
+
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+    window.copyToClipboard = function(t) { navigator.clipboard.writeText(t); alert('Copied!'); };
+    window.deleteItem = function(t, i) { plutoData[t].splice(i,1); saveData(); refreshUI(); };
+
+    // Level 1 → Level 2
+    document.getElementById('startJourneyBtn').onclick = () => showLevel(2);
+
+    // Level 2 - Animals selection
+    const animalCards = document.querySelectorAll('.animal-card');
+    animalCards.forEach(card => {
+        card.onclick = () => {
+            if (selectedAnimals.includes(card.getAttribute('data-animal'))) return;
+            selectedAnimals.push(card.getAttribute('data-animal'));
+            card.classList.add('selected');
+            document.getElementById('animalProgress').innerText = `Selected: ${selectedAnimals.length} / 5`;
+            if (selectedAnimals.length === 5) {
+                animalCards.forEach(c => c.classList.add('completed'));
+                document.getElementById('animalMessage').className = 'success-msg';
+                document.getElementById('animalMessage').innerText = '✨ All guardians selected! Entering... ✨';
+                setTimeout(() => showLevel(3), 1500);
+            }
+        };
+    });
+
+    // Level 3 - Scan Zone
+    document.getElementById('verifyScanBtn').onclick = () => {
+        const pwd = document.getElementById('scanPassword').value;
+        if (pwd === DEFAULT_PASSWORD) { showLevel(4); }
+        else { document.getElementById('scanError').innerText = '❌ Incorrect. Try "123"'; }
+    };
+
+    // Level 4 - Login Portal
+    document.getElementById('portalLoginBtn').onclick = () => {
+        const user = document.getElementById('loginUsername').value;
+        const pwd = document.getElementById('loginPassword').value;
+        if (user === loginUsername && pwd === DEFAULT_PASSWORD) { showLevel(5); }
+        else { document.getElementById('portalError').innerText = '❌ Use username "admin" and password "123"'; }
+    };
+
+    // Level 5 - Biometric
+    document.getElementById('faceOption').onclick = () => {
+        document.getElementById('faceStatus').innerText = 'Scanning...';
+        setTimeout(() => { 
+            faceVerified = true; 
+            document.getElementById('faceStatus').innerText = '✓ Verified'; 
+            document.getElementById('faceOption').classList.add('verified'); 
+        }, 1000);
+    };
+    document.getElementById('fingerOption').onclick = () => {
+        document.getElementById('fingerStatus').innerText = 'Scanning...';
+        setTimeout(() => { 
+            fingerVerified = true; 
+            document.getElementById('fingerStatus').innerText = '✓ Verified'; 
+            document.getElementById('fingerOption').classList.add('verified'); 
+        }, 1000);
+    };
+    document.getElementById('finalVerifyBtn').onclick = () => {
+        if (faceVerified && fingerVerified) { 
+            loadData(); 
+            showLevel(6); 
+        } else { 
+            document.getElementById('bioError').innerText = '❌ Both Face ID and Fingerprint required'; 
+        }
+    };
+
+    // Vault functions
+    function startAutoHideTimer() {
+        if (autoHideTimer) clearInterval(autoHideTimer);
+        let timeLeft = autoHideMinutes * 60;
+        const timerEl = document.getElementById('vaultTimer');
+        autoHideTimer = setInterval(() => {
+            if (currentLevel !== 6) { clearInterval(autoHideTimer); return; }
+            timeLeft--;
+            const mins = Math.floor(timeLeft/60), secs = timeLeft%60;
+            timerEl.innerText = `Auto-lock: ${mins}:${secs.toString().padStart(2,'0')}`;
+            if (timeLeft <= 0) { 
+                clearInterval(autoHideTimer); 
+                showLevel(1); 
+                // Reset biometrics
+                faceVerified = false; fingerVerified = false;
+                selectedAnimals = [];
+            }
+        }, 1000);
+    }
+
+    // Vault Tabs
+    document.querySelectorAll('.vault-tab').forEach(tab => {
+        tab.onclick = () => {
+            const tabName = tab.getAttribute('data-tab');
+            document.querySelectorAll('.vault-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('passwordsTab').classList.add('hidden');
+            document.getElementById('secretsTab').classList.add('hidden');
+            document.getElementById('settingsTab').classList.add('hidden');
+            document.getElementById(`${tabName}Tab`).classList.remove('hidden');
+        };
+    });
+
+    // Add Password
+    document.getElementById('addPasswordBtn').onclick = () => {
+        const n=prompt('Account name:'), u=prompt('Username:'), p=prompt('Password:');
+        if(n&&u&&p) { plutoData.passwords.push({id:Date.now(),name:n,username:u,password:p}); saveData(); refreshUI(); alert('Password saved!'); }
+    };
+    
+    // Add Secret
+    document.getElementById('addSecretBtn').onclick = () => {
+        const t=prompt('Secret title:'), c=prompt('Secret content:');
+        if(t&&c) { plutoData.secrets.push({id:Date.now(),title:t,content:c}); saveData(); refreshUI(); alert('Secret saved!'); }
+    };
+    
+    // Save Settings
+    document.getElementById('saveSettingsBtn').onclick = () => {
+        const nu=document.getElementById('newUsername').value, np=document.getElementById('newPassword').value;
+        if(nu) loginUsername=nu;
+        if(np) loginPassword=np;
+        alert('Settings saved! Next login use new credentials.');
+    };
+    
+    // Export Backup
+    document.getElementById('exportBtn').onclick = () => {
+        const data=JSON.stringify(plutoData), blob=new Blob([data],{type:'application/json'}), url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download=`pluto_backup_${Date.now()}.json`; a.click(); URL.revokeObjectURL(url);
+    };
+    
+    // Import Backup
+    document.getElementById('importBtn').onclick = () => {
+        const inp=document.createElement('input'); inp.type='file'; inp.accept='.json';
+        inp.onchange=e=>{const f=e.target.files[0], r=new FileReader(); r.onload=ev=>{plutoData=JSON.parse(ev.target.result); saveData(); refreshUI(); alert('Backup restored!');}; r.readAsText(f);};
+        inp.click();
+    };
+    
+    // Initialize
+    loadData();
+</script>
 </body>
 </html>
