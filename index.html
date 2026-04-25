@@ -3,118 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>⚡ PLUTO ULTIMATE VAULT ⚡ | Classified</title>
+    <title>⚡ PLUTO ULTIMATE VAULT v2 ⚡ | Classified</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- LEVEL 1: ANIME FUN -->
+<!-- ============ EMERGENCY LOGOUT BUTTON (Visible on ALL Levels) ============ -->
+<div id="emergencyBtn" class="emergency-btn" title="Emergency Logout - Vanish instantly">
+    ⚡ EMERGENCY VANISH ⚡
+    <span class="emergency-error" id="emergencyError"></span>
+</div>
+
+<!-- ============ LEVEL 1: ANIME FUN (FREE IMAGES FROM GOOGLE CDN) ============ -->
 <div id="level1" class="level-container level1">
     <div id="sakura-container"></div>
     <div class="content-wrapper">
         <h1 class="title">🌸 WELCOME TO ANIME VERSE 🌸</h1>
-        <div class="characters-grid">
-            <div class="character" data-char="naruto" id="narutoChar">
-                <div class="character-emoji">🍥</div>
-                <div class="character-name">Naruto</div>
-                <div class="character-animation"></div>
+        
+        <!-- Free Anime Images Row 1 -->
+        <div class="anime-gallery">
+            <div class="anime-card" data-secret="naruto">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/naruto.png" 
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Naruto+🍥'"
+                     alt="Naruto" class="anime-img">
+                <div class="anime-name">Naruto Uzumaki</div>
+                <div class="secret-spot-indicator">✨</div>
             </div>
-            <div class="character" data-char="nezuko">
-                <div class="character-emoji">🎀</div>
-                <div class="character-name">Nezuko</div>
+            <div class="anime-card" data-secret="nezuko">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/nezuko.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Nezuko+🎀'"
+                     alt="Nezuko" class="anime-img">
+                <div class="anime-name">Nezuko Kamado</div>
             </div>
-            <div class="character" data-char="pikachu">
-                <div class="character-emoji">⚡</div>
-                <div class="character-name">Pikachu</div>
+            <div class="anime-card" data-secret="goku">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/goku.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Goku+🐉'"
+                     alt="Goku" class="anime-img">
+                <div class="anime-name">Goku</div>
             </div>
-            <div class="character" data-char="goku">
-                <div class="character-emoji">🐉</div>
-                <div class="character-name">Goku</div>
+            <div class="anime-card" data-secret="pikachu">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/pikachu.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Pikachu+⚡'"
+                     alt="Pikachu" class="anime-img">
+                <div class="anime-name">Pikachu</div>
             </div>
-            <div class="character" data-char="tanjiro">
-                <div class="character-emoji">🌊</div>
-                <div class="character-name">Tanjiro</div>
+            <div class="anime-card" data-secret="tanjiro">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/tanjiro.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Tanjiro+🌊'"
+                     alt="Tanjiro" class="anime-img">
+                <div class="anime-name">Tanjiro Kamado</div>
             </div>
         </div>
+        
         <div class="glass-card">
             <h2>📝 Latest Anime Reviews</h2>
             <p>Demon Slayer: 10/10 - Masterpiece!</p>
             <p>Jujutsu Kaisen Season 2: 9.5/10</p>
-            <p>Attack on Titan Final: 10/10</p>
-        </div>
-        <div class="glass-card">
-            <h2>🎴 My Watchlist</h2>
-            <p>Attack on Titan Final Season</p>
-            <p>One Piece (Catching up!)</p>
-            <p>Solo Leveling</p>
         </div>
     </div>
-    <!-- Hidden secret spots -->
-    <div class="secret-spot" id="secretSpot1"></div>
-    <div class="secret-hint">✨ Find the hidden secrets... ✨</div>
+    <!-- Hidden Secret Spot -->
+    <div class="secret-spot" id="secretSpot1" style="top: 300px; left: 25%;"></div>
 </div>
 
-<!-- LEVEL 2: ANIME MASTER -->
+<!-- ============ LEVEL 2: ANIME MASTER (FREE IMAGES + TRANSFORMED) ============ -->
 <div id="level2" class="level-container level2 hidden-level">
     <div class="content-wrapper">
         <h1 class="title gold-text">⚡ SACRED REALM ⚡</h1>
-        <div class="characters-grid">
-            <div class="character transformed" data-char="sage">
-                <div class="character-emoji glow-eye">🍥👁️</div>
-                <div>Sage Naruto</div>
+        
+        <div class="anime-gallery">
+            <div class="anime-card transformed" data-secret="sage">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/sage-naruto.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Sage+Naruto+🍥👁️'"
+                     alt="Sage Naruto" class="anime-img glow-border">
+                <div class="anime-name">Sage Naruto</div>
             </div>
-            <div class="character transformed" data-char="demon">
-                <div class="character-emoji glow-eye">🎀🔥</div>
-                <div>Demon Nezuko</div>
+            <div class="anime-card transformed" data-secret="demon">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/demon-nezuko.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Demon+Nezuko+🎀🔥'"
+                     alt="Demon Nezuko" class="anime-img glow-border">
+                <div class="anime-name">Demon Nezuko</div>
             </div>
-            <div class="character transformed" data-char="ssj">
-                <div class="character-emoji glow-eye">🐉⚡</div>
-                <div>Super Saiyan Goku</div>
+            <div class="anime-card transformed" data-secret="ssj">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/ssj-goku.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=SSJ+Goku+🐉⚡'"
+                     alt="SSJ Goku" class="anime-img glow-border">
+                <div class="anime-name">Super Saiyan Goku</div>
             </div>
-            <div class="character transformed" data-char="zero">
-                <div class="character-emoji glow-eye">🎭👑</div>
-                <div>Zero (Lelouch)</div>
+            <div class="anime-card transformed" data-secret="itachi">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/itachi.png"
+                     onerror="this.src='https://via.placeholder.com/200x200?text=Itachi+🍥👁️'"
+                     alt="Itachi" class="anime-img glow-border">
+                <div class="anime-name">Itachi Uchiha</div>
             </div>
         </div>
-        <div class="glass-card">
-            <h2>📜 Exclusive Content</h2>
-            <p>Behind the scenes of Demon Slayer season 4...</p>
-            <p>Voice actor secrets revealed!</p>
-            <p>Upcoming anime announcements</p>
-        </div>
+        
         <div class="hidden-leaf" id="hiddenLeaf">🍃</div>
+        <div class="secret-hint">✨ Find the hidden leaf... ✨</div>
     </div>
 </div>
 
-<!-- LEVEL 3: SCAN ZONE -->
+<!-- ============ LEVEL 3: SCAN ZONE (ASK PASSWORDS FIRST) ============ -->
 <div id="level3" class="level-container level3 hidden-level">
     <div class="matrix-rain" id="matrixRain"></div>
     <div class="content-wrapper scan-zone">
         <h1 class="neon-text">🔍 SCAN ZONE 🔍</h1>
+        
+        <!-- Free Anime Images for Level 3 -->
+        <div class="scanner-characters">
+            <div class="scanner-card" data-secret="neji">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/neji.png"
+                     onerror="this.src='https://via.placeholder.com/150x150?text=Neji+👁️'"
+                     alt="Neji" class="scanner-img">
+                <div>Neji (Byakugan)</div>
+            </div>
+            <div class="scanner-card" data-secret="trunks">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/trunks.png"
+                     onerror="this.src='https://via.placeholder.com/150x150?text=Trunks+⚔️'"
+                     alt="Trunks" class="scanner-img">
+                <div>Future Trunks</div>
+            </div>
+            <div class="scanner-card" data-secret="l">
+                <img src="https://animeimages.s3.us-east-2.amazonaws.com/l.png"
+                     onerror="this.src='https://via.placeholder.com/150x150?text=L+🍰'"
+                     alt="L" class="scanner-img">
+                <div>L (Death Note)</div>
+            </div>
+        </div>
+        
+        <!-- Password Modal Trigger - Secret Click Point -->
         <div class="radar" id="radar">
             <div class="radar-sweep"></div>
             <div class="radar-center"></div>
+            <div class="radar-text">🔍 SECRET SCAN POINT</div>
         </div>
+        
+        <!-- Secret Terminal -->
         <div class="terminal-glass">
             <div id="terminal" class="terminal">
-                > System ready. Awaiting command...<br>
-                > Type "byakugan activate" to begin<span class="cursor">_</span>
+                > System ready.<br>
+                > Find the secret scanner...<br>
+                > Click the radar to begin<span class="cursor">_</span>
             </div>
-            <input type="text" id="terminalInput" class="terminal-input" placeholder="Type command...">
         </div>
-        <div class="scanner-eye" id="scannerEye">👁️</div>
     </div>
 </div>
 
-<!-- PLUTO GATEWAY -->
-<div id="plutoGateway" class="level-container pluto-gateway hidden-level">
-    <div class="classified-watermark">CLASSIFIED - TOP SECRET</div>
+<!-- ============ LEVEL 4: LOGIN PORTAL (ANIME BACKGROUND + MORSE CODE) ============ -->
+<div id="level4" class="level-container level4 hidden-level">
+    <!-- Anime Background Image -->
+    <div class="anime-bg-overlay"></div>
+    <div class="content-wrapper login-portal">
+        <div class="portal-card">
+            <h1 class="portal-title">🏯 LOGIN PORTAL 🏯</h1>
+            
+            <!-- Standard Login Fields -->
+            <div class="login-fields">
+                <input type="text" id="portalUsername" placeholder="Username" class="portal-input">
+                <input type="password" id="portalPassword" placeholder="Password" class="portal-input">
+            </div>
+            
+            <!-- MORSE CODE INPUT SECTION -->
+            <div class="morse-section">
+                <h3>🔊 MORSE CODE VERIFICATION</h3>
+                <p class="morse-hint">Enter the secret morse code: <strong>.--. .-.. ..- - ---</strong></p>
+                <div class="morse-buttons">
+                    <button class="morse-btn" data-morse=".">● (Dot)</button>
+                    <button class="morse-btn" data-morse="-">━ (Dash)</button>
+                    <button class="morse-btn" id="morseSpace">␣ (Space)</button>
+                    <button class="morse-btn" id="morseClear">🗑️ Clear</button>
+                </div>
+                <div class="morse-display" id="morseDisplay"></div>
+                <div class="morse-translation" id="morseTranslation"></div>
+                <input type="hidden" id="morseCodeValue">
+            </div>
+            
+            <button id="portalLoginBtn" class="portal-login-btn">🔓 ENTER SANCTUARY</button>
+            <div id="portalError" class="portal-error"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ LEVEL 5: BIOMETRIC GATEWAY (Before Pluto) ============ -->
+<div id="level5" class="level-container level5 hidden-level">
+    <div class="classified-watermark">CLASSIFIED - BIOMETRIC REQUIRED</div>
     <div class="content-wrapper">
-        <h1 class="red-text">🔐 PLUTO GATEWAY 🔐</h1>
+        <h1 class="red-text">🔐 BIOMETRIC GATEWAY 🔐</h1>
         <div class="gateway-card">
-            <h3>Final Verification Required</h3>
-            <input type="password" id="gatewayPassword" class="gateway-input" placeholder="Master Password (4th password)">
+            <h3>Final Verification Required for PLUTO Access</h3>
             
             <div class="bio-section">
                 <div class="bio-status">
@@ -141,30 +217,27 @@
                 <div class="voice-hint">Speak: "Pluto, reveal your secrets"</div>
             </div>
             
-            <button id="verifyGatewayBtn" class="verify-btn">🔓 VERIFY & ENTER PLUTO</button>
+            <button id="verifyBiometricBtn" class="verify-btn">🔓 VERIFY & ENTER PLUTO</button>
         </div>
     </div>
 </div>
 
-<!-- PLUTO VAULT -->
+<!-- ============ PLUTO VAULT (Final Secrets) ============ -->
 <div id="plutoVault" class="level-container pluto-vault hidden-level">
     <div class="vault-header">
         <div class="vault-title">🔴 PLUTO - CLASSIFIED VAULT 🔴</div>
         <div class="vault-tabs">
-            <button class="vault-tab" data-tab="passwords">🔐 Passwords</button>
-            <button class="vault-tab" data-tab="documents">📄 Documents</button>
+            <button class="vault-tab active" data-tab="passwords">🔐 Passwords</button>
             <button class="vault-tab" data-tab="secrets">🤫 Secrets</button>
             <button class="vault-tab" data-tab="settings">⚙️ Settings</button>
         </div>
         <div class="vault-controls">
             <div class="timer" id="vaultTimer">Auto-hide: 5:00</div>
             <button id="closeVaultBtn" class="close-btn">🔒 Close Pluto</button>
-            <button id="nukeBtn" class="nuke-btn">☠️ NUKE</button>
         </div>
     </div>
     
     <div id="vaultContent" class="vault-content">
-        <!-- Passwords Tab -->
         <div id="passwordsTab" class="vault-tab-content active">
             <div class="tab-header">
                 <h2>🔐 Master Passwords</h2>
@@ -173,19 +246,6 @@
             <div id="passwordsList" class="passwords-grid"></div>
         </div>
         
-        <!-- Documents Tab -->
-        <div id="documentsTab" class="vault-tab-content">
-            <div class="tab-header">
-                <h2>📄 Secret Documents</h2>
-                <div class="upload-area">
-                    <input type="file" id="docUpload" multiple accept=".pdf,.txt,.jpg,.png">
-                    <button id="uploadDocBtn" class="upload-btn">Upload Files</button>
-                </div>
-            </div>
-            <div id="documentsList" class="documents-grid"></div>
-        </div>
-        
-        <!-- Secrets Tab -->
         <div id="secretsTab" class="vault-tab-content">
             <div class="tab-header">
                 <h2>🤫 Private Secrets</h2>
@@ -194,72 +254,20 @@
             <div id="secretsList" class="secrets-grid"></div>
         </div>
         
-        <!-- Settings Tab -->
         <div id="settingsTab" class="vault-tab-content">
             <h2>⚙️ Settings</h2>
-            
             <div class="settings-section">
-                <h3>🔐 Security Settings</h3>
-                <div class="setting-group">
-                    <label>Scan Passwords:</label>
-                    <input type="password" id="newScanPwd1" placeholder="New Scan Password 1">
-                    <input type="password" id="newScanPwd2" placeholder="New Scan Password 2">
-                    <input type="password" id="newScanPwd3" placeholder="New Scan Password 3">
-                    <input type="password" id="newMasterPwd" placeholder="New Pluto Master Password">
-                    <button id="saveSecuritySettings" class="save-btn">Save Security Settings</button>
-                </div>
+                <h3>🔐 Change Passwords</h3>
+                <input type="password" id="newScanPwd1" placeholder="New Scan Password 1">
+                <input type="password" id="newScanPwd2" placeholder="New Scan Password 2">
+                <input type="password" id="newScanPwd3" placeholder="New Scan Password 3">
+                <input type="password" id="newPortalPwd" placeholder="New Portal Password">
+                <button id="saveSecuritySettings" class="save-btn">Save</button>
             </div>
-            
-            <div class="settings-section">
-                <h3>⏱️ Auto-Hide Timer</h3>
-                <div class="setting-group">
-                    <input type="range" id="timerSlider" min="1" max="30" value="5">
-                    <span id="timerValue">5</span> minutes
-                    <button id="saveTimerSettings" class="save-btn">Save</button>
-                </div>
-            </div>
-            
-            <div class="settings-section">
-                <h3>🎨 Visual Settings</h3>
-                <div class="setting-group">
-                    <label>
-                        <input type="checkbox" id="musicToggle" checked> Background Music
-                    </label>
-                    <label>
-                        <input type="checkbox" id="sfxToggle" checked> Sound Effects
-                    </label>
-                    <label>
-                        <input type="checkbox" id="animationsToggle" checked> Animations
-                    </label>
-                    <select id="themeSelect">
-                        <option value="anime">Anime Classic</option>
-                        <option value="cyberpunk">Cyberpunk</option>
-                        <option value="dark">Dark Mode</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="settings-section">
-                <h3>📧 Alert Settings</h3>
-                <div class="setting-group">
-                    <input type="email" id="alertEmail" placeholder="Email for alerts">
-                    <label>
-                        <input type="checkbox" id="alertFailedLogin" checked> Failed login attempts
-                    </label>
-                    <label>
-                        <input type="checkbox" id="alertIntruder" checked> Intruder photos
-                    </label>
-                </div>
-            </div>
-            
             <div class="settings-section">
                 <h3>💾 Backup & Restore</h3>
-                <div class="setting-group">
-                    <button id="exportBackupBtn" class="backup-btn">📥 Export Backup</button>
-                    <input type="file" id="importBackupInput" style="display: none;">
-                    <button id="importBackupBtn" class="backup-btn">📤 Import Backup</button>
-                    <button id="connectDriveBtn" class="drive-btn">☁️ Connect Google Drive</button>
-                </div>
+                <button id="exportBackupBtn" class="backup-btn">📥 Export Backup</button>
+                <button id="importBackupBtn" class="backup-btn">📤 Import Backup</button>
             </div>
         </div>
     </div>
