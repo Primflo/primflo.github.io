@@ -3,933 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🔐 BIO-METRIC ANIME VAULT | Next-Gen Security</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a2a 0%, #1a0033 50%, #0a0a2a 100%);
-            overflow-x: hidden;
-        }
-
-        /* Login Container */
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 20px;
-        }
-
-        .login-card {
-            background: rgba(10, 10, 40, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 48px;
-            padding: 40px 32px;
-            text-align: center;
-            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.5), 0 25px 50px -12px black;
-            z-index: 2;
-            max-width: 600px;
-            width: 90%;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .security-tabs {
-            display: flex;
-            gap: 12px;
-            margin: 20px 0;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .security-method {
-            background: rgba(255, 105, 180, 0.2);
-            border: 2px solid #ff69b4;
-            padding: 12px 20px;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: bold;
-        }
-
-        .security-method.active {
-            background: #ff69b4;
-            color: #0a0a2a;
-            box-shadow: 0 0 20px #ff69b4;
-        }
-
-        .bio-scanner {
-            background: rgba(0,0,0,0.6);
-            border-radius: 32px;
-            padding: 30px;
-            margin: 20px 0;
-            border: 2px solid #ffd700;
-        }
-
-        .fingerprint-area {
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle at 30% 30%, #ffd700, #ff69b4);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            cursor: pointer;
-            transition: 0.2s;
-            animation: pulseFinger 2s infinite;
-        }
-
-        @keyframes pulseFinger {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
-            50% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
-        }
-
-        .video-preview {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 24px;
-            margin: 10px auto;
-            border: 3px solid #ffd700;
-        }
-
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .char-card {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 20px;
-            padding: 12px 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid rgba(255, 105, 180, 0.3);
-            text-align: center;
-        }
-
-        .char-card.selected {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 0 20px gold;
-        }
-
-        /* Dashboard */
-        .dashboard {
-            display: none;
-            min-height: 100vh;
-            background: linear-gradient(125deg, #0a0a1a, #0d0d2b);
-        }
-
-        .dashboard-header {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(12px);
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            border-bottom: 3px solid #ffd700;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            background: rgba(255, 105, 180, 0.2);
-            border: 1px solid #ff69b4;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .nav-btn.active, .nav-btn:hover {
-            background: #ff69b4;
-            color: #0a0a2a;
-        }
-
-        .content-panel {
-            padding: 28px 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .panel {
-            display: none;
-            background: rgba(25, 25, 55, 0.6);
-            backdrop-filter: blur(8px);
-            border-radius: 32px;
-            padding: 28px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .panel.active-panel {
-            display: block;
-        }
-
-        .profile-with-wishlist {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .profile-main {
-            flex: 2;
-            min-width: 250px;
-        }
-
-        .wishlist-side {
-            flex: 1;
-            min-width: 250px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 28px;
-            padding: 20px;
-            border-left: 4px solid #ffd700;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #ff69b4;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .audio-item, .photo-item {
-            background: #1e1e3a;
-            border-radius: 20px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        button {
-            background: #ff69b4;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            color: #0a0a2a;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .timer-warning {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.8);
-            padding: 10px 20px;
-            border-radius: 40px;
-            color: #ffd700;
-            font-size: 0.8rem;
-            z-index: 1000;
-        }
-
-        @media (max-width: 700px) {
-            .character-grid { gap: 8px; }
-            .char-emoji { font-size: 1.5rem; }
-        }
-    </style>
+    <title>⚡ PLUTO ULTIMATE VAULT ⚡ | Classified</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- LOGIN SECTION -->
-<div id="loginSection" class="login-container">
-    <div class="login-card">
-        <h1>🔐 BIO-METRIC ANIME VAULT</h1>
-        <p style="color: #ffd1e8;">Ultra-Secure Personal Dashboard</p>
-        
-        <div class="security-tabs">
-            <div class="security-method active" data-method="password">🔑 Password</div>
-            <div class="security-method" data-method="fingerprint">👆 Fingerprint</div>
-            <div class="security-method" data-method="face">👤 Face Scan</div>
-        </div>
-
-        <!-- Password Method -->
-        <div id="passwordMethod" class="bio-scanner">
-            <input type="password" id="loginPassword" class="password-input" placeholder="Enter Password" style="width:100%; padding:14px; border-radius:60px; background:#000000aa; color:white; border:2px solid #ff69b4;">
-            <div class="character-grid" id="characterGrid">
-                <div class="char-card" data-char="eren">⚔️ Eren</div>
-                <div class="char-card" data-char="levi">🗡️ Levi</div>
-                <div class="char-card" data-char="naruto">🍥 Naruto</div>
-                <div class="char-card" data-char="sasuke">⚡ Sasuke</div>
-                <div class="char-card" data-char="goku">🐉 Goku</div>
-                <div class="char-card" data-char="tanjiro">🌊 Tanjiro</div>
+<!-- LEVEL 1: ANIME FUN -->
+<div id="level1" class="level-container level1">
+    <div id="sakura-container"></div>
+    <div class="content-wrapper">
+        <h1 class="title">🌸 WELCOME TO ANIME VERSE 🌸</h1>
+        <div class="characters-grid">
+            <div class="character" data-char="naruto" id="narutoChar">
+                <div class="character-emoji">🍥</div>
+                <div class="character-name">Naruto</div>
+                <div class="character-animation"></div>
+            </div>
+            <div class="character" data-char="nezuko">
+                <div class="character-emoji">🎀</div>
+                <div class="character-name">Nezuko</div>
+            </div>
+            <div class="character" data-char="pikachu">
+                <div class="character-emoji">⚡</div>
+                <div class="character-name">Pikachu</div>
+            </div>
+            <div class="character" data-char="goku">
+                <div class="character-emoji">🐉</div>
+                <div class="character-name">Goku</div>
+            </div>
+            <div class="character" data-char="tanjiro">
+                <div class="character-emoji">🌊</div>
+                <div class="character-name">Tanjiro</div>
             </div>
         </div>
+        <div class="glass-card">
+            <h2>📝 Latest Anime Reviews</h2>
+            <p>Demon Slayer: 10/10 - Masterpiece!</p>
+            <p>Jujutsu Kaisen Season 2: 9.5/10</p>
+            <p>Attack on Titan Final: 10/10</p>
+        </div>
+        <div class="glass-card">
+            <h2>🎴 My Watchlist</h2>
+            <p>Attack on Titan Final Season</p>
+            <p>One Piece (Catching up!)</p>
+            <p>Solo Leveling</p>
+        </div>
+    </div>
+    <!-- Hidden secret spots -->
+    <div class="secret-spot" id="secretSpot1"></div>
+    <div class="secret-hint">✨ Find the hidden secrets... ✨</div>
+</div>
 
-        <!-- Fingerprint Method -->
-        <div id="fingerprintMethod" class="bio-scanner" style="display:none;">
-            <div class="fingerprint-area" id="fingerprintScanner">
-                👆
+<!-- LEVEL 2: ANIME MASTER -->
+<div id="level2" class="level-container level2 hidden-level">
+    <div class="content-wrapper">
+        <h1 class="title gold-text">⚡ SACRED REALM ⚡</h1>
+        <div class="characters-grid">
+            <div class="character transformed" data-char="sage">
+                <div class="character-emoji glow-eye">🍥👁️</div>
+                <div>Sage Naruto</div>
             </div>
-            <p>Place your finger on the scanner</p>
-            <div id="fingerprintStatus" style="color:#ffd700; margin-top:10px;"></div>
+            <div class="character transformed" data-char="demon">
+                <div class="character-emoji glow-eye">🎀🔥</div>
+                <div>Demon Nezuko</div>
+            </div>
+            <div class="character transformed" data-char="ssj">
+                <div class="character-emoji glow-eye">🐉⚡</div>
+                <div>Super Saiyan Goku</div>
+            </div>
+            <div class="character transformed" data-char="zero">
+                <div class="character-emoji glow-eye">🎭👑</div>
+                <div>Zero (Lelouch)</div>
+            </div>
         </div>
-
-        <!-- Face Scan Method -->
-        <div id="faceMethod" class="bio-scanner" style="display:none;">
-            <video id="faceVideo" autoplay playsinline style="width:100%; max-width:300px; border-radius:20px; margin:10px auto; display:block;"></video>
-            <button id="startFaceScan">📸 Start Face Scan</button>
-            <div id="faceStatus" style="color:#ffd700; margin-top:10px;"></div>
+        <div class="glass-card">
+            <h2>📜 Exclusive Content</h2>
+            <p>Behind the scenes of Demon Slayer season 4...</p>
+            <p>Voice actor secrets revealed!</p>
+            <p>Upcoming anime announcements</p>
         </div>
-
-        <button id="loginBtn" class="login-btn" style="width:100%; padding:14px; margin-top:20px; background:linear-gradient(135deg,#ff69b4,#ff4500);">✨ UNLOCK VAULT ✨</button>
-        <div id="loginError" style="color:#ff6b6b; margin-top:15px;"></div>
+        <div class="hidden-leaf" id="hiddenLeaf">🍃</div>
     </div>
 </div>
 
-<!-- DASHBOARD -->
-<div id="dashboardSection" class="dashboard">
-    <div class="dashboard-header">
-        <div class="logo">🎴 BIO-ANIME VAULT</div>
-        <div class="nav-tabs">
-            <div class="nav-btn" data-tab="profile">👤 Profile</div>
-            <div class="nav-btn" data-tab="media">📹 Media</div>
-            <div class="nav-btn" data-tab="photos">📸 Gallery</div>
-            <div class="nav-btn" data-tab="notes">📝 Notes</div>
-            <div class="nav-btn" data-tab="security">🔒 Security</div>
+<!-- LEVEL 3: SCAN ZONE -->
+<div id="level3" class="level-container level3 hidden-level">
+    <div class="matrix-rain" id="matrixRain"></div>
+    <div class="content-wrapper scan-zone">
+        <h1 class="neon-text">🔍 SCAN ZONE 🔍</h1>
+        <div class="radar" id="radar">
+            <div class="radar-sweep"></div>
+            <div class="radar-center"></div>
         </div>
-        <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+        <div class="terminal-glass">
+            <div id="terminal" class="terminal">
+                > System ready. Awaiting command...<br>
+                > Type "byakugan activate" to begin<span class="cursor">_</span>
+            </div>
+            <input type="text" id="terminalInput" class="terminal-input" placeholder="Type command...">
+        </div>
+        <div class="scanner-eye" id="scannerEye">👁️</div>
     </div>
-
-    <div class="content-panel">
-        <!-- PROFILE PANEL -->
-        <div id="profilePanel" class="panel">
-            <div class="profile-with-wishlist">
-                <div class="profile-main">
-                    <h2 style="color:#ffd700;">👤 My Profile</h2>
-                    <div class="avatar-area" style="text-align:center;">
-                        <div class="avatar" id="avatarChangeBtn" style="width:100px; height:100px; font-size:3rem; margin:0 auto;">🌟</div>
-                    </div>
-                    <input type="text" id="profileName" placeholder="Name" value="Anime Master">
-                    <input type="text" id="profileTitle" placeholder="Title" value="Otaku Legend">
-                    <textarea id="profileBio" rows="3" placeholder="Bio"></textarea>
-                    <button id="saveProfileBtn">💾 Save</button>
-                </div>
-                <div class="wishlist-side">
-                    <h3 style="color:#ffd700;">📋 Anime Wishlist 🎴</h3>
-                    <input type="text" id="wishlistInput" placeholder="Add anime...">
-                    <button id="addWishlistBtn">+ Add</button>
-                    <div id="wishlistContainer" style="margin-top:15px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MEDIA PANEL (Camera + Mic) -->
-        <div id="mediaPanel" class="panel">
-            <h2 style="color:#ffd700;">📹 Camera & Microphone Studio</h2>
-            <div style="display: flex; flex-wrap: wrap; gap: 30px;">
-                <div style="flex:1;">
-                    <h3>📸 Camera Capture</h3>
-                    <video id="cameraPreview" autoplay playsinline style="width:100%; border-radius:20px; border:2px solid #ff69b4;"></video>
-                    <button id="takePhotoBtn">📷 Take Photo</button>
-                    <button id="startCameraBtn">🎥 Start Camera</button>
-                    <button id="stopCameraBtn">⏹️ Stop Camera</button>
-                </div>
-                <div style="flex:1;">
-                    <h3>🎙️ Audio Recorder</h3>
-                    <button id="startRecordBtn">🔴 Start Recording</button>
-                    <button id="stopRecordBtn" disabled>⏹️ Stop Recording</button>
-                    <audio id="audioPlayback" controls style="width:100%; margin-top:10px;"></audio>
-                    <div id="recordingStatus" style="color:#ffd700;"></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <h3>🎵 Saved Audio Notes</h3>
-                <div id="audioList" class="media-grid"></div>
-            </div>
-        </div>
-
-        <!-- PHOTOS GALLERY -->
-        <div id="photosPanel" class="panel">
-            <h2 style="color:#ffd700;">📸 Photo Gallery</h2>
-            <input type="file" id="photoUpload" accept="image/*" multiple>
-            <button id="uploadPhotosBtn">📁 Upload Images</button>
-            <div id="photoGalleryGrid" class="media-grid"></div>
-        </div>
-
-        <!-- NOTES PANEL -->
-        <div id="notesPanel" class="panel">
-            <h2 style="color:#ffd700;">📝 Notes</h2>
-            <input type="text" id="noteTitle" placeholder="Title">
-            <textarea id="noteContent" rows="2" placeholder="Content"></textarea>
-            <button id="addNoteBtn">➕ Add Note</button>
-            <div id="notesList"></div>
-        </div>
-
-        <!-- SECURITY PANEL -->
-        <div id="securityPanel" class="panel">
-            <h2 style="color:#ffd700;">🔒 Security Settings</h2>
-            <div style="background:#00000066; padding:20px; border-radius:28px; margin:15px 0;">
-                <h3>⏱️ Auto-Logout Protection</h3>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="autoLogoutToggle">
-                    <span class="slider"></span>
-                </label>
-                <span style="margin-left:15px;">Auto logout after 5 minutes of inactivity</span>
-                <div id="logoutTimerDisplay" style="margin-top:10px; color:#ffd700;"></div>
-            </div>
-            <div style="background:#00000066; padding:20px; border-radius:28px;">
-                <h3>🔐 Change Password</h3>
-                <input type="password" id="newPasswordInput" placeholder="New Password" style="width:100%;">
-                <button id="changePasswordBtn">Update Password</button>
-            </div>
-            <div style="background:#00000066; padding:20px; border-radius:28px; margin-top:15px;">
-                <h3>👆 Fingerprint & Face Scan Setup</h3>
-                <p>Current bio-metrics are active and working on login screen.</p>
-                <button id="testFingerprintBtn">🧪 Test Fingerprint</button>
-                <button id="testFaceBtn">👤 Test Face Scan</button>
-            </div>
-        </div>
-    </div>
-    <div id="autoLogoutWarning" class="timer-warning" style="display:none;">⏰ Auto-logout in: <span id="timerSeconds">300</span>s</div>
 </div>
 
-<script>
-    // ------------- GLOBAL DATA -------------
-    let userData = {
-        password: "anime123",
-        correctCharacter: "naruto",
-        autoLogoutEnabled: false,
-        profile: { name: "Anime Master", title: "Otaku Legend", bio: "Welcome to Bio-Metric Anime Vault!", avatarIcon: "🌟" },
-        wishlist: ["Attack on Titan Final Season", "Demon Slayer: Infinity Castle"],
-        photos: [],
-        audioRecordings: [], // { name, dataURL, timestamp }
-        notes: [],
-        documents: []
-    };
+<!-- PLUTO GATEWAY -->
+<div id="plutoGateway" class="level-container pluto-gateway hidden-level">
+    <div class="classified-watermark">CLASSIFIED - TOP SECRET</div>
+    <div class="content-wrapper">
+        <h1 class="red-text">🔐 PLUTO GATEWAY 🔐</h1>
+        <div class="gateway-card">
+            <h3>Final Verification Required</h3>
+            <input type="password" id="gatewayPassword" class="gateway-input" placeholder="Master Password (4th password)">
+            
+            <div class="bio-section">
+                <div class="bio-status">
+                    <span>👤 Face Recognition</span>
+                    <span id="faceStatus" class="status-pending">Not scanned</span>
+                </div>
+                <button id="scanFaceBtn" class="bio-btn">Start Face Scan</button>
+            </div>
+            
+            <div class="bio-section">
+                <div class="bio-status">
+                    <span>👆 Fingerprint</span>
+                    <span id="fingerprintStatus" class="status-pending">Not scanned</span>
+                </div>
+                <button id="scanFingerprintBtn" class="bio-btn">Scan Fingerprint</button>
+            </div>
+            
+            <div class="bio-section">
+                <div class="bio-status">
+                    <span>🎤 Voice Phrase</span>
+                    <span id="voiceStatus" class="status-pending">Not verified</span>
+                </div>
+                <button id="recordVoiceBtn" class="bio-btn">Record Voice</button>
+                <div class="voice-hint">Speak: "Pluto, reveal your secrets"</div>
+            </div>
+            
+            <button id="verifyGatewayBtn" class="verify-btn">🔓 VERIFY & ENTER PLUTO</button>
+        </div>
+    </div>
+</div>
+
+<!-- PLUTO VAULT -->
+<div id="plutoVault" class="level-container pluto-vault hidden-level">
+    <div class="vault-header">
+        <div class="vault-title">🔴 PLUTO - CLASSIFIED VAULT 🔴</div>
+        <div class="vault-tabs">
+            <button class="vault-tab" data-tab="passwords">🔐 Passwords</button>
+            <button class="vault-tab" data-tab="documents">📄 Documents</button>
+            <button class="vault-tab" data-tab="secrets">🤫 Secrets</button>
+            <button class="vault-tab" data-tab="settings">⚙️ Settings</button>
+        </div>
+        <div class="vault-controls">
+            <div class="timer" id="vaultTimer">Auto-hide: 5:00</div>
+            <button id="closeVaultBtn" class="close-btn">🔒 Close Pluto</button>
+            <button id="nukeBtn" class="nuke-btn">☠️ NUKE</button>
+        </div>
+    </div>
     
-    let selectedCharacter = null;
-    let currentLoginMethod = "password";
-    let mediaStream = null;
-    let mediaRecorder = null;
-    let audioChunks = [];
-    let logoutTimer = null;
-    let inactivityTimer = null;
-    let lastActivityTime = Date.now();
-    
-    // Load saved data
-    function loadAllData() {
-        const saved = localStorage.getItem('biometricAnimeVault');
-        if(saved) {
-            const parsed = JSON.parse(saved);
-            userData = { ...userData, ...parsed };
-        } else {
-            // demo audio
-            saveAllData();
-        }
-        refreshAllUI();
-    }
-    
-    function saveAllData() {
-        localStorage.setItem('biometricAnimeVault', JSON.stringify(userData));
-    }
-    
-    // ---------- LOGIN METHODS ----------
-    const securityMethods = document.querySelectorAll('.security-method');
-    securityMethods.forEach(method => {
-        method.addEventListener('click', () => {
-            securityMethods.forEach(m => m.classList.remove('active'));
-            method.classList.add('active');
-            currentLoginMethod = method.getAttribute('data-method');
-            document.getElementById('passwordMethod').style.display = currentLoginMethod === 'password' ? 'block' : 'none';
-            document.getElementById('fingerprintMethod').style.display = currentLoginMethod === 'fingerprint' ? 'block' : 'none';
-            document.getElementById('faceMethod').style.display = currentLoginMethod === 'face' ? 'block' : 'none';
-        });
-    });
-    
-    // Character selection
-    const charCards = document.querySelectorAll('.char-card');
-    charCards.forEach(card => {
-        card.addEventListener('click', () => {
-            charCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            selectedCharacter = card.getAttribute('data-char');
-        });
-    });
-    
-    // Fingerprint scanner
-    const fingerprintScanner = document.getElementById('fingerprintScanner');
-    if(fingerprintScanner) {
-        fingerprintScanner.addEventListener('click', () => {
-            document.getElementById('fingerprintStatus').innerHTML = "🔍 Scanning fingerprint...";
-            setTimeout(() => {
-                const success = Math.random() > 0.2; // 80% success rate for demo
-                if(success) {
-                    document.getElementById('fingerprintStatus').innerHTML = "✅ Fingerprint matched! You can now login.";
-                    window.fingerprintMatched = true;
-                } else {
-                    document.getElementById('fingerprintStatus').innerHTML = "❌ Fingerprint not recognized. Try again.";
-                    window.fingerprintMatched = false;
-                }
-            }, 1500);
-        });
-    }
-    
-    // Face scan
-    let faceVideo = null;
-    async function setupFaceCamera() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            faceVideo = document.getElementById('faceVideo');
-            if(faceVideo) faceVideo.srcObject = stream;
-        } catch(e) { console.log("Camera error:", e); }
-    }
-    
-    document.getElementById('startFaceScan')?.addEventListener('click', () => {
-        setupFaceCamera();
-        document.getElementById('faceStatus').innerHTML = "📸 Capturing face... Please look at camera";
-        setTimeout(() => {
-            const success = Math.random() > 0.3;
-            if(success) {
-                document.getElementById('faceStatus').innerHTML = "✅ Face recognized! Ready to login.";
-                window.faceMatched = true;
-            } else {
-                document.getElementById('faceStatus').innerHTML = "❌ Face not recognized. Try again.";
-                window.faceMatched = false;
-            }
-        }, 2000);
-    });
-    
-    // Main login logic
-    const loginBtn = document.getElementById('loginBtn');
-    const loginError = document.getElementById('loginError');
-    const loginSectionDiv = document.getElementById('loginSection');
-    const dashboardDiv = document.getElementById('dashboardSection');
-    
-    loginBtn.addEventListener('click', async () => {
-        let authSuccess = false;
+    <div id="vaultContent" class="vault-content">
+        <!-- Passwords Tab -->
+        <div id="passwordsTab" class="vault-tab-content active">
+            <div class="tab-header">
+                <h2>🔐 Master Passwords</h2>
+                <button id="addPasswordBtn" class="add-btn">➕ Add Password</button>
+            </div>
+            <div id="passwordsList" class="passwords-grid"></div>
+        </div>
         
-        if(currentLoginMethod === 'password') {
-            const enteredPwd = document.getElementById('loginPassword').value;
-            if(enteredPwd !== userData.password) {
-                loginError.innerText = "❌ Wrong password!";
-                return;
-            }
-            if(selectedCharacter !== userData.correctCharacter) {
-                loginError.innerText = "❌ Wrong anime guardian!";
-                return;
-            }
-            authSuccess = true;
-        } 
-        else if(currentLoginMethod === 'fingerprint') {
-            if(window.fingerprintMatched) authSuccess = true;
-            else { loginError.innerText = "❌ Please scan your fingerprint first!"; return; }
-        }
-        else if(currentLoginMethod === 'face') {
-            if(window.faceMatched) authSuccess = true;
-            else { loginError.innerText = "❌ Please complete face scan first!"; return; }
-        }
+        <!-- Documents Tab -->
+        <div id="documentsTab" class="vault-tab-content">
+            <div class="tab-header">
+                <h2>📄 Secret Documents</h2>
+                <div class="upload-area">
+                    <input type="file" id="docUpload" multiple accept=".pdf,.txt,.jpg,.png">
+                    <button id="uploadDocBtn" class="upload-btn">Upload Files</button>
+                </div>
+            </div>
+            <div id="documentsList" class="documents-grid"></div>
+        </div>
         
-        if(authSuccess) {
-            loginSectionDiv.style.display = "none";
-            dashboardDiv.style.display = "block";
-            refreshAllUI();
-            startInactivityMonitoring();
-            showWelcomeMessage();
-        }
-    });
-    
-    function showWelcomeMessage() {
-        const msg = document.createElement('div');
-        msg.style.position = 'fixed';
-        msg.style.top = '20%';
-        msg.style.left = '50%';
-        msg.style.transform = 'translateX(-50%)';
-        msg.style.background = 'linear-gradient(135deg, #ffd700, #ff69b4)';
-        msg.style.padding = '20px 40px';
-        msg.style.borderRadius = '60px';
-        msg.style.color = '#0a0a2a';
-        msg.style.fontWeight = 'bold';
-        msg.style.zIndex = '9999';
-        msg.innerHTML = '🔓 VAULT UNLOCKED! Welcome Master 🔓';
-        document.body.appendChild(msg);
-        setTimeout(() => msg.remove(), 3000);
-    }
-    
-    // ---------- AUTO LOGOUT SYSTEM ----------
-    function resetInactivityTimer() {
-        if(!userData.autoLogoutEnabled) return;
-        lastActivityTime = Date.now();
-        if(inactivityTimer) clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(() => {
-            if(userData.autoLogoutEnabled) {
-                autoLogout();
-            }
-        }, 5 * 60 * 1000); // 5 minutes
-        updateTimerDisplay();
-    }
-    
-    function startInactivityMonitoring() {
-        const events = ['mousemove', 'keydown', 'click', 'scroll'];
-        events.forEach(event => {
-            document.addEventListener(event, () => resetInactivityTimer());
-        });
-        resetInactivityTimer();
-        if(userData.autoLogoutEnabled) {
-            document.getElementById('autoLogoutWarning').style.display = 'block';
-            startTimerCountdown();
-        }
-    }
-    
-    function startTimerCountdown() {
-        if(window.timerInterval) clearInterval(window.timerInterval);
-        window.timerInterval = setInterval(() => {
-            if(!userData.autoLogoutEnabled || dashboardDiv.style.display !== 'block') {
-                clearInterval(window.timerInterval);
-                return;
-            }
-            const elapsed = (Date.now() - lastActivityTime) / 1000;
-            const remaining = Math.max(0, 300 - elapsed);
-            document.getElementById('timerSeconds').innerText = Math.floor(remaining);
-            if(remaining <= 0) autoLogout();
-        }, 1000);
-    }
-    
-    function autoLogout() {
-        alert("🔒 Auto-logout: Session expired due to inactivity.");
-        dashboardDiv.style.display = 'none';
-        loginSectionDiv.style.display = 'flex';
-        if(mediaStream) mediaStream.getTracks().forEach(track => track.stop());
-        clearInterval(window.timerInterval);
-    }
-    
-    function updateTimerDisplay() {
-        const remaining = 5 * 60 - ((Date.now() - lastActivityTime) / 1000);
-        if(document.getElementById('timerSeconds')) {
-            document.getElementById('timerSeconds').innerText = Math.max(0, Math.floor(remaining));
-        }
-    }
-    
-    // ---------- CAMERA & MICROPHONE ----------
-    let cameraStream = null;
-    const cameraPreview = document.getElementById('cameraPreview');
-    
-    document.getElementById('startCameraBtn')?.addEventListener('click', async () => {
-        try {
-            cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-            cameraPreview.srcObject = cameraStream;
-        } catch(e) { alert("Camera access denied!"); }
-    });
-    
-    document.getElementById('stopCameraBtn')?.addEventListener('click', () => {
-        if(cameraStream) cameraStream.getTracks().forEach(track => track.stop());
-        cameraPreview.srcObject = null;
-    });
-    
-    document.getElementById('takePhotoBtn')?.addEventListener('click', () => {
-        if(!cameraPreview.srcObject) { alert("Start camera first!"); return; }
-        const canvas = document.createElement('canvas');
-        canvas.width = cameraPreview.videoWidth;
-        canvas.height = cameraPreview.videoHeight;
-        canvas.getContext('2d').drawImage(cameraPreview, 0, 0);
-        const photoData = canvas.toDataURL('image/png');
-        userData.photos.push(photoData);
-        saveAllData();
-        refreshPhotosUI();
-        alert("📸 Photo captured and saved to gallery!");
-    });
-    
-    // Audio Recording
-    let audioStream = null;
-    document.getElementById('startRecordBtn')?.addEventListener('click', async () => {
-        try {
-            audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(audioStream);
-            audioChunks = [];
-            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const audioData = {
-                        id: Date.now(),
-                        name: `Audio ${userData.audioRecordings.length + 1}`,
-                        dataURL: reader.result,
-                        timestamp: new Date().toLocaleString()
-                    };
-                    userData.audioRecordings.push(audioData);
-                    saveAllData();
-                    refreshAudioUI();
-                };
-                reader.readAsDataURL(audioBlob);
-            };
-            mediaRecorder.start();
-            document.getElementById('startRecordBtn').disabled = true;
-            document.getElementById('stopRecordBtn').disabled = false;
-            document.getElementById('recordingStatus').innerHTML = "🔴 RECORDING...";
-        } catch(e) { alert("Microphone access denied!"); }
-    });
-    
-    document.getElementById('stopRecordBtn')?.addEventListener('click', () => {
-        if(mediaRecorder) mediaRecorder.stop();
-        if(audioStream) audioStream.getTracks().forEach(track => track.stop());
-        document.getElementById('startRecordBtn').disabled = false;
-        document.getElementById('stopRecordBtn').disabled = true;
-        document.getElementById('recordingStatus').innerHTML = "✅ Recording saved!";
-    });
-    
-    function refreshAudioUI() {
-        const container = document.getElementById('audioList');
-        if(!container) return;
-        container.innerHTML = '';
-        userData.audioRecordings.forEach((audio, idx) => {
-            const div = document.createElement('div');
-            div.className = 'audio-item';
-            div.innerHTML = `
-                <strong>🎵 ${escapeHtml(audio.name)}</strong><br>
-                <small>${audio.timestamp}</small><br>
-                <audio controls src="${audio.dataURL}" style="width:100%; margin:5px 0;"></audio>
-                <button class="delete-audio" data-idx="${idx}">❌ Delete</button>
-            `;
-            container.appendChild(div);
-        });
-        document.querySelectorAll('.delete-audio').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(btn.getAttribute('data-idx'));
-                userData.audioRecordings.splice(idx, 1);
-                saveAllData();
-                refreshAudioUI();
-            });
-        });
-    }
-    
-    // ---------- UI REFRESH FUNCTIONS ----------
-    function refreshAllUI() {
-        refreshProfileUI();
-        refreshWishlistUI();
-        refreshPhotosUI();
-        refreshNotesUI();
-        refreshAudioUI();
-        document.getElementById('autoLogoutToggle').checked = userData.autoLogoutEnabled;
-    }
-    
-    function refreshProfileUI() {
-        document.getElementById('profileName').value = userData.profile.name;
-        document.getElementById('profileTitle').value = userData.profile.title;
-        document.getElementById('profileBio').value = userData.profile.bio;
-        document.getElementById('avatarChangeBtn').innerHTML = userData.profile.avatarIcon;
-    }
-    
-    function refreshWishlistUI() {
-        const container = document.getElementById('wishlistContainer');
-        if(!container) return;
-        container.innerHTML = '';
-        userData.wishlist.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'wishlist-item';
-            div.style.background = 'rgba(255,105,180,0.2)';
-            div.style.padding = '10px';
-            div.style.margin = '5px 0';
-            div.style.borderRadius = '16px';
-            div.innerHTML = `🎴 ${escapeHtml(item)} <button class="remove-wishlist" data-idx="${idx}" style="float:right; background:#dc2626;">✖</button>`;
-            container.appendChild(div);
-        });
-        document.querySelectorAll('.remove-wishlist').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(btn.getAttribute('data-idx'));
-                userData.wishlist.splice(idx, 1);
-                saveAllData();
-                refreshWishlistUI();
-            });
-        });
-    }
-    
-    function refreshPhotosUI() {
-        const gallery = document.getElementById('photoGalleryGrid');
-        if(!gallery) return;
-        gallery.innerHTML = '';
-        userData.photos.forEach((photo, idx) => {
-            const div = document.createElement('div');
-            div.className = 'photo-item';
-            div.innerHTML = `<img src="${photo}" style="width:100%; height:120px; object-fit:cover; border-radius:16px;"><button class="delete-photo" data-idx="${idx}" style="margin-top:5px;">🗑️</button>`;
-            gallery.appendChild(div);
-        });
-        document.querySelectorAll('.delete-photo').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(btn.getAttribute('data-idx'));
-                userData.photos.splice(idx, 1);
-                saveAllData();
-                refreshPhotosUI();
-            });
-        });
-    }
-    
-    function refreshNotesUI() {
-        const container = document.getElementById('notesList');
-        if(!container) return;
-        container.innerHTML = '';
-        userData.notes.forEach((note, idx) => {
-            const div = document.createElement('div');
-            div.style.background = '#00000066';
-            div.style.padding = '12px';
-            div.style.margin = '8px 0';
-            div.style.borderRadius = '16px';
-            div.innerHTML = `<strong>${escapeHtml(note.title)}</strong><br>${escapeHtml(note.content)}<br><button class="delete-note" data-idx="${idx}">Delete</button>`;
-            container.appendChild(div);
-        });
-        document.querySelectorAll('.delete-note').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(btn.getAttribute('data-idx'));
-                userData.notes.splice(idx, 1);
-                saveAllData();
-                refreshNotesUI();
-            });
-        });
-    }
-    
-    // Event Listeners
-    document.getElementById('saveProfileBtn')?.addEventListener('click', () => {
-        userData.profile.name = document.getElementById('profileName').value;
-        userData.profile.title = document.getElementById('profileTitle').value;
-        userData.profile.bio = document.getElementById('profileBio').value;
-        saveAllData();
-        alert("✅ Profile saved!");
-    });
-    
-    document.getElementById('avatarChangeBtn')?.addEventListener('click', () => {
-        const newIcon = prompt("Choose emoji:", userData.profile.avatarIcon);
-        if(newIcon) { userData.profile.avatarIcon = newIcon; saveAllData(); refreshProfileUI(); }
-    });
-    
-    document.getElementById('addWishlistBtn')?.addEventListener('click', () => {
-        const item = document.getElementById('wishlistInput').value.trim();
-        if(item) { userData.wishlist.push(item); saveAllData(); refreshWishlistUI(); document.getElementById('wishlistInput').value = ''; }
-    });
-    
-    document.getElementById('uploadPhotosBtn')?.addEventListener('click', () => {
-        const files = document.getElementById('photoUpload').files;
-        Array.from(files).forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => { userData.photos.push(e.target.result); saveAllData(); refreshPhotosUI(); };
-            reader.readAsDataURL(file);
-        });
-    });
-    
-    document.getElementById('addNoteBtn')?.addEventListener('click', () => {
-        const title = document.getElementById('noteTitle').value || "Note";
-        const content = document.getElementById('noteContent').value;
-        if(content) { userData.notes.push({ id: Date.now(), title, content }); saveAllData(); refreshNotesUI(); document.getElementById('noteTitle').value = ''; document.getElementById('noteContent').value = ''; }
-    });
-    
-    document.getElementById('changePasswordBtn')?.addEventListener('click', () => {
-        const newPwd = document.getElementById('newPasswordInput').value;
-        if(newPwd.length >= 4) { userData.password = newPwd; saveAllData(); alert("✅ Password changed!"); }
-        else alert("Password must be 4+ chars");
-    });
-    
-    document.getElementById('autoLogoutToggle')?.addEventListener('change', (e) => {
-        userData.autoLogoutEnabled = e.target.checked;
-        saveAllData();
-        if(userData.autoLogoutEnabled) startInactivityMonitoring();
-        else { if(inactivityTimer) clearTimeout(inactivityTimer); document.getElementById('autoLogoutWarning').style.display = 'none'; }
-    });
-    
-    document.getElementById('testFingerprintBtn')?.addEventListener('click', () => {
-        alert("👆 Fingerprint simulator active! On login screen, click the fingerprint icon to scan.");
-    });
-    
-    document.getElementById('testFaceBtn')?.addEventListener('click', () => {
-        alert("👤 Face scan ready! On login screen, use Face Scan method and look at camera.");
-    });
-    
-    // Tab switching
-    const tabs = document.querySelectorAll('.nav-btn');
-    const panels = {
-        profile: document.getElementById('profilePanel'),
-        media: document.getElementById('mediaPanel'),
-        photos: document.getElementById('photosPanel'),
-        notes: document.getElementById('notesPanel'),
-        security: document.getElementById('securityPanel')
-    };
-    
-    tabs.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tab = btn.getAttribute('data-tab');
-            Object.values(panels).forEach(p => p?.classList.remove('active-panel'));
-            if(panels[tab]) panels[tab].classList.add('active-panel');
-            tabs.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            resetInactivityTimer();
-        });
-    });
-    
-    document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        if(mediaStream) mediaStream.getTracks().forEach(track => track.stop());
-        if(cameraStream) cameraStream.getTracks().forEach(track => track.stop());
-        dashboardDiv.style.display = 'none';
-        loginSectionDiv.style.display = 'flex';
-        clearInterval(window.timerInterval);
-    });
-    
-    function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-    
-    loadAllData();
-    document.getElementById('profilePanel')?.classList.add('active-panel');
-</script>
+        <!-- Secrets Tab -->
+        <div id="secretsTab" class="vault-tab-content">
+            <div class="tab-header">
+                <h2>🤫 Private Secrets</h2>
+                <button id="addSecretBtn" class="add-btn">➕ Add Secret</button>
+            </div>
+            <div id="secretsList" class="secrets-grid"></div>
+        </div>
+        
+        <!-- Settings Tab -->
+        <div id="settingsTab" class="vault-tab-content">
+            <h2>⚙️ Settings</h2>
+            
+            <div class="settings-section">
+                <h3>🔐 Security Settings</h3>
+                <div class="setting-group">
+                    <label>Scan Passwords:</label>
+                    <input type="password" id="newScanPwd1" placeholder="New Scan Password 1">
+                    <input type="password" id="newScanPwd2" placeholder="New Scan Password 2">
+                    <input type="password" id="newScanPwd3" placeholder="New Scan Password 3">
+                    <input type="password" id="newMasterPwd" placeholder="New Pluto Master Password">
+                    <button id="saveSecuritySettings" class="save-btn">Save Security Settings</button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>⏱️ Auto-Hide Timer</h3>
+                <div class="setting-group">
+                    <input type="range" id="timerSlider" min="1" max="30" value="5">
+                    <span id="timerValue">5</span> minutes
+                    <button id="saveTimerSettings" class="save-btn">Save</button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>🎨 Visual Settings</h3>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="musicToggle" checked> Background Music
+                    </label>
+                    <label>
+                        <input type="checkbox" id="sfxToggle" checked> Sound Effects
+                    </label>
+                    <label>
+                        <input type="checkbox" id="animationsToggle" checked> Animations
+                    </label>
+                    <select id="themeSelect">
+                        <option value="anime">Anime Classic</option>
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>📧 Alert Settings</h3>
+                <div class="setting-group">
+                    <input type="email" id="alertEmail" placeholder="Email for alerts">
+                    <label>
+                        <input type="checkbox" id="alertFailedLogin" checked> Failed login attempts
+                    </label>
+                    <label>
+                        <input type="checkbox" id="alertIntruder" checked> Intruder photos
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>💾 Backup & Restore</h3>
+                <div class="setting-group">
+                    <button id="exportBackupBtn" class="backup-btn">📥 Export Backup</button>
+                    <input type="file" id="importBackupInput" style="display: none;">
+                    <button id="importBackupBtn" class="backup-btn">📤 Import Backup</button>
+                    <button id="connectDriveBtn" class="drive-btn">☁️ Connect Google Drive</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

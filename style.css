@@ -1,0 +1,722 @@
+/* ============ RESET & BASE ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(255,105,180,0.5); }
+    50% { box-shadow: 0 0 25px rgba(255,105,180,0.9); }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); text-shadow: 2px 0 red, -2px 0 blue; }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); text-shadow: none; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+@keyframes scanPulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,255,0,0.4); }
+    70% { box-shadow: 0 0 0 30px rgba(0,255,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,255,0,0); }
+}
+
+@keyframes sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes borderPulse {
+    0%, 100% { border-color: #ff69b4; }
+    50% { border-color: #ffd700; }
+}
+
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* ============ LEVEL 1 - ANIME FUN ============ */
+.level1 {
+    background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+#sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sakura {
+    position: absolute;
+    pointer-events: none;
+    font-size: 20px;
+    animation: floatSlow 8s linear infinite;
+    opacity: 0.7;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #ff6b9d, #ffd700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pulse 2s infinite;
+}
+
+.characters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.character {
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.character:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 15px gold);
+}
+
+.character-emoji {
+    font-size: 80px;
+    display: block;
+}
+
+.character-name {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #333;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.secret-spot {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.secret-hint {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 10px;
+    color: rgba(0,0,0,0.3);
+}
+
+/* ============ LEVEL 2 - ANIME MASTER ============ */
+.level2 {
+    background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 100%);
+    min-height: 100vh;
+}
+
+.gold-text {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.glow-eye {
+    animation: pulse 1s infinite;
+    filter: drop-shadow(0 0 10px gold);
+    text-shadow: 0 0 10px gold;
+}
+
+.transformed {
+    filter: drop-shadow(0 0 15px rgba(255,215,0,0.5));
+}
+
+.hidden-leaf {
+    font-size: 60px;
+    text-align: center;
+    margin: 30px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s;
+    animation: pulse 2s infinite;
+}
+
+.hidden-leaf:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* ============ LEVEL 3 - SCAN ZONE ============ */
+.level3 {
+    background: #000;
+    min-height: 100vh;
+    position: relative;
+}
+
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.matrix-char {
+    position: absolute;
+    color: #0f0;
+    font-family: monospace;
+    opacity: 0.5;
+}
+
+.neon-text {
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+    text-align: center;
+    font-size: 3rem;
+    animation: pulse 1s infinite;
+}
+
+.radar {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 3px solid #0f0;
+    position: relative;
+    margin: 30px auto;
+    cursor: pointer;
+    animation: scanPulse 2s infinite;
+    background: rgba(0,255,0,0.05);
+}
+
+.radar-sweep {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    background: linear-gradient(90deg, rgba(0,255,0,0) 0%, rgba(0,255,0,0.6) 100%);
+    transform-origin: 0% 100%;
+    animation: sweep 2s linear infinite;
+    border-radius: 0 0 100% 0;
+}
+
+.radar-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #0f0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.terminal-glass {
+    background: rgba(0,0,0,0.9);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border: 1px solid #0f0;
+    box-shadow: 0 0 20px rgba(0,255,0,0.3);
+}
+
+.terminal {
+    font-family: 'Courier New', monospace;
+    color: #0f0;
+    font-size: 14px;
+    min-height: 100px;
+    background: #000;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.cursor {
+    animation: pulse 1s infinite;
+}
+
+.terminal-input {
+    width: 100%;
+    background: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 12px;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.scanner-eye {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.scanner-eye:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* ============ PLUTO GATEWAY ============ */
+.pluto-gateway {
+    background: #000;
+    min-height: 100vh;
+    position: relative;
+}
+
+.classified-watermark {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255,0,0,0.3);
+    font-family: monospace;
+    font-size: 12px;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.red-text {
+    color: #f00;
+    text-shadow: 0 0 10px #f00;
+    text-align: center;
+}
+
+.gateway-card {
+    max-width: 500px;
+    margin: 30px auto;
+    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(30,0,0,0.9));
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid #f00;
+    box-shadow: 0 0 30px rgba(255,0,0,0.3);
+}
+
+.gateway-input {
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    background: #111;
+    border: 2px solid #f00;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.bio-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255,0,0,0.1);
+    border-radius: 10px;
+}
+
+.bio-status {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.status-pending {
+    color: #ff0;
+}
+
+.status-verified {
+    color: #0f0;
+}
+
+.bio-btn {
+    width: 100%;
+    padding: 10px;
+    background: #f00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.voice-hint {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.verify-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #f00, #800);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s;
+}
+
+.verify-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px red;
+}
+
+/* ============ PLUTO VAULT ============ */
+.pluto-vault {
+    background: linear-gradient(135deg, #1a0000 0%, #2a0000 100%);
+    min-height: 100vh;
+}
+
+.vault-header {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.95);
+    padding: 15px 20px;
+    border-bottom: 3px solid #f00;
+    z-index: 100;
+}
+
+.vault-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f00;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.vault-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.vault-tab {
+    background: rgba(255,0,0,0.2);
+    border: 1px solid #f00;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: white;
+}
+
+.vault-tab:hover, .vault-tab.active {
+    background: #f00;
+    color: #000;
+    box-shadow: 0 0 15px red;
+}
+
+.vault-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.timer {
+    font-family: monospace;
+    font-size: 18px;
+    color: #0f0;
+    background: #000;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.close-btn, .nuke-btn {
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: #444;
+    color: white;
+    border: none;
+}
+
+.nuke-btn {
+    background: #f00;
+    color: white;
+    border: none;
+}
+
+.vault-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vault-tab-content {
+    display: none;
+    animation: fadeSlide 0.3s ease;
+}
+
+.vault-tab-content.active {
+    display: block;
+}
+
+.tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.add-btn, .upload-btn, .save-btn, .backup-btn, .drive-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-btn, .upload-btn {
+    background: #ff69b4;
+    color: #000;
+    border: none;
+}
+
+.save-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.backup-btn {
+    background: #2196F3;
+    color: white;
+    border: none;
+}
+
+.drive-btn {
+    background: #FF9800;
+    color: white;
+    border: none;
+}
+
+.passwords-grid, .documents-grid, .secrets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.password-item, .doc-item, .secret-item {
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    border-radius: 15px;
+    border-left: 4px solid #f00;
+    transition: transform 0.2s;
+}
+
+.password-item:hover, .doc-item:hover, .secret-item:hover {
+    transform: translateY(-3px);
+    background: rgba(0,0,0,0.7);
+}
+
+.settings-section {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+}
+
+.settings-section h3 {
+    color: #ff69b4;
+    margin-bottom: 15px;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.setting-group input[type="text"],
+.setting-group input[type="password"],
+.setting-group input[type="email"],
+.setting-group select {
+    padding: 10px;
+    background: #222;
+    border: 1px solid #ff69b4;
+    color: white;
+    border-radius: 8px;
+}
+
+.setting-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* ============ MODAL ============ */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #000, #1a0000);
+    padding: 30px;
+    border-radius: 20px;
+    z-index: 2000;
+    border: 2px solid #f00;
+    min-width: 320px;
+    text-align: center;
+    animation: fadeSlide 0.3s ease;
+    box-shadow: 0 0 50px rgba(255,0,0,0.5);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #222;
+    border: 1px solid #ff69b4;
+    color: white;
+    border-radius: 10px;
+}
+
+.modal button {
+    margin-top: 15px;
+}
+
+/* ============ UTILITY CLASSES ============ */
+.hidden-level {
+    display: none !important;
+}
+
+button {
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+    .character-emoji {
+        font-size: 50px;
+    }
+    
+    .title, .neon-text, .red-text {
+        font-size: 2rem;
+    }
+    
+    .radar {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .vault-header {
+        padding: 10px;
+    }
+    
+    .vault-tabs {
+        gap: 5px;
+    }
+    
+    .vault-tab {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+    
+    .passwords-grid, .documents-grid, .secrets-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ THEMES ============ */
+body.cyberpunk .level1,
+body.cyberpunk .level2,
+body.cyberpunk .level3,
+body.cyberpunk .pluto-gateway,
+body.cyberpunk .pluto-vault {
+    filter: hue-rotate(15deg) saturate(1.5);
+}
+
+body.dark-mode .level1,
+body.dark-mode .level2 {
+    filter: brightness(0.7);
+}
