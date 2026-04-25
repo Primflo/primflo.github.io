@@ -2,116 +2,147 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pluto Vault · Professional Password Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Pluto Vault · Ultimate Password Manager</title>
     <link rel="stylesheet" href="style.css">
-    <!-- CryptoJS for AES encryption -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
-<div id="app" class="vault-app">
-    <!-- Dynamic backgrounds will be set by JS using your images/ -->
+<div id="vaultApp" class="vault-app">
 
-    <!-- fixed elements -->
+    <!-- Global Elements (appear on every level) -->
     <div class="dragon-corner">🐉</div>
-    <div id="globalExit" class="exit-corner">✖ EXIT</div>
+    <div id="globalExitBtn" class="exit-corner">✖ EXIT</div>
 
-    <!-- ========= LEVEL 1 : LOGIN ========= -->
+    <!-- ==================== LEVEL 1: MAIN LOGIN ==================== -->
     <div id="level1" class="level-section">
         <div class="container center">
-            <div class="glass-card" style="max-width: 450px;">
+            <div class="glass-card" style="max-width: 420px;">
                 <h1 class="text-gradient">🔐 PLUTO VAULT</h1>
-                <p>Secure password manager + personal database</p>
+                <p class="subtitle">Secure password manager</p>
                 <div id="loginError" class="error-text"></div>
                 <input type="text" id="loginUser" placeholder="Username" autocomplete="username">
                 <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password">
                 <button id="doLoginBtn">🔓 LOGIN</button>
-                <p class="hint">demo: admin / admin123</p>
+                <p class="hint">Default: admin / admin123</p>
             </div>
         </div>
     </div>
 
-    <!-- ========= LEVEL 2 : ANIMALS ========= -->
-    <div id="level2" class="level-section hidden">
-        <div class="container center">
-            <div class="glass-card" style="max-width: 650px;">
-                <h2>🦊 SACRED GUARDIANS</h2>
-                <p>Select all five animals</p>
-                <div id="animalsGrid" class="animals-flex"></div>
-                <div id="animalProgress">selected 0/5</div>
-            </div>
-        </div>
-    </div>
+    <!-- ==================== LEVEL 2: SKIPPED / REMOVED ==================== -->
 
-    <!-- ========= LEVEL 3 : PERSONAL PROFILE + CREDENTIAL SCANNER ========= -->
+    <!-- ==================== LEVEL 3: PERSONAL AREA ==================== -->
     <div id="level3" class="level-section hidden">
         <div class="container">
             <div class="flex-between">
-                <h1 class="text-gradient">✨ My personal space</h1>
-                <button id="openAdminBtn" class="btn-outline">⚙️ Admin vault</button>
+                <h1 class="text-gradient">✨ My Personal Space</h1>
+                <button id="openAdminGatewayBtn" class="btn-primary">🔐 ENTER ADMIN VAULT</button>
             </div>
+            
             <div class="grid-2col">
-                <!-- left: profile -->
+                <!-- LEFT: Profile -->
                 <div class="glass-card">
                     <h3>👤 Profile</h3>
                     <input type="text" id="profileName" placeholder="Display name">
-                    <textarea id="profileBio" rows="2" placeholder="Bio..."></textarea>
-                    <input type="text" id="profileAvatar" placeholder="Avatar emoji" maxlength="4">
-                    <button id="saveProfileBtn">💾 Save profile</button>
+                    <textarea id="profileBio" rows="2" placeholder="Your bio..."></textarea>
+                    <input type="text" id="profileAvatar" placeholder="Avatar emoji (e.g., 🦊)" maxlength="4">
+                    <button id="saveProfileBtn">💾 Save Profile</button>
                     <hr>
                     <h4>🔐 IMPORT PASSWORDS FROM BROWSER</h4>
-                    <p>1. Export your passwords as CSV (Chrome: Password Manager → Export)</p>
-                    <p>2. Upload the CSV file → they will be encrypted and stored locally</p>
+                    <p class="small-text">1. Export passwords from Chrome: Settings → Password Manager → Export passwords</p>
+                    <p class="small-text">2. Upload the CSV file below</p>
                     <input type="file" id="csvUploader" accept=".csv">
                     <button id="importCsvBtn">📤 SCAN & IMPORT PASSWORDS</button>
-                    <div id="importStatus" class="small-text"></div>
+                    <div id="importStatus" class="small-text success-text"></div>
                 </div>
-                <!-- right: notes + wishlist -->
+
+                <!-- RIGHT: Notes + Wishlist -->
                 <div class="glass-card">
-                    <div class="flex-between"><h3>📝 Notes</h3><button id="addNoteBtn">+</button></div>
-                    <div id="notesList"></div>
-                    <div class="flex-between"><h3>🎴 Wishlist</h3><button id="addWishlistBtn">+</button></div>
-                    <div id="wishlistList"></div>
+                    <div class="flex-between"><h3>📝 Notes</h3><button id="addNoteBtn" class="small-btn">+ Add</button></div>
+                    <div id="notesList" class="list-container"></div>
+                    <hr>
+                    <div class="flex-between"><h3>🎴 Anime Wishlist</h3><button id="addWishlistBtn" class="small-btn">+ Add</button></div>
+                    <div id="wishlistList" class="list-container"></div>
                 </div>
             </div>
-            <div style="text-align:center; margin-top: 2rem;">
-                <button id="gotoPlutoGatewayBtn" class="btn-primary-large">🔐 ENTER PLUTO ADMIN VAULT</button>
+
+            <!-- Quick Documents -->
+            <div class="glass-card" style="margin-top: 1.5rem;">
+                <div class="flex-between"><h3>📁 Quick Documents</h3><button id="addQuickDocBtn">+ New Doc</button></div>
+                <div id="quickDocsList" class="flex-wrap"></div>
             </div>
         </div>
     </div>
 
-    <!-- ========= LEVEL 4 : PLUTO GATEWAY ========= -->
+    <!-- ==================== LEVEL 4: PLUTO GATEWAY (Second Login) ==================== -->
     <div id="level4" class="level-section hidden">
         <div class="container center">
             <div class="glass-card" style="max-width: 400px;">
                 <h2>⚡ PLUTO GATEWAY</h2>
-                <input type="password" id="plutoMasterInput" placeholder="Master password">
-                <button id="submitPlutoGateBtn">🔓 LOGIN</button>
+                <p>Administrator authentication required</p>
+                <input type="password" id="plutoMasterInput" placeholder="Master Password">
+                <button id="submitPlutoGateBtn">🔓 LOGIN TO ADMIN</button>
                 <div id="plutoError" class="error-text"></div>
+                <p class="hint">Default: Pluto123!</p>
             </div>
         </div>
     </div>
 
-    <!-- ========= LEVEL 5 : ADMIN VAULT (full database) ========= -->
+    <!-- ==================== LEVEL 5: ADMIN VAULT ==================== -->
     <div id="level5" class="level-section hidden">
         <div class="container">
-            <div class="flex-between"><h1 class="text-gradient">🐉 PLUTO ADMIN VAULT</h1><button id="backToProfileBtn" class="btn-outline">← Back</button></div>
+            <div class="flex-between">
+                <h1 class="text-gradient">🐉 PLUTO ADMIN VAULT</h1>
+                <button id="backToProfileBtn" class="btn-outline">← Back to Personal Area</button>
+            </div>
+            
             <div class="admin-grid">
+                <!-- LEFT: Master Database -->
                 <div class="glass-card">
-                    <h3>🗄️ MASTER DATABASE</h3>
-                    <button id="addPasswordDbBtn">+ Add password</button>
-                    <button id="addSecretDbBtn">+ Add secret</button>
-                    <button id="addApiKeyDbBtn">+ Add API key</button>
-                    <div style="overflow-x: auto;"><table id="masterTable" class="data-table"><thead><tr><th>Type</th><th>Identifier</th><th>Value</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+                    <h3>🗄️ Master Database</h3>
+                    <div class="button-group">
+                        <button id="addPasswordDbBtn">+ Add Password</button>
+                        <button id="addSecretDbBtn">+ Add Secret</button>
+                        <button id="addApiKeyDbBtn">+ Add API Key</button>
+                    </div>
+                    <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+                        <table class="data-table">
+                            <thead><tr><th>Type</th><th>Identifier</th><th>Value</th><th>Action</th></tr></thead>
+                            <tbody id="masterTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
+
+                <!-- RIGHT: Admin Settings -->
                 <div class="glass-card">
-                    <h3>⚙️ ADMIN SETTINGS</h3>
-                    <div><label>Change Pluto master password</label><input type="password" id="newPlutoPwd" placeholder="new password"><button id="changePlutoPwdBtn">Update</button></div>
-                    <div><label>Auto‑lock minutes</label><input type="number" id="autoLockMinutes" value="5" min="1"><button id="saveAutoLockBtn">Save</button></div>
+                    <h3>⚙️ Administrator Settings</h3>
+                    <div class="setting-row">
+                        <label>Change Pluto Master Password</label>
+                        <input type="password" id="newPlutoPwd" placeholder="New password">
+                        <button id="changePlutoPwdBtn">Update</button>
+                    </div>
+                    <div class="setting-row">
+                        <label>Auto-Lock Minutes (inactivity)</label>
+                        <input type="number" id="autoLockMinutes" value="5" min="1" max="60">
+                        <button id="saveAutoLockBtn">Save</button>
+                    </div>
                     <hr>
-                    <button id="exportFullBackupBtn">📀 Export full vault</button>
-                    <button id="importFullBackupBtn">📂 Import backup</button>
-                    <button id="resetAllBtn" class="danger-btn">⚠️ RESET EVERYTHING</button>
+                    <div class="setting-row">
+                        <button id="exportFullBackupBtn">📀 Export Full Backup</button>
+                        <button id="importFullBackupBtn">📂 Import Backup</button>
+                    </div>
+                    <div class="setting-row">
+                        <button id="resetAllBtn" class="danger-btn">⚠️ RESET EVERYTHING</button>
+                    </div>
+                    <hr>
+                    <h4>📊 Statistics</h4>
+                    <div class="stats-row">
+                        <span>Passwords: <strong id="statPasswords">0</strong></span>
+                        <span>Secrets: <strong id="statSecrets">0</strong></span>
+                        <span>API Keys: <strong id="statApiKeys">0</strong></span>
+                        <span>Notes: <strong id="statNotes">0</strong></span>
+                        <span>Wishlist: <strong id="statWishlist">0</strong></span>
+                    </div>
                 </div>
             </div>
         </div>
