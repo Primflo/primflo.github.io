@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Prim - Pluto</title>
+    <style>
+        /* Pluto Tabs */
+        .pluto-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(183, 75, 75, 0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.6rem;
+            padding: 0.8rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(183, 75, 75, 0.2);
+        }
+        
+        .tab-btn.active {
+            background: #b74b4b;
+            color: black;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Pluto Login */
+        .pluto-login-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+        
+        .pluto-login-box input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: white;
+        }
+        
+        /* Notepad */
+        .notepad-area {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        
+        .note-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .note-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .notes-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        
+        .note-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid #b74b4b;
+        }
+        
+        .note-text {
+            flex: 1;
+            font-size: 1.4rem;
+        }
+        
+        .note-date {
+            font-size: 1rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+        
+        /* Cloud Files */
+        .cloud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .upload-area {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed #b74b4b;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: rgba(183, 75, 75, 0.1);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .files-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .file-info i {
+            font-size: 2rem;
+            color: #b74b4b;
+        }
+        
+        .file-name {
+            font-size: 1.4rem;
+        }
+        
+        .file-size {
+            font-size: 1.1rem;
+            color: #888;
+        }
+        
+        .storage-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .storage-fill {
+            height: 100%;
+            background: #b74b4b;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-title span {
+            color: #b74b4b;
+        }
+        
+        @media (max-width: 768px) {
+            .pluto-tabs { flex-direction: column; }
+            .file-item { flex-direction: column; text-align: center; }
+            .file-info { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="running-cat">
+        <div class="cat-run cat-walk">🐱</div>
+        <div class="cpu-meter">
+            <div>CPU: <span class="cpu-percent">0</span>%</div>
+            <div class="cpu-bar"><div class="cpu-fill"></div></div>
+        </div>
+    </div>
+    
+    <header>
+        <a href="index.html" class="logo">Prim</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="deathlist.html">List of Death</a>
+            <a href="favorites.html">Favorite Content</a>
+            <a href="contact.html">Contact</a>
+            <a href="pluto.html" class="active">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="hamburger" style="display: none;">☰</div>
+    </header>
+    
+    <section class="home">
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
+        <div class="home-content">
+            <h1 class="page-title"><span>Pluto</span> Workspace</h1>
+            
+            <!-- Pluto Login State -->
+            <div id="plutoLoginContainer">
+                <div class="pluto-login-box">
+                    <i class="fas fa-moon" style="font-size: 3rem; color: #b74b4b;"></i>
+                    <h3>Pluto Access</h3>
+                    <input type="text" id="plutoUsername" placeholder="Username" value="pluto">
+                    <input type="password" id="plutoPassword" placeholder="Password" value="pluto123">
+                    <button class="btn" id="plutoLoginBtn" style="width: 100%;">Enter Pluto</button>
+                    <p style="font-size: 1.2rem; margin-top: 1rem; color: #888;">Default: pluto / pluto123</p>
+                </div>
+            </div>
+            
+            <!-- Pluto Dashboard (Hidden until login) -->
+            <div id="plutoDashboard" style="display: none;">
+                <div class="pluto-tabs">
+                    <button class="tab-btn active" data-tab="notepad">📝 Notepad</button>
+                    <button class="tab-btn" data-tab="cloud">☁️ Cloud Files</button>
+                </div>
+                
+                <!-- Notepad Tab -->
+                <div class="tab-content active" id="tab-notepad">
+                    <div class="notepad-area">
+                        <input type="text" id="noteTitle" class="note-input" placeholder="Note title...">
+                        <textarea id="noteContent" class="note-input" rows="4" placeholder="Write your note here..."></textarea>
+                        <button class="btn" id="saveNoteBtn" style="width: 100%;">💾 Save Note</button>
+                        <div class="notes-list" id="notesList"></div>
+                    </div>
+                </div>
+                
+                <!-- Cloud Files Tab -->
+                <div class="tab-content" id="tab-cloud">
+                    <div class="cloud-header">
+                        <div class="storage-info">
+                            <span id="storageUsed">0</span> MB / <span id="storageTotal">50</span> MB
+                        </div>
+                        <button class="btn" id="refreshFilesBtn" style="padding: 0.5rem 1rem;">🔄 Refresh</button>
+                    </div>
+                    <div class="storage-bar">
+                        <div class="storage-fill" id="storageFill"></div>
+                    </div>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #b74b4b;"></i>
+                        <p>Click or drag file to upload</p>
+                        <input type="file" id="fileInput" class="file-input" multiple>
+                    </div>
+                    <div class="files-list" id="filesList"></div>
+                </div>
+            </div>
+            
+            <div class="social-icons" id="socialIcons">
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'login.html';
+        if (localStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        // ========== PLUTO LOGIN ==========
+        let plutoLoggedIn = localStorage.getItem('plutoLoggedIn') === 'true';
+        
+        function checkPlutoLogin() {
+            if (plutoLoggedIn) {
+                document.getElementById('plutoLoginContainer').style.display = 'none';
+                document.getElementById('plutoDashboard').style.display = 'block';
+                loadNotes();
+                loadFiles();
+            } else {
+                document.getElementById('plutoLoginContainer').style.display = 'block';
+                document.getElementById('plutoDashboard').style.display = 'none';
+            }
+        }
+        
+        document.getElementById('plutoLoginBtn').addEventListener('click', () => {
+            const username = document.getElementById('plutoUsername').value;
+            const password = document.getElementById('plutoPassword').value;
+            const savedCreds = JSON.parse(localStorage.getItem('plutoCredentials')) || { username: 'pluto', password: 'pluto123' };
+            
+            if (username === savedCreds.username && password === savedCreds.password) {
+                plutoLoggedIn = true;
+                localStorage.setItem('plutoLoggedIn', 'true');
+                checkPlutoLogin();
+            } else {
+                alert('Invalid Pluto credentials!');
+            }
+        });
+        
+        // ========== NOTEPAD CRUD ==========
+        let notes = JSON.parse(localStorage.getItem('plutoNotes')) || [];
+        
+        function loadNotes() {
+            const container = document.getElementById('notesList');
+            if (notes.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;"><i class="fas fa-sticky-note"></i><p>No notes yet</p></div>';
+                return;
+            }
+            container.innerHTML = notes.map((note, index) => `
+                <div class="note-item">
+                    <div>
+                        <div class="note-text"><strong>${escapeHtml(note.title) || 'Untitled'}</strong><br>${escapeHtml(note.content.substring(0, 100))}${note.content.length > 100 ? '...' : ''}</div>
+                        <div class="note-date">${note.date}</div>
+                    </div>
+                    <div>
+                        <button class="edit-btn" onclick="editNote(${index})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteNote(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').value;
+            if (!content) { alert('Please write something!'); return; }
+            notes.unshift({ title, content, date: new Date().toLocaleString() });
+            localStorage.setItem('plutoNotes', JSON.stringify(notes));
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            loadNotes();
+        }
+        
+        function editNote(index) {
+            const newContent = prompt('Edit note:', notes[index].content);
+            if (newContent !== null) notes[index].content = newContent;
+            localStorage.setItem('plutoNotes', JSON.stringify(notes));
+            loadNotes();
+        }
+        
+        function deleteNote(index) {
+            if (confirm('Delete this note?')) {
+                notes.splice(index, 1);
+                localStorage.setItem('plutoNotes', JSON.stringify(notes));
+                loadNotes();
+            }
+        }
+        
+        document.getElementById('saveNoteBtn')?.addEventListener('click', saveNote);
+        
+        // ========== CLOUD FILES (IndexedDB) ==========
+        let files = JSON.parse(localStorage.getItem('plutoFiles')) || [];
+        let totalStorage = 50; // MB
+        let usedStorage = 0;
+        
+        function calculateStorage() {
+            usedStorage = files.reduce((sum, f) => sum + (f.size / (1024 * 1024)), 0);
+            document.getElementById('storageUsed').textContent = usedStorage.toFixed(2);
+            const percent = (usedStorage / totalStorage) * 100;
+            document.getElementById('storageFill').style.width = Math.min(percent, 100) + '%';
+            if (percent > 90) document.getElementById('storageFill').style.background = '#ff4757';
+            else if (percent > 70) document.getElementById('storageFill').style.background = '#ffa500';
+            else document.getElementById('storageFill').style.background = '#b74b4b';
+        }
+        
+        function loadFiles() {
+            const container = document.getElementById('filesList');
+            if (files.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;"><i class="fas fa-folder-open"></i><p>No files uploaded</p></div>';
+                calculateStorage();
+                return;
+            }
+            container.innerHTML = files.map((file, index) => `
+                <div class="file-item">
+                    <div class="file-info">
+                        <i class="fas ${file.type.includes('image') ? 'fa-image' : file.type.includes('video') ? 'fa-video' : 'fa-file'}"></i>
+                        <div>
+                            <div class="file-name">${escapeHtml(file.name)}</div>
+                            <div class="file-size">${(file.size / (1024 * 1024)).toFixed(2)} MB</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="edit-btn" onclick="downloadFile(${index})"><i class="fas fa-download"></i></button>
+                        <button class="delete-btn" onclick="deleteFile(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            calculateStorage();
+        }
+        
+        function downloadFile(index) {
+            const file = files[index];
+            const link = document.createElement('a');
+            link.href = file.data;
+            link.download = file.name;
+            link.click();
+        }
+        
+        function deleteFile(index) {
+            if (confirm('Delete this file?')) {
+                files.splice(index, 1);
+                localStorage.setItem('plutoFiles', JSON.stringify(files));
+                loadFiles();
+            }
+        }
+        
+        function handleFiles(fileList) {
+            for (let file of fileList) {
+                const fileSizeMB = file.size / (1024 * 1024);
+                if (usedStorage + fileSizeMB > totalStorage) {
+                    alert('Storage full! Delete some files first.');
+                    continue;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    files.push({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: e.target.result,
+                        date: new Date().toLocaleString()
+                    });
+                    localStorage.setItem('plutoFiles', JSON.stringify(files));
+                    loadFiles();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        document.getElementById('uploadArea')?.addEventListener('click', () => document.getElementById('fileInput').click());
+        document.getElementById('fileInput')?.addEventListener('change', (e) => handleFiles(e.target.files));
+        document.getElementById('refreshFilesBtn')?.addEventListener('click', () => loadFiles());
+        
+        // Drag and drop
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea?.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.style.borderColor = '#ff6b6b'; });
+        uploadArea?.addEventListener('dragleave', () => { uploadArea.style.borderColor = '#b74b4b'; });
+        uploadArea?.addEventListener('drop', (e) => { e.preventDefault(); uploadArea.style.borderColor = '#b74b4b'; handleFiles(e.dataTransfer.files); });
+        
+        // Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            });
+        });
+        
+        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        
+        checkPlutoLogin();
+        loadFiles();
+        
+        // ========== RUNNING CAT ==========
+        let cpu = 0, dir = 1;
+        const catEl = document.querySelector('.cat-run');
+        function updateCPU() {
+            cpu += dir * (Math.random() * 10);
+            if (cpu >= 100) { cpu = 100; dir = -1; }
+            else if (cpu <= 0) { cpu = 0; dir = 1; }
+            document.querySelector('.cpu-percent').textContent = Math.floor(cpu);
+            document.querySelector('.cpu-fill').style.width = Math.floor(cpu) + '%';
+            let p = Math.floor(cpu);
+            if (p < 20) { catEl.className = 'cat-run cat-walk'; catEl.textContent = '🐱'; }
+            else if (p < 40) { catEl.className = 'cat-run cat-jog'; catEl.textContent = '🐱‍🏃'; }
+            else if (p < 60) { catEl.className = 'cat-run cat-run'; catEl.textContent = '🐈‍⬛'; }
+            else if (p < 80) { catEl.className = 'cat-run cat-sprint'; catEl.textContent = '🐈‍⬛💨'; }
+            else { catEl.className = 'cat-run cat-zoom'; catEl.textContent = '💨😾💨'; }
+            setTimeout(updateCPU, 500);
+        }
+        updateCPU();
+        
+        function loadSocialLinks() {
+            const links = JSON.parse(localStorage.getItem('socialLinks')) || { linkedin: '#', github: '#', twitter: '#', instagram: '#' };
+            const icons = document.querySelectorAll('.social-icons a');
+            if (icons[0]) icons[0].href = links.linkedin;
+            if (icons[1]) icons[1].href = links.github;
+            if (icons[2]) icons[2].href = links.twitter;
+            if (icons[3]) icons[3].href = links.instagram;
+        }
+        loadSocialLinks();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'login.html'; });
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+    </script>
+</body>
+</html>

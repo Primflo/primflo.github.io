@@ -8,8 +8,8 @@
     <title>Prim - Education</title>
     <style>
         .education-container {
-            max-width: 100%;
-            margin: 0 auto;
+            width: 100%;
+            margin: 2rem 0;
         }
         
         .education-card {
@@ -17,36 +17,64 @@
             border-left: 4px solid #b74b4b;
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 10px;
-            transition: 0.3s ease;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
         }
         
         .education-card:hover {
             transform: translateX(10px);
             background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(183, 75, 75, 0.2);
         }
         
         .education-card h3 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #b74b4b;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         
         .education-card .institution {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #ccc;
             margin-bottom: 0.5rem;
         }
         
         .education-card .year {
             font-size: 1.4rem;
-            color: #b74b4b;
+            color: #888;
             margin-bottom: 1rem;
         }
         
         .education-card p {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-label {
+            font-size: 1.3rem;
+            color: #b74b4b;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .progress-bar-edu {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill-edu {
+            height: 100%;
+            background: linear-gradient(90deg, #b74b4b, #ff6b6b);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
         }
         
         .page-title {
@@ -62,7 +90,6 @@
             font-size: 2.5rem;
             margin-bottom: 3rem;
             font-weight: 600;
-            min-width: 280px;
         }
         
         .poet-line span {
@@ -88,9 +115,7 @@
         }
         
         @keyframes cursor {
-            to {
-                border-left: 3px solid #b74b4b;
-            }
+            to { border-left: 3px solid #b74b4b; }
         }
         
         @keyframes eduWords {
@@ -101,17 +126,20 @@
         }
         
         @media (max-width: 995px) {
-            .education-card h3 {
-                font-size: 2rem;
-            }
-            
-            .poet-line {
-                font-size: 1.8rem;
-            }
+            .poet-line { font-size: 1.8rem; }
+            .education-card h3 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
+    <div class="running-cat">
+        <div class="cat-run cat-walk">🐱</div>
+        <div class="cpu-meter">
+            <div>CPU: <span class="cpu-percent">0</span>%</div>
+            <div class="cpu-bar"><div class="cpu-fill"></div></div>
+        </div>
+    </div>
+    
     <header>
         <a href="index.html" class="logo">Prim</a>
         <nav>
@@ -121,9 +149,13 @@
             <a href="education.html" class="active">Education</a>
             <a href="experience.html">Experience</a>
             <a href="deathlist.html">List of Death</a>
-            <a href="login.html">Login</a>
+            <a href="favorites.html">Favorite Content</a>
             <a href="contact.html">Contact</a>
+            <a href="pluto.html">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
         </nav>
+        <div class="hamburger" style="display: none;">☰</div>
     </header>
     
     <section class="home">
@@ -136,35 +168,101 @@
             
             <div class="education-container">
                 <div class="education-card">
-                    <h3>Master's Degree in Computer Science</h3>
-                    <div class="institution">Stanford University</div>
-                    <div class="year">2022 - 2024</div>
-                    <p>Specialized in Artificial Intelligence and Machine Learning. Graduated with Honors. Thesis on "Neural Networks for Computer Vision".</p>
+                    <h3>🎓 MBA Degree</h3>
+                    <div class="institution">Stanford Graduate School of Business</div>
+                    <div class="year">2024 - Present</div>
+                    <p>Master of Business Administration specializing in Technology Management and Entrepreneurship.</p>
+                    <div class="progress-label">
+                        <span>Progress</span>
+                        <span>20% Complete</span>
+                    </div>
+                    <div class="progress-bar-edu">
+                        <div class="progress-fill-edu" style="width: 20%"></div>
+                    </div>
                 </div>
                 
                 <div class="education-card">
-                    <h3>Bachelor's Degree in Software Engineering</h3>
+                    <h3>💻 Bachelor's in Computer Science</h3>
                     <div class="institution">University of Technology</div>
-                    <div class="year">2018 - 2022</div>
-                    <p>Graduated with First Class Honors. Focused on Web Development, Database Management, and Software Architecture.</p>
+                    <div class="year">2020 - 2024</div>
+                    <p>Graduated with First Class Honors. Focused on Web Development, AI, and Software Architecture.</p>
+                    <div class="progress-label">
+                        <span>Completed</span>
+                        <span>100% ✓</span>
+                    </div>
+                    <div class="progress-bar-edu">
+                        <div class="progress-fill-edu" style="width: 100%; background: #00ff00;"></div>
+                    </div>
                 </div>
                 
                 <div class="education-card">
-                    <h3>High School Diploma</h3>
-                    <div class="institution">International School</div>
-                    <div class="year">2016 - 2018</div>
-                    <p>Science Major with Computer Science elective. Achieved top scores in Mathematics and Physics.</p>
+                    <h3>📐 High School Diploma</h3>
+                    <div class="institution">International School of Excellence</div>
+                    <div class="year">2016 - 2020</div>
+                    <p>Science Major with Computer Science focus. Achieved top scores in Mathematics and Physics.</p>
+                    <div class="progress-label">
+                        <span>Completed</span>
+                        <span>100% ✓</span>
+                    </div>
+                    <div class="progress-bar-edu">
+                        <div class="progress-fill-edu" style="width: 100%; background: #00ff00;"></div>
+                    </div>
                 </div>
             </div>
             
-            <div class="social-icons">
+            <div class="social-icons" id="socialIcons">
                 <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="#"><i class="fa-brands fa-github"></i></a>
                 <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
             </div>
-            <a href="contact.html" class="btn">Contact Me</a>
+            <button class="btn" onclick="location.href='contact.html'">Contact Me</button>
         </div>
     </section>
+    
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'login.html';
+        if (localStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        let cpu = 0, dir = 1;
+        const catEl = document.querySelector('.cat-run');
+        function updateCPU() {
+            cpu += dir * (Math.random() * 10);
+            if (cpu >= 100) { cpu = 100; dir = -1; }
+            else if (cpu <= 0) { cpu = 0; dir = 1; }
+            document.querySelector('.cpu-percent').textContent = Math.floor(cpu);
+            document.querySelector('.cpu-fill').style.width = Math.floor(cpu) + '%';
+            let p = Math.floor(cpu);
+            if (p < 20) { catEl.className = 'cat-run cat-walk'; catEl.textContent = '🐱'; }
+            else if (p < 40) { catEl.className = 'cat-run cat-jog'; catEl.textContent = '🐱‍🏃'; }
+            else if (p < 60) { catEl.className = 'cat-run cat-run'; catEl.textContent = '🐈‍⬛'; }
+            else if (p < 80) { catEl.className = 'cat-run cat-sprint'; catEl.textContent = '🐈‍⬛💨'; }
+            else { catEl.className = 'cat-run cat-zoom'; catEl.textContent = '💨😾💨'; }
+            setTimeout(updateCPU, 500);
+        }
+        updateCPU();
+        
+        function loadSocialLinks() {
+            const links = JSON.parse(localStorage.getItem('socialLinks')) || { linkedin: '#', github: '#', twitter: '#', instagram: '#' };
+            const icons = document.querySelectorAll('.social-icons a');
+            if (icons[0]) icons[0].href = links.linkedin;
+            if (icons[1]) icons[1].href = links.github;
+            if (icons[2]) icons[2].href = links.twitter;
+            if (icons[3]) icons[3].href = links.instagram;
+        }
+        loadSocialLinks();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'login.html'; });
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+    </script>
 </body>
 </html>

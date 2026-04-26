@@ -8,59 +8,174 @@
     <title>Prim - Contact</title>
     <style>
         .contact-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: space-between;
+        }
+        
+        .info-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(183, 75, 75, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #b74b4b;
+            box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2);
+        }
+        
+        .info-card i {
+            font-size: 2.5rem;
+            color: #b74b4b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card h4 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card p {
+            font-size: 1.3rem;
+            color: #ccc;
+        }
+        
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 20px;
             margin-bottom: 2rem;
         }
         
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .form-group {
             margin-bottom: 1.5rem;
-            font-size: 1.6rem;
         }
         
-        .contact-item i {
-            color: #b74b4b;
-            font-size: 2rem;
-            width: 3rem;
-        }
-        
-        .contact-form input,
-        .contact-form textarea {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 1rem;
-            margin-bottom: 1rem;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #b74b4b;
-            border-radius: 5px;
+            border: 1px solid rgba(183, 75, 75, 0.3);
+            border-radius: 10px;
             color: white;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
         }
         
-        .contact-form textarea {
-            height: 120px;
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #b74b4b;
+            box-shadow: 0 0 10px rgba(183, 75, 75, 0.3);
+        }
+        
+        .form-group textarea {
+            height: 100px;
             resize: vertical;
         }
         
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: #b74b4b;
-            box-shadow: 0 0 10px #b74b4b;
+        .messages-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 1.5rem;
         }
         
-        .submit-btn {
-            background: #b74b4b;
-            color: black;
+        .messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .messages-header h3 {
+            color: #b74b4b;
+            font-size: 1.8rem;
+        }
+        
+        .delete-all-btn {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-all-btn:hover {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .messages-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .message-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid #b74b4b;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .message-content {
+            flex: 1;
+        }
+        
+        .message-name {
+            font-weight: bold;
+            color: #b74b4b;
+            margin-bottom: 0.3rem;
+        }
+        
+        .message-email {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+        
+        .message-text {
+            font-size: 1.4rem;
+            color: #ddd;
+        }
+        
+        .message-date {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .message-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .message-actions button {
+            background: transparent;
             border: none;
             cursor: pointer;
-            transition: 0.3s ease;
+            font-size: 1.4rem;
+            padding: 0.3rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
         
-        .submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #b74b4b;
-        }
+        .edit-msg-btn { color: #ffc107; }
+        .delete-msg-btn { color: #dc3545; }
         
         .page-title {
             font-size: 4rem;
@@ -70,20 +185,45 @@
         .page-title span {
             color: #b74b4b;
         }
+        
+        .empty-messages {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-info { flex-direction: column; }
+            .message-item { flex-direction: column; }
+            .message-actions { justify-content: flex-end; width: 100%; }
+        }
     </style>
 </head>
 <body>
+    <div class="running-cat">
+        <div class="cat-run cat-walk">🐱</div>
+        <div class="cpu-meter">
+            <div>CPU: <span class="cpu-percent">0</span>%</div>
+            <div class="cpu-bar"><div class="cpu-fill"></div></div>
+        </div>
+    </div>
+    
     <header>
         <a href="index.html" class="logo">Prim</a>
-       <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="skills.html">Skills</a>
-    <a href="education.html">Education</a>
-    <a href="experience.html">Experience</a>
-    <a href="contact.html">Contact</a>
-           <a href="login.html">Login</a>
-</nav>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="deathlist.html">List of Death</a>
+            <a href="favorites.html">Favorite Content</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="pluto.html">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="hamburger" style="display: none;">☰</div>
     </header>
     
     <section class="home">
@@ -94,28 +234,45 @@
             <h1 class="page-title">Contact <span>Me</span></h1>
             
             <div class="contact-info">
-                <div class="contact-item">
+                <div class="info-card">
                     <i class="fas fa-envelope"></i>
-                    <span>prim@example.com</span>
+                    <h4>Email</h4>
+                    <p>prim@example.com</p>
                 </div>
-                <div class="contact-item">
+                <div class="info-card">
                     <i class="fas fa-phone"></i>
-                    <span>+1 234 567 8900</span>
+                    <h4>Phone</h4>
+                    <p>+1 234 567 8900</p>
                 </div>
-                <div class="contact-item">
+                <div class="info-card">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>New York, USA</span>
+                    <h4>Location</h4>
+                    <p>New York, USA</p>
                 </div>
             </div>
             
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
-                <input type="submit" value="Send Message" class="btn submit-btn">
-            </form>
+            <div class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="msgName" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="msgEmail" placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <textarea id="msgText" placeholder="Your Message"></textarea>
+                </div>
+                <button class="btn" id="sendMsgBtn" style="width: 100%;">✉️ Send Message</button>
+            </div>
             
-            <div class="social-icons">
+            <div class="messages-section">
+                <div class="messages-header">
+                    <h3><i class="fas fa-comments"></i> Messages</h3>
+                    <button class="delete-all-btn" id="deleteAllMsgsBtn">🗑️ Delete All</button>
+                </div>
+                <div class="messages-container" id="messagesContainer"></div>
+            </div>
+            
+            <div class="social-icons" id="socialIcons">
                 <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="#"><i class="fa-brands fa-github"></i></a>
                 <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
@@ -123,5 +280,147 @@
             </div>
         </div>
     </section>
+
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'login.html';
+        if (localStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        // ========== MESSAGES CRUD ==========
+        let messages = JSON.parse(localStorage.getItem('contactMessages')) || [
+            { id: 1, name: "John Doe", email: "john@example.com", message: "Great portfolio! Let's work together.", date: "2024-01-15" },
+            { id: 2, name: "Jane Smith", email: "jane@example.com", message: "I love your design style!", date: "2024-01-20" }
+        ];
+        
+        function saveMessages() {
+            localStorage.setItem('contactMessages', JSON.stringify(messages));
+            renderMessages();
+        }
+        
+        function renderMessages() {
+            const container = document.getElementById('messagesContainer');
+            if (messages.length === 0) {
+                container.innerHTML = '<div class="empty-messages"><i class="fas fa-inbox"></i><p>No messages yet</p></div>';
+                return;
+            }
+            
+            container.innerHTML = messages.map(msg => `
+                <div class="message-item" data-id="${msg.id}">
+                    <div class="message-content">
+                        <div class="message-name">${escapeHtml(msg.name)}</div>
+                        <div class="message-email">${escapeHtml(msg.email)}</div>
+                        <div class="message-text">${escapeHtml(msg.message)}</div>
+                        <div class="message-date">${msg.date}</div>
+                    </div>
+                    <div class="message-actions">
+                        <button class="edit-msg-btn" onclick="editMessage(${msg.id})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-msg-btn" onclick="deleteMessage(${msg.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function sendMessage() {
+            const name = document.getElementById('msgName').value.trim();
+            const email = document.getElementById('msgEmail').value.trim();
+            const message = document.getElementById('msgText').value.trim();
+            
+            if (!name || !email || !message) {
+                alert('Please fill all fields!');
+                return;
+            }
+            
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('Please enter valid email!');
+                return;
+            }
+            
+            const newId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1;
+            const today = new Date().toISOString().split('T')[0];
+            
+            messages.unshift({ id: newId, name, email, message, date: today });
+            saveMessages();
+            
+            document.getElementById('msgName').value = '';
+            document.getElementById('msgEmail').value = '';
+            document.getElementById('msgText').value = '';
+            
+            alert('Message sent successfully!');
+        }
+        
+        function deleteMessage(id) {
+            if (confirm('Delete this message?')) {
+                messages = messages.filter(m => m.id !== id);
+                saveMessages();
+            }
+        }
+        
+        function editMessage(id) {
+            const msg = messages.find(m => m.id === id);
+            const newMsg = prompt('Edit message:', msg.message);
+            if (newMsg && newMsg.trim()) {
+                msg.message = newMsg.trim();
+                saveMessages();
+            }
+        }
+        
+        function deleteAllMessages() {
+            if (confirm('⚠️ Delete ALL messages? This cannot be undone!')) {
+                messages = [];
+                saveMessages();
+            }
+        }
+        
+        document.getElementById('sendMsgBtn').addEventListener('click', sendMessage);
+        document.getElementById('deleteAllMsgsBtn').addEventListener('click', deleteAllMessages);
+        
+        renderMessages();
+        
+        // ========== RUNNING CAT ==========
+        let cpu = 0, dir = 1;
+        const catEl = document.querySelector('.cat-run');
+        function updateCPU() {
+            cpu += dir * (Math.random() * 10);
+            if (cpu >= 100) { cpu = 100; dir = -1; }
+            else if (cpu <= 0) { cpu = 0; dir = 1; }
+            document.querySelector('.cpu-percent').textContent = Math.floor(cpu);
+            document.querySelector('.cpu-fill').style.width = Math.floor(cpu) + '%';
+            let p = Math.floor(cpu);
+            if (p < 20) { catEl.className = 'cat-run cat-walk'; catEl.textContent = '🐱'; }
+            else if (p < 40) { catEl.className = 'cat-run cat-jog'; catEl.textContent = '🐱‍🏃'; }
+            else if (p < 60) { catEl.className = 'cat-run cat-run'; catEl.textContent = '🐈‍⬛'; }
+            else if (p < 80) { catEl.className = 'cat-run cat-sprint'; catEl.textContent = '🐈‍⬛💨'; }
+            else { catEl.className = 'cat-run cat-zoom'; catEl.textContent = '💨😾💨'; }
+            setTimeout(updateCPU, 500);
+        }
+        updateCPU();
+        
+        function loadSocialLinks() {
+            const links = JSON.parse(localStorage.getItem('socialLinks')) || { linkedin: '#', github: '#', twitter: '#', instagram: '#' };
+            const icons = document.querySelectorAll('.social-icons a');
+            if (icons[0]) icons[0].href = links.linkedin;
+            if (icons[1]) icons[1].href = links.github;
+            if (icons[2]) icons[2].href = links.twitter;
+            if (icons[3]) icons[3].href = links.instagram;
+        }
+        loadSocialLinks();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'login.html'; });
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+    </script>
 </body>
 </html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Prim - List of Death</title>
+    <style>
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(183, 75, 75, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #b74b4b;
+            box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2);
+        }
+        
+        .stat-card i {
+            font-size: 2.5rem;
+            color: #b74b4b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #b74b4b;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .global-progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .global-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #b74b4b, #ff6b6b);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .wishlist-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin: 2rem 0;
+        }
+        
+        .wishlist-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .wish-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            border-left: 3px solid #b74b4b;
+        }
+        
+        .wish-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+        
+        .wish-item.completed {
+            opacity: 0.6;
+            border-left-color: #00ff00;
+        }
+        
+        .wish-item.completed .wish-text {
+            text-decoration: line-through;
+        }
+        
+        .wish-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .wish-check {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #b74b4b;
+        }
+        
+        .wish-text {
+            font-size: 1.5rem;
+            color: white;
+            flex: 1;
+            word-break: break-word;
+        }
+        
+        .wish-edit-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            color: white;
+            padding: 0.8rem;
+            font-size: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .wish-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .wish-actions button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .edit-btn {
+            color: #ffc107;
+        }
+        
+        .edit-btn:hover {
+            color: #ffca2c;
+            transform: scale(1.1);
+            background: rgba(255, 193, 7, 0.2);
+        }
+        
+        .delete-btn {
+            color: #dc3545;
+        }
+        
+        .delete-btn:hover {
+            color: #ff4757;
+            transform: scale(1.1);
+            background: rgba(220, 53, 69, 0.2);
+        }
+        
+        .save-btn {
+            color: #28a745;
+        }
+        
+        .save-btn:hover {
+            color: #34ce57;
+            transform: scale(1.1);
+            background: rgba(40, 167, 69, 0.2);
+        }
+        
+        .add-wish-form {
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+        
+        .add-wish-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            color: white;
+            padding: 1rem;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .add-wish-input:focus {
+            outline: none;
+            border-color: #b74b4b;
+            box-shadow: 0 0 10px rgba(183, 75, 75, 0.3);
+        }
+        
+        .page-title {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #ccc;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #b74b4b;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .wish-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .wish-actions {
+                justify-content: flex-end;
+            }
+            
+            .add-wish-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="running-cat">
+        <div class="cat-run cat-walk">🐱</div>
+        <div class="cpu-meter">
+            <div>CPU: <span class="cpu-percent">0</span>%</div>
+            <div class="cpu-bar"><div class="cpu-fill"></div></div>
+        </div>
+    </div>
+    
+    <header>
+        <a href="index.html" class="logo">Prim</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="deathlist.html" class="active">List of Death</a>
+            <a href="favorites.html">Favorite Content</a>
+            <a href="contact.html">Contact</a>
+            <a href="pluto.html">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="hamburger" style="display: none;">☰</div>
+    </header>
+    
+    <section class="home">
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
+        <div class="home-content">
+            <h1 class="page-title">List of <span>Death</span></h1>
+            <p class="subtitle">⚡ Things I must do before I die</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-list"></i>
+                    <div class="stat-number" id="totalCount">0</div>
+                    <div class="stat-label">Total Wishes</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-hourglass-half"></i>
+                    <div class="stat-number" id="remainingCount">0</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Overall Progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="global-progress-bar">
+                    <div class="global-progress-fill" id="globalProgressFill"></div>
+                </div>
+            </div>
+            
+            <div class="wishlist-container" id="wishlistContainer"></div>
+            
+            <div class="add-wish-form">
+                <input type="text" class="add-wish-input" id="newWishInput" placeholder="Add a new wish... (e.g., Skydive in Dubai)">
+                <button class="btn" id="addWishBtn" style="padding: 1rem 2rem; margin: 0;">➕ Add Wish</button>
+            </div>
+            
+            <div class="social-icons" id="socialIcons">
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'login.html';
+        if (localStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        // ========== WISHLIST DATA ==========
+        let wishes = JSON.parse(localStorage.getItem('deathListWishes')) || [
+            { id: 1, text: "🪂 Skydive in New Zealand", completed: false },
+            { id: 2, text: "📝 Write a bestselling novel", completed: false },
+            { id: 3, text: "🌍 Visit all 7 continents", completed: false },
+            { id: 4, text: "🎹 Learn to play piano", completed: false },
+            { id: 5, text: "🏥 Start a charity foundation", completed: false },
+            { id: 6, text: "🏔️ Climb Mount Everest", completed: false },
+            { id: 7, text: "🚗 Road trip across USA", completed: false },
+            { id: 8, text: "📸 Learn professional photography", completed: false },
+            { id: 9, text: "🇯🇵 Live in Japan for a year", completed: false },
+            { id: 10, text: "🎓 Get a PhD", completed: false }
+        ];
+        
+        let editingId = null;
+        
+        function saveWishes() {
+            localStorage.setItem('deathListWishes', JSON.stringify(wishes));
+            renderWishes();
+            updateStats();
+        }
+        
+        function updateStats() {
+            const total = wishes.length;
+            const completed = wishes.filter(w => w.completed).length;
+            const remaining = total - completed;
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+            
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('remainingCount').textContent = remaining;
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('globalProgressFill').style.width = percent + '%';
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function renderWishes() {
+            const container = document.getElementById('wishlistContainer');
+            
+            if (wishes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-skull"></i>
+                        <p>No wishes yet. Add your first wish above!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = wishes.map(wish => `
+                <div class="wish-item ${wish.completed ? 'completed' : ''}" data-id="${wish.id}">
+                    <div class="wish-content">
+                        <input type="checkbox" class="wish-check" ${wish.completed ? 'checked' : ''} onchange="toggleComplete(${wish.id})">
+                        ${editingId === wish.id ? 
+                            `<input type="text" class="wish-edit-input" id="editInput-${wish.id}" value="${escapeHtml(wish.text)}">` :
+                            `<span class="wish-text">${escapeHtml(wish.text)}</span>`
+                        }
+                    </div>
+                    <div class="wish-actions">
+                        ${editingId === wish.id ? 
+                            `<button class="save-btn" onclick="saveEdit(${wish.id})"><i class="fas fa-save"></i></button>
+                             <button class="delete-btn" onclick="cancelEdit()"><i class="fas fa-times"></i></button>` :
+                            `<button class="edit-btn" onclick="startEdit(${wish.id})"><i class="fas fa-edit"></i></button>
+                             <button class="delete-btn" onclick="deleteWish(${wish.id})"><i class="fas fa-trash"></i></button>`
+                        }
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleComplete(id) {
+            const wish = wishes.find(w => w.id === id);
+            if (wish) {
+                wish.completed = !wish.completed;
+                saveWishes();
+            }
+        }
+        
+        function startEdit(id) {
+            editingId = id;
+            renderWishes();
+            const editInput = document.getElementById(`editInput-${id}`);
+            if (editInput) {
+                editInput.focus();
+                editInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') saveEdit(id);
+                });
+            }
+        }
+        
+        function saveEdit(id) {
+            const editInput = document.getElementById(`editInput-${id}`);
+            const newText = editInput.value.trim();
+            if (newText) {
+                const wish = wishes.find(w => w.id === id);
+                if (wish) wish.text = newText;
+            }
+            editingId = null;
+            saveWishes();
+        }
+        
+        function cancelEdit() {
+            editingId = null;
+            renderWishes();
+        }
+        
+        function deleteWish(id) {
+            if (confirm('⚠️ Are you sure you want to delete this wish?')) {
+                wishes = wishes.filter(w => w.id !== id);
+                if (editingId === id) editingId = null;
+                saveWishes();
+            }
+        }
+        
+        function addWish() {
+            const input = document.getElementById('newWishInput');
+            const text = input.value.trim();
+            
+            if (text === '') {
+                alert('Please enter a wish!');
+                return;
+            }
+            
+            const newId = wishes.length > 0 ? Math.max(...wishes.map(w => w.id)) + 1 : 1;
+            wishes.push({ id: newId, text: text, completed: false });
+            input.value = '';
+            saveWishes();
+        }
+        
+        document.getElementById('addWishBtn').addEventListener('click', addWish);
+        document.getElementById('newWishInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addWish();
+        });
+        
+        // Initialize
+        renderWishes();
+        updateStats();
+        
+        // ========== RUNNING CAT ==========
+        let cpu = 0, dir = 1;
+        const catEl = document.querySelector('.cat-run');
+        function updateCPU() {
+            cpu += dir * (Math.random() * 10);
+            if (cpu >= 100) { cpu = 100; dir = -1; }
+            else if (cpu <= 0) { cpu = 0; dir = 1; }
+            document.querySelector('.cpu-percent').textContent = Math.floor(cpu);
+            document.querySelector('.cpu-fill').style.width = Math.floor(cpu) + '%';
+            let p = Math.floor(cpu);
+            if (p < 20) { catEl.className = 'cat-run cat-walk'; catEl.textContent = '🐱'; }
+            else if (p < 40) { catEl.className = 'cat-run cat-jog'; catEl.textContent = '🐱‍🏃'; }
+            else if (p < 60) { catEl.className = 'cat-run cat-run'; catEl.textContent = '🐈‍⬛'; }
+            else if (p < 80) { catEl.className = 'cat-run cat-sprint'; catEl.textContent = '🐈‍⬛💨'; }
+            else { catEl.className = 'cat-run cat-zoom'; catEl.textContent = '💨😾💨'; }
+            setTimeout(updateCPU, 500);
+        }
+        updateCPU();
+        
+        function loadSocialLinks() {
+            const links = JSON.parse(localStorage.getItem('socialLinks')) || { linkedin: '#', github: '#', twitter: '#', instagram: '#' };
+            const icons = document.querySelectorAll('.social-icons a');
+            if (icons[0]) icons[0].href = links.linkedin;
+            if (icons[1]) icons[1].href = links.github;
+            if (icons[2]) icons[2].href = links.twitter;
+            if (icons[3]) icons[3].href = links.instagram;
+        }
+        loadSocialLinks();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'login.html'; });
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+    </script>
+</body>
+</html>
