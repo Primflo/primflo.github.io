@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Prim - Education</title>
+    <style>
+        /* Additional styles just for education page content */
+        .education-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .education-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #b74b4b;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            transition: 0.3s ease;
+        }
+        
+        .education-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .education-card h3 {
+            font-size: 2.5rem;
+            color: #b74b4b;
+            margin-bottom: 1rem;
+        }
+        
+        .education-card .institution {
+            font-size: 1.8rem;
+            color: #ccc;
+            margin-bottom: 0.5rem;
+        }
+        
+        .education-card .year {
+            font-size: 1.4rem;
+            color: #b74b4b;
+            margin-bottom: 1rem;
+        }
+        
+        .education-card p {
+            font-size: 1.6rem;
+            line-height: 1.6;
+        }
+        
+        .page-title {
+            font-size: 4rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+        
+        .page-title span {
+            color: #b74b4b;
+        }
+        
+        @media (max-width: 995px) {
+            .education-card {
+                padding: 1.5rem;
+            }
+            
+            .education-card h3 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Prim</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html" class="active">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    
+    <section class="home">
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
+        <div class="home-content">
+            <h1 class="page-title">My <span>Education</span></h1>
+            
+            <div class="education-container">
+                <div class="education-card">
+                    <h3>Master's Degree in Computer Science</h3>
+                    <div class="institution">Stanford University</div>
+                    <div class="year">2022 - 2024</div>
+                    <p>Specialized in Artificial Intelligence and Machine Learning. Graduated with Honors. Thesis on "Neural Networks for Computer Vision".</p>
+                </div>
+                
+                <div class="education-card">
+                    <h3>Bachelor's Degree in Software Engineering</h3>
+                    <div class="institution">University of Technology</div>
+                    <div class="year">2018 - 2022</div>
+                    <p>Graduated with First Class Honors. Focused on Web Development, Database Management, and Software Architecture.</p>
+                </div>
+                
+                <div class="education-card">
+                    <h3>High School Diploma</h3>
+                    <div class="institution">International School</div>
+                    <div class="year">2016 - 2018</div>
+                    <p>Science Major with Computer Science elective. Achieved top scores in Mathematics and Physics.</p>
+                </div>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <a href="contact.html" class="btn">Contact Me</a>
+        </div>
+    </section>
+</body>
+</html>
