@@ -7,9 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <title>Prim - Education</title>
     <style>
-        /* Additional styles just for education page content */
         .education-container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
         }
         
@@ -52,21 +51,62 @@
         
         .page-title {
             font-size: 4rem;
-            margin-bottom: 4rem;
-            text-align: center;
+            margin-bottom: 1rem;
         }
         
         .page-title span {
             color: #b74b4b;
         }
         
-        @media (max-width: 995px) {
-            .education-card {
-                padding: 1.5rem;
+        .poet-line {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 600;
+            min-width: 280px;
+        }
+        
+        .poet-line span {
+            color: #b74b4b;
+            position: relative;
+        }
+        
+        .poet-line span::before {
+            content: "Lifelong Learner";
+            color: #b74b4b;
+            animation: eduWords 20s infinite;
+        }
+        
+        .poet-line span::after {
+            content: "";
+            background-color: black;
+            position: absolute;
+            width: calc(100% + 8px);
+            height: 100%;
+            border-left: 3px solid black;
+            right: -8;
+            animation: cursor 0.6s infinite;
+        }
+        
+        @keyframes cursor {
+            to {
+                border-left: 3px solid #b74b4b;
             }
-            
+        }
+        
+        @keyframes eduWords {
+            0%, 25% { content: "📚 Lifelong Learner"; }
+            26%, 50% { content: "🎓 CS Student"; }
+            51%, 75% { content: "📖 Knowledge Seeker"; }
+            76%, 100% { content: "✨ Always Learning"; }
+        }
+        
+        @media (max-width: 995px) {
             .education-card h3 {
                 font-size: 2rem;
+            }
+            
+            .poet-line {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -75,13 +115,15 @@
     <header>
         <a href="index.html" class="logo">Prim</a>
         <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="skills.html">Skills</a>
-    <a href="education.html">Education</a>
-    <a href="experience.html">Experience</a>
-    <a href="contact.html">Contact</a>
-</nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html" class="active">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="deathlist.html">List of Death</a>
+            <a href="login.html">Login</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </header>
     
     <section class="home">
@@ -90,6 +132,7 @@
         </div>
         <div class="home-content">
             <h1 class="page-title">My <span>Education</span></h1>
+            <h3 class="poet-line">I'm a <span></span></h3>
             
             <div class="education-container">
                 <div class="education-card">
