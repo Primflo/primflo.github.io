@@ -111,7 +111,7 @@ const VALID_PASS = "admin123";
 
 // Check existing session
 if (localStorage.getItem('isLoggedIn') === 'true') {
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
 }
 
 const loginForm = document.getElementById('loginForm');
