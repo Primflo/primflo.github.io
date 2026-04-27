@@ -2,9 +2,9 @@
 const VALID_USER = "admin";
 const VALID_PASS = "admin123";
 
-// Check if already logged into Pluto
-if (localStorage.getItem('isPlutoLoggedIn') === 'true') {
-    window.location.href = 'pluto.html';
+// Check if already logged into Pluto (using sessionStorage)
+if (sessionStorage.getItem('isPlutoLoggedIn') === 'true') {
+    window.location.href = 'notebook.html';
 }
 
 const loginForm = document.getElementById('loginForm');
@@ -17,8 +17,8 @@ if (loginForm) {
         const password = document.getElementById('password').value;
 
         if (username === VALID_USER && password === VALID_PASS) {
-            localStorage.setItem('isPlutoLoggedIn', 'true');
-            window.location.href = 'pluto.html';
+            sessionStorage.setItem('isPlutoLoggedIn', 'true');
+            window.location.href = 'notebook.html';
         } else {
             errorDiv.textContent = '❌ Access Denied';
             errorDiv.style.display = 'block';
