@@ -65,9 +65,9 @@
     </div>
     
     <script>
-        // ========== LOGIN CHECK (CHANGED: now points to whale-login folder) ==========
+        // ========== LOGIN CHECK (points to whale folder) ==========
         if (localStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.href = 'whale-login/';
+            window.location.href = 'whale/';
         }
         
         // Show admin link if admin
@@ -172,13 +172,13 @@
             }
         });
         
-        // ========== LOGOUT (CHANGED: now redirects to whale-login folder) ==========
+        // ========== LOGOUT (redirects to whale folder) ==========
         document.getElementById('logoutBtn').addEventListener('click', function(e) {
             e.preventDefault();
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('isAdmin');
             localStorage.removeItem('username');
-            window.location.href = 'whale-login/';
+            window.location.href = 'whale/';
         });
         
         // ========== MOBILE MENU ==========
