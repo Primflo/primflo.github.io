@@ -124,9 +124,10 @@ if (loginForm) {
         const password = document.getElementById('password').value;
 
         if (username === VALID_USER && password === VALID_PASS) {
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('isAdmin', 'true');
-            window.location.href = 'index.html';
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('isAdmin', 'true');
+    window.location.href = '../index.html';
+}
         } else {
             errorDiv.textContent = '❄️ Invalid username or password';
             errorDiv.style.display = 'block';
