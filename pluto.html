@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Pluto...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+        .redirect-container {
+            text-align: center;
+        }
+        .pluto-icon {
+            font-size: 4rem;
+            animation: floatIcon 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        h1 {
+            color: #dc3545;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+        p {
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="pluto-icon">🌑</div>
+        <h1>Redirecting to Pluto...</h1>
+        <p>Please wait...</p>
+    </div>
+
+    <script>
+        // Redirect to the Pluto login page
+        window.location.href = 'pluto/';
+    </script>
+</body>
+</html>
