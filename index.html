@@ -7,88 +7,144 @@
     <link rel="stylesheet" href="style.css">
     <title>Prim - Home</title>
     <style>
-        /* Video Background */
-        #bgVideo {
+        /* ========= LOADING SCREEN ========= */
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: -1;
+            background: #000000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
         }
         
-        /* Ensure content is above video */
-        body {
-            background: transparent;
-            position: relative;
+        .loading-screen.hide {
+            opacity: 0;
+            pointer-events: none;
         }
         
+        .loader {
+            text-align: center;
+        }
+        
+        .loader .whale-icon {
+            font-size: 4rem;
+            animation: floatLoader 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes floatLoader {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .loader p {
+            color: #3aa8ff;
+            margin-top: 20px;
+            font-family: 'Poppins', system-ui, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        /* Main content - hidden until ready */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .main-content.visible {
+            opacity: 1;
+        }
+        
+        /* Hide cat widget */
         .running-cat {
             display: none !important;
         }
         
-        header, .home, .modal {
-            position: relative;
-            z-index: 1;
+        /* Black background */
+        body {
+            background: #000000;
         }
     </style>
 </head>
 <body>
 
-    <!-- Video Background -->
-    <video autoplay loop muted playsinline id="bgVideo">
-        <source src="whale.mp4" type="video/mp4">
-    </video>
-
-    <header>
-        <a href="index.html" class="logo">Prim</a>
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="services.html">Services</a>
-            <a href="skills.html">Skills</a>
-            <a href="education.html">Education</a>
-            <a href="experience.html">Experience</a>
-            <a href="deathlist.html">List of Death</a>
-            <a href="favorites.html">Favorite Content</a>
-            <a href="contact.html">Contact</a>
-            <a href="pluto.html">Pluto</a>
-            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
-            <a href="#" id="logoutBtn">Logout</a>
-        </nav>
-        <div class="hamburger" style="display: none; font-size: 30px; cursor: pointer;">☰</div>
-    </header>
-    
-    <section class="home">
-        <div class="home-img">
-            <img src="main.jpg" alt="Prim">
-        </div>
-        <div class="home-content">
-            <h1>Hi, It's <span>Prim</span></h1>
-            <h3 class="typing-text">I'm a <span></span></h3>
-            <p>Welcome to my creative portfolio! I'm a passionate developer who loves building amazing web experiences. With expertise in modern web technologies, I create responsive, beautiful, and functional websites that leave a lasting impression.</p>
-            <div class="social-icons" id="socialIcons">
-                <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="#" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-            <button class="btn" id="workWithMeBtn">Work With Me</button>
-        </div>
-    </section>
-    
-    <!-- Image Modal -->
-    <div id="imageModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <img src="main.jpg" alt="Prim">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="whale-icon">🐋</div>
+            <p>Verifying Access...</p>
         </div>
     </div>
-    
+
+    <!-- Main Content (Hidden until login check) -->
+    <div class="main-content" id="mainContent">
+        <header>
+            <a href="index.html" class="logo">Prim</a>
+            <nav>
+                <a href="index.html" class="active">Home</a>
+                <a href="services.html">Services</a>
+                <a href="skills.html">Skills</a>
+                <a href="education.html">Education</a>
+                <a href="experience.html">Experience</a>
+                <a href="deathlist.html">List of Death</a>
+                <a href="favorites.html">Favorite Content</a>
+                <a href="contact.html">Contact</a>
+                <a href="pluto.html">Pluto</a>
+                <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+                <a href="#" id="logoutBtn">Logout</a>
+            </nav>
+            <div class="hamburger" style="display: none; font-size: 30px; cursor: pointer;">☰</div>
+        </header>
+        
+        <section class="home">
+            <div class="home-img">
+                <img src="main.jpg" alt="Prim">
+            </div>
+            <div class="home-content">
+                <h1>Hi, It's <span>Prim</span></h1>
+                <h3 class="typing-text">I'm a <span></span></h3>
+                <p>Welcome to my creative portfolio! I'm a passionate developer who loves building amazing web experiences. With expertise in modern web technologies, I create responsive, beautiful, and functional websites that leave a lasting impression.</p>
+                <div class="social-icons" id="socialIcons">
+                    <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <button class="btn" id="workWithMeBtn">Work With Me</button>
+            </div>
+        </section>
+        
+        <!-- Image Modal -->
+        <div id="imageModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img src="main.jpg" alt="Prim">
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ========== LOGIN CHECK ==========
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
+        // ========== LOADING SCREEN & LOGIN CHECK ==========
+        const loadingScreen = document.getElementById('loadingScreen');
+        const mainContent = document.getElementById('mainContent');
+        
+        // Check login status
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        if (!isLoggedIn) {
+            // Not logged in - redirect to whale login
             window.location.href = 'whale/';
+        } else {
+            // Logged in - show main content
+            setTimeout(() => {
+                loadingScreen.classList.add('hide');
+                mainContent.classList.add('visible');
+            }, 500);
         }
         
         // Show admin link if admin
@@ -139,19 +195,22 @@
         }
         
         // ========== LOGOUT ==========
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('isAdmin');
-            localStorage.removeItem('username');
-            window.location.href = 'whale/';
-        });
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('isAdmin');
+                localStorage.removeItem('username');
+                window.location.href = 'whale/';
+            });
+        }
         
         // ========== MOBILE MENU ==========
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('nav');
         
-        if (window.innerWidth <= 995) {
+        if (window.innerWidth <= 995 && hamburger) {
             hamburger.style.display = 'block';
         }
         
@@ -164,7 +223,7 @@
         window.addEventListener('resize', () => {
             if (window.innerWidth > 995) {
                 if (hamburger) hamburger.style.display = 'none';
-                nav.classList.remove('active');
+                if (nav) nav.classList.remove('active');
             } else {
                 if (hamburger) hamburger.style.display = 'block';
             }
@@ -172,7 +231,7 @@
         
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
-                nav.classList.remove('active');
+                if (nav) nav.classList.remove('active');
             });
         });
     </script>
