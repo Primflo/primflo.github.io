@@ -62,12 +62,23 @@ defs = '<defs><linearGradient gradientTransform="matrix(0 -2038 1116.5 0 -157 26
   ]
 
   function init() {
+    // Mouse support for desktop
     document.addEventListener('mousemove', mousemove);
+    // Touch support for mobile
+    document.addEventListener('touchmove', touchmove);
+    document.addEventListener('touchstart', touchmove);
     setInterval(loop, 1000/fps);
   }
 
   function mousemove(e) {
     mouse = {x: e.clientX, y: e.clientY}
+  }
+
+  function touchmove(e) {
+    e.preventDefault();
+    if (e.touches && e.touches.length > 0) {
+      mouse = {x: e.touches[0].clientX, y: e.touches[0].clientY};
+    }
   }
 
   function loop() {
