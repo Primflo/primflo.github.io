@@ -120,8 +120,8 @@ defs = '<defs><linearGradient gradientTransform="matrix(0 -2038 1116.5 0 -157 26
 const VALID_USER = "admin";
 const VALID_PASS = "admin123";
 
-// Check existing session
-if (localStorage.getItem('isLoggedIn') === 'true') {
+// Check existing session - FIXED: use sessionStorage
+if (sessionStorage.getItem('isLoggedIn') === 'true') {
     window.location.href = '../index.html';
 }
 
