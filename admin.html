@@ -18,31 +18,32 @@
             font-size: 2.5rem;
             margin-bottom: 2rem;
             min-width: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        .typing-subtitle span {
+        .typing-subtitle .prefix {
+            color: white;
+        }
+        .typing-subtitle .name {
             color: #b74b4b;
+            font-weight: bold;
             position: relative;
+            display: inline-block;
+            min-width: 120px;
+            text-align: left;
         }
-        .typing-subtitle span::before {
-            content: "Pritam";
-            color: #b74b4b;
-            animation: adminWords 4s infinite;
-        }
-        .typing-subtitle span::after {
-            content: "";
-            background-color: black;
+        .typing-subtitle .name::after {
+            content: "|";
             position: absolute;
-            width: calc(100% + 8px);
-            height: 100%;
-            border-left: 3px solid black;
             right: -8px;
-            animation: cursor 0.6s infinite;
+            animation: blink 0.8s infinite;
         }
-        @keyframes cursor {
-            to { border-left: 3px solid #b74b4b; }
-        }
-        @keyframes adminWords {
-            0%, 100% { content: "Pritam"; }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
         .running-cat {
             display: none !important;
@@ -50,22 +51,8 @@
         .admin-container {
             text-align: center;
         }
-        .admin-img {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 2rem;
-            border: 3px solid #b74b4b;
-            transition: all 0.3s ease;
-        }
-        .admin-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(183, 75, 75, 0.6);
-        }
         @media (max-width: 768px) {
             .typing-subtitle { font-size: 1.8rem; }
-            .admin-img { width: 180px; height: 180px; }
         }
     </style>
 </head>
@@ -96,7 +83,8 @@
             <h1 class="page-title">Admin <span>Panel</span></h1>
             
             <div class="typing-subtitle">
-                I am <span></span>
+                <span class="prefix">I am</span>
+                <span class="name" id="typedName"></span>
             </div>
             
             <div class="social-icons">
@@ -115,6 +103,21 @@
         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = 'whale/';
         }
+        
+        // ========== TYPING ANIMATION ==========
+        const name = "Pritam";
+        const nameElement = document.getElementById('typedName');
+        let index = 0;
+        
+        function typeName() {
+            if (index < name.length) {
+                nameElement.textContent += name.charAt(index);
+                index++;
+                setTimeout(typeName, 150);
+            }
+        }
+        
+        typeName();
         
         // ========== LOGOUT ==========
         document.getElementById('logoutBtn').addEventListener('click', function(e) {
