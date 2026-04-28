@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Prim - Contact</title>
@@ -14,7 +14,6 @@
             margin-bottom: 2rem;
             justify-content: space-between;
         }
-        
         .info-card {
             flex: 1;
             background: rgba(255, 255, 255, 0.05);
@@ -24,103 +23,24 @@
             border: 1px solid rgba(183, 75, 75, 0.3);
             transition: all 0.3s ease;
         }
-        
         .info-card:hover {
             transform: translateY(-5px);
             border-color: #b74b4b;
             box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2);
         }
-        
-        .info-card i {
-            font-size: 2.5rem;
-            color: #b74b4b;
-            margin-bottom: 0.5rem;
-        }
-        
-        .info-card h4 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .info-card p {
-            font-size: 1.3rem;
-            color: #ccc;
-        }
-        
-        .contact-form {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 2rem;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(183, 75, 75, 0.3);
-            border-radius: 10px;
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #b74b4b;
-            box-shadow: 0 0 10px rgba(183, 75, 75, 0.3);
-        }
-        
-        .form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        
-        .messages-section {
+        .info-card i { font-size: 2.5rem; color: #b74b4b; margin-bottom: 0.5rem; }
+        .info-card h4 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .info-card p { font-size: 1.3rem; color: #ccc; }
+        .page-title { font-size: 4rem; margin-bottom: 2rem; }
+        .page-title span { color: #b74b4b; }
+        .contact-list {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
             padding: 1.5rem;
+            margin-top: 2rem;
         }
-        
-        .messages-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .messages-header h3 {
-            color: #b74b4b;
-            font-size: 1.8rem;
-        }
-        
-        .delete-all-btn {
-            background: rgba(220, 53, 69, 0.2);
-            border: 1px solid #dc3545;
-            color: #dc3545;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .delete-all-btn:hover {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .messages-container {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .message-item {
+        .contact-list h3 { color: #b74b4b; font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .contact-item {
             background: rgba(255, 255, 255, 0.05);
             padding: 1rem;
             margin-bottom: 1rem;
@@ -128,86 +48,48 @@
             border-left: 3px solid #b74b4b;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
-        
-        .message-content {
-            flex: 1;
-        }
-        
-        .message-name {
-            font-weight: bold;
-            color: #b74b4b;
-            margin-bottom: 0.3rem;
-        }
-        
-        .message-email {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 0.5rem;
-        }
-        
-        .message-text {
-            font-size: 1.4rem;
-            color: #ddd;
-        }
-        
-        .message-date {
-            font-size: 1.1rem;
-            color: #666;
-            margin-top: 0.5rem;
-        }
-        
-        .message-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .message-actions button {
+        .contact-info-text { flex: 1; }
+        .contact-name { font-weight: bold; color: #b74b4b; font-size: 1.5rem; }
+        .contact-phone { font-size: 1.3rem; color: #ccc; }
+        .contact-actions { display: flex; gap: 0.5rem; }
+        .contact-actions button {
             background: transparent;
             border: none;
             cursor: pointer;
             font-size: 1.4rem;
             padding: 0.3rem;
             border-radius: 5px;
-            transition: all 0.3s ease;
         }
-        
-        .edit-msg-btn { color: #ffc107; }
-        .delete-msg-btn { color: #dc3545; }
-        
-        .page-title {
-            font-size: 4rem;
+        .add-contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
             margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
-        
-        .page-title span {
-            color: #b74b4b;
+        .add-contact-form input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.4rem;
         }
-        
-        .empty-messages {
-            text-align: center;
-            padding: 2rem;
-            color: #888;
-        }
-        
+        .running-cat { display: none !important; }
         @media (max-width: 768px) {
             .contact-info { flex-direction: column; }
-            .message-item { flex-direction: column; }
-            .message-actions { justify-content: flex-end; width: 100%; }
+            .add-contact-form { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="running-cat">
-        <div class="cat-run cat-walk">🐱</div>
-        <div class="cpu-meter">
-            <div>CPU: <span class="cpu-percent">0</span>%</div>
-            <div class="cpu-bar"><div class="cpu-fill"></div></div>
-        </div>
-    </div>
-    
     <header>
         <a href="index.html" class="logo">Prim</a>
         <nav>
@@ -231,7 +113,7 @@
             <img src="main.jpg" alt="Prim">
         </div>
         <div class="home-content">
-            <h1 class="page-title">Contact <span>Me</span></h1>
+            <h1 class="page-title">Contact <span>List</span></h1>
             
             <div class="contact-info">
                 <div class="info-card">
@@ -251,69 +133,55 @@
                 </div>
             </div>
             
-            <div class="contact-form">
-                <div class="form-group">
-                    <input type="text" id="msgName" placeholder="Your Name">
-                </div>
-                <div class="form-group">
-                    <input type="email" id="msgEmail" placeholder="Your Email">
-                </div>
-                <div class="form-group">
-                    <textarea id="msgText" placeholder="Your Message"></textarea>
-                </div>
-                <button class="btn" id="sendMsgBtn" style="width: 100%;">✉️ Send Message</button>
+            <div class="add-contact-form">
+                <input type="text" id="contactName" placeholder="Name">
+                <input type="tel" id="contactPhone" placeholder="Phone Number">
+                <button class="btn" id="addContactBtn" style="padding: 1rem 2rem; margin: 0;">➕ Add Contact</button>
             </div>
             
-            <div class="messages-section">
-                <div class="messages-header">
-                    <h3><i class="fas fa-comments"></i> Messages</h3>
-                    <button class="delete-all-btn" id="deleteAllMsgsBtn">🗑️ Delete All</button>
-                </div>
-                <div class="messages-container" id="messagesContainer"></div>
+            <div class="contact-list">
+                <h3><i class="fas fa-address-book"></i> My Contacts</h3>
+                <div id="contactsContainer"></div>
             </div>
             
-            <div class="social-icons" id="socialIcons">
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <div class="social-icons">
+                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
     </section>
 
     <script>
-        if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'login.html';
-        if (localStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
+        if (sessionStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
         
-        // ========== MESSAGES CRUD ==========
-        let messages = JSON.parse(localStorage.getItem('contactMessages')) || [
-            { id: 1, name: "John Doe", email: "john@example.com", message: "Great portfolio! Let's work together.", date: "2024-01-15" },
-            { id: 2, name: "Jane Smith", email: "jane@example.com", message: "I love your design style!", date: "2024-01-20" }
+        let contacts = JSON.parse(sessionStorage.getItem('contacts')) || [
+            { id: 1, name: "John Doe", phone: "+1 234 567 8900" },
+            { id: 2, name: "Jane Smith", phone: "+1 987 654 3210" }
         ];
         
-        function saveMessages() {
-            localStorage.setItem('contactMessages', JSON.stringify(messages));
-            renderMessages();
+        function saveContacts() {
+            sessionStorage.setItem('contacts', JSON.stringify(contacts));
+            renderContacts();
         }
         
-        function renderMessages() {
-            const container = document.getElementById('messagesContainer');
-            if (messages.length === 0) {
-                container.innerHTML = '<div class="empty-messages"><i class="fas fa-inbox"></i><p>No messages yet</p></div>';
+        function renderContacts() {
+            const container = document.getElementById('contactsContainer');
+            if (contacts.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;">No contacts yet. Add one above!</div>';
                 return;
             }
-            
-            container.innerHTML = messages.map(msg => `
-                <div class="message-item" data-id="${msg.id}">
-                    <div class="message-content">
-                        <div class="message-name">${escapeHtml(msg.name)}</div>
-                        <div class="message-email">${escapeHtml(msg.email)}</div>
-                        <div class="message-text">${escapeHtml(msg.message)}</div>
-                        <div class="message-date">${msg.date}</div>
+            container.innerHTML = contacts.map(contact => `
+                <div class="contact-item">
+                    <div class="contact-info-text">
+                        <div class="contact-name">${escapeHtml(contact.name)}</div>
+                        <div class="contact-phone">📞 ${escapeHtml(contact.phone)}</div>
                     </div>
-                    <div class="message-actions">
-                        <button class="edit-msg-btn" onclick="editMessage(${msg.id})"><i class="fas fa-edit"></i></button>
-                        <button class="delete-msg-btn" onclick="deleteMessage(${msg.id})"><i class="fas fa-trash"></i></button>
+                    <div class="contact-actions">
+                        <button onclick="editContact(${contact.id})" style="color:#ffc107;"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteContact(${contact.id})" style="color:#dc3545;"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             `).join('');
@@ -325,92 +193,42 @@
             return div.innerHTML;
         }
         
-        function sendMessage() {
-            const name = document.getElementById('msgName').value.trim();
-            const email = document.getElementById('msgEmail').value.trim();
-            const message = document.getElementById('msgText').value.trim();
-            
-            if (!name || !email || !message) {
-                alert('Please fill all fields!');
-                return;
-            }
-            
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('Please enter valid email!');
-                return;
-            }
-            
-            const newId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1;
-            const today = new Date().toISOString().split('T')[0];
-            
-            messages.unshift({ id: newId, name, email, message, date: today });
-            saveMessages();
-            
-            document.getElementById('msgName').value = '';
-            document.getElementById('msgEmail').value = '';
-            document.getElementById('msgText').value = '';
-            
-            alert('Message sent successfully!');
+        function addContact() {
+            const name = document.getElementById('contactName').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            if (!name || !phone) { alert('Please enter name and phone number!'); return; }
+            const newId = contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
+            contacts.push({ id: newId, name, phone });
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactPhone').value = '';
+            saveContacts();
         }
         
-        function deleteMessage(id) {
-            if (confirm('Delete this message?')) {
-                messages = messages.filter(m => m.id !== id);
-                saveMessages();
+        function editContact(id) {
+            const contact = contacts.find(c => c.id === id);
+            const newName = prompt('Edit name:', contact.name);
+            const newPhone = prompt('Edit phone number:', contact.phone);
+            if (newName && newName.trim()) contact.name = newName.trim();
+            if (newPhone && newPhone.trim()) contact.phone = newPhone.trim();
+            saveContacts();
+        }
+        
+        function deleteContact(id) {
+            if (confirm('Delete this contact?')) {
+                contacts = contacts.filter(c => c.id !== id);
+                saveContacts();
             }
         }
         
-        function editMessage(id) {
-            const msg = messages.find(m => m.id === id);
-            const newMsg = prompt('Edit message:', msg.message);
-            if (newMsg && newMsg.trim()) {
-                msg.message = newMsg.trim();
-                saveMessages();
-            }
-        }
+        document.getElementById('addContactBtn').addEventListener('click', addContact);
+        renderContacts();
         
-        function deleteAllMessages() {
-            if (confirm('⚠️ Delete ALL messages? This cannot be undone!')) {
-                messages = [];
-                saveMessages();
-            }
-        }
-        
-        document.getElementById('sendMsgBtn').addEventListener('click', sendMessage);
-        document.getElementById('deleteAllMsgsBtn').addEventListener('click', deleteAllMessages);
-        
-        renderMessages();
-        
-        // ========== RUNNING CAT ==========
-        let cpu = 0, dir = 1;
-        const catEl = document.querySelector('.cat-run');
-        function updateCPU() {
-            cpu += dir * (Math.random() * 10);
-            if (cpu >= 100) { cpu = 100; dir = -1; }
-            else if (cpu <= 0) { cpu = 0; dir = 1; }
-            document.querySelector('.cpu-percent').textContent = Math.floor(cpu);
-            document.querySelector('.cpu-fill').style.width = Math.floor(cpu) + '%';
-            let p = Math.floor(cpu);
-            if (p < 20) { catEl.className = 'cat-run cat-walk'; catEl.textContent = '🐱'; }
-            else if (p < 40) { catEl.className = 'cat-run cat-jog'; catEl.textContent = '🐱‍🏃'; }
-            else if (p < 60) { catEl.className = 'cat-run cat-run'; catEl.textContent = '🐈‍⬛'; }
-            else if (p < 80) { catEl.className = 'cat-run cat-sprint'; catEl.textContent = '🐈‍⬛💨'; }
-            else { catEl.className = 'cat-run cat-zoom'; catEl.textContent = '💨😾💨'; }
-            setTimeout(updateCPU, 500);
-        }
-        updateCPU();
-        
-        function loadSocialLinks() {
-            const links = JSON.parse(localStorage.getItem('socialLinks')) || { linkedin: '#', github: '#', twitter: '#', instagram: '#' };
-            const icons = document.querySelectorAll('.social-icons a');
-            if (icons[0]) icons[0].href = links.linkedin;
-            if (icons[1]) icons[1].href = links.github;
-            if (icons[2]) icons[2].href = links.twitter;
-            if (icons[3]) icons[3].href = links.instagram;
-        }
-        loadSocialLinks();
-        
-        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'login.html'; });
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAdmin');
+            window.location.href = 'whale/';
+        });
         
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('nav');
