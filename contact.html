@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Prim - Contact</title>
+    <style>
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: space-between;
+        }
+        .info-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(183, 75, 75, 0.3);
+            transition: all 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #b74b4b;
+            box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2);
+        }
+        .info-card i { font-size: 2.5rem; color: #b74b4b; margin-bottom: 0.5rem; }
+        .info-card h4 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .info-card p { font-size: 1.3rem; color: #ccc; }
+        .page-title { font-size: 4rem; margin-bottom: 2rem; }
+        .page-title span { color: #b74b4b; }
+        .contact-list {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .contact-list h3 { color: #b74b4b; font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid #b74b4b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .contact-info-text { flex: 1; }
+        .contact-name { font-weight: bold; color: #b74b4b; font-size: 1.5rem; }
+        .contact-phone { font-size: 1.3rem; color: #ccc; }
+        .contact-actions { display: flex; gap: 0.5rem; }
+        .contact-actions button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 0.3rem;
+            border-radius: 5px;
+        }
+        .add-contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .add-contact-form input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.4rem;
+        }
+        .running-cat { display: none !important; }
+        @media (max-width: 768px) {
+            .contact-info { flex-direction: column; }
+            .add-contact-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Prim</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="deathlist.html">List of Death</a>
+            <a href="favorites.html">Favorite Content</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="pluto.html">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="hamburger" style="display: none;">☰</div>
+    </header>
+    
+    <section class="home">
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
+        <div class="home-content">
+            <h1 class="page-title">Contact <span>List</span></h1>
+            
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email</h4>
+                    <p>prim@example.com</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <h4>Phone</h4>
+                    <p>+1 234 567 8900</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Location</h4>
+                    <p>New York, USA</p>
+                </div>
+            </div>
+            
+            <div class="add-contact-form">
+                <input type="text" id="contactName" placeholder="Name">
+                <input type="tel" id="contactPhone" placeholder="Phone Number">
+                <button class="btn" id="addContactBtn" style="padding: 1rem 2rem; margin: 0;">➕ Add Contact</button>
+            </div>
+            
+            <div class="contact-list">
+                <h3><i class="fas fa-address-book"></i> My Contacts</h3>
+                <div id="contactsContainer"></div>
+            </div>
+            
+            <div class="social-icons">
+                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
+        if (sessionStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        let contacts = JSON.parse(sessionStorage.getItem('contacts')) || [
+            { id: 1, name: "John Doe", phone: "+1 234 567 8900" },
+            { id: 2, name: "Jane Smith", phone: "+1 987 654 3210" }
+        ];
+        
+        function saveContacts() {
+            sessionStorage.setItem('contacts', JSON.stringify(contacts));
+            renderContacts();
+        }
+        
+        function renderContacts() {
+            const container = document.getElementById('contactsContainer');
+            if (contacts.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;">No contacts yet. Add one above!</div>';
+                return;
+            }
+            container.innerHTML = contacts.map(contact => `
+                <div class="contact-item">
+                    <div class="contact-info-text">
+                        <div class="contact-name">${escapeHtml(contact.name)}</div>
+                        <div class="contact-phone">📞 ${escapeHtml(contact.phone)}</div>
+                    </div>
+                    <div class="contact-actions">
+                        <button onclick="editContact(${contact.id})" style="color:#ffc107;"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteContact(${contact.id})" style="color:#dc3545;"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function addContact() {
+            const name = document.getElementById('contactName').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            if (!name || !phone) { alert('Please enter name and phone number!'); return; }
+            const newId = contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
+            contacts.push({ id: newId, name, phone });
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactPhone').value = '';
+            saveContacts();
+        }
+        
+        function editContact(id) {
+            const contact = contacts.find(c => c.id === id);
+            const newName = prompt('Edit name:', contact.name);
+            const newPhone = prompt('Edit phone number:', contact.phone);
+            if (newName && newName.trim()) contact.name = newName.trim();
+            if (newPhone && newPhone.trim()) contact.phone = newPhone.trim();
+            saveContacts();
+        }
+        
+        function deleteContact(id) {
+            if (confirm('Delete this contact?')) {
+                contacts = contacts.filter(c => c.id !== id);
+                saveContacts();
+            }
+        }
+        
+        document.getElementById('addContactBtn').addEventListener('click', addContact);
+        renderContacts();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAdmin');
+            window.location.href = 'whale/';
+        });
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+    </script>
+</body>
+</html>

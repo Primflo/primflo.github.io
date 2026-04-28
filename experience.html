@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Prim - Experience</title>
+    <style>
+        .experience-container { width: 100%; margin: 2rem 0; }
+        .experience-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+        }
+        .experience-card:hover { transform: translateX(5px); background: rgba(255, 255, 255, 0.08); }
+        .experience-card h3 { font-size: 2rem; color: #b74b4b; margin-bottom: 0.5rem; }
+        .mastery-label { font-size: 1.3rem; color: #b74b4b; margin-top: 1rem; display: flex; justify-content: space-between; }
+        .mastery-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .mastery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #b74b4b, #ffa500);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
+        }
+        .page-title { font-size: 4rem; margin-bottom: 2rem; }
+        .page-title span { color: #b74b4b; }
+        .typing-subtitle {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #b74b4b;
+            text-align: left;
+        }
+        .running-cat { display: none !important; }
+        @media (max-width: 995px) { .experience-card h3 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Prim</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html" class="active">Experience</a>
+            <a href="deathlist.html">List of Death</a>
+            <a href="favorites.html">Favorite Content</a>
+            <a href="contact.html">Contact</a>
+            <a href="pluto.html">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="hamburger" style="display: none;">☰</div>
+    </header>
+    
+    <section class="home">
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
+        <div class="home-content">
+            <h1 class="page-title">My <span>Experience</span></h1>
+            <div class="typing-subtitle">💀 Already Faced Reality 💀</div>
+            
+            <div class="experience-container" id="experienceContainer"></div>
+            
+            <div class="social-icons">
+                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <button class="btn" onclick="location.href='contact.html'">HUG ME</button>
+        </div>
+    </section>
+
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
+        if (sessionStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        const skills = [
+            { name: "HTML5", icon: "fab fa-html5", percent: 95 },
+            { name: "CSS3", icon: "fab fa-css3-alt", percent: 90 },
+            { name: "JavaScript", icon: "fab fa-js", percent: 88 },
+            { name: "React", icon: "fab fa-react", percent: 85 },
+            { name: "Python", icon: "fab fa-python", percent: 80 },
+            { name: "SQL", icon: "fas fa-database", percent: 75 },
+            { name: "🎨 Psychological Artist", icon: "fas fa-palette", percent: 40 },
+            { name: "🎵 Music Listener", icon: "fas fa-music", percent: 100 },
+            { name: "📺 Anime Watcher", icon: "fas fa-tv", percent: 90 },
+            { name: "🎭 K-Drama Watcher", icon: "fas fa-theater-masks", percent: 80 },
+            { name: "🔪 Killer", icon: "fas fa-skull", percent: 101 },
+            { name: "🧠 Psycho", icon: "fas fa-brain", percent: 101 }
+        ];
+        
+        function renderExperience() {
+            const container = document.getElementById('experienceContainer');
+            container.innerHTML = skills.map(skill => `
+                <div class="experience-card">
+                    <h3><i class="${skill.icon}"></i> ${skill.name}</h3>
+                    <div class="mastery-label">
+                        <span>Mastery Level</span>
+                        <span>${skill.percent}%</span>
+                    </div>
+                    <div class="mastery-bar">
+                        <div class="mastery-fill" style="width: ${Math.min(skill.percent, 100)}%"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        renderExperience();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAdmin');
+            window.location.href = 'whale/';
+        });
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+    </script>
+</body>
+</html>
