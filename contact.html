@@ -2,34 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Prim - Contact</title>
     <style>
-        .contact-info { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; justify-content: space-between; }
-        .info-card { flex: 1; background: rgba(255,255,255,0.05); border-radius: 15px; padding: 1.5rem; text-align: center; border: 1px solid rgba(183,75,75,0.3); transition: all 0.3s ease; }
-        .info-card:hover { transform: translateY(-5px); border-color: #b74b4b; }
-        .info-card i { font-size: 2.5rem; color: #b74b4b; margin-bottom: 0.5rem; }
-        .info-card h4 { font-size: 1.6rem; margin-bottom: 0.5rem; }
-        .info-card p { font-size: 1.3rem; color: #ccc; }
-        .page-title { font-size: 4rem; margin-bottom: 2rem; }
-        .page-title span { color: #b74b4b; }
-        .contact-list { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 1.5rem; margin-top: 2rem; }
-        .contact-list h3 { color: #b74b4b; font-size: 1.8rem; margin-bottom: 1.5rem; }
-        .contact-item { background: rgba(255,255,255,0.05); padding: 1rem; margin-bottom: 1rem; border-radius: 10px; border-left: 3px solid #b74b4b; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: space-between;
+        }
+        .info-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(183, 75, 75, 0.3);
+            transition: all 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #b74b4b;
+            box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2);
+        }
+        .info-card i {
+            font-size: 2.5rem;
+            color: #b74b4b;
+            margin-bottom: 0.5rem;
+        }
+        .info-card h4 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+        .info-card p {
+            font-size: 1.3rem;
+            color: #ccc;
+        }
+        .contact-list {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .contact-list h3 {
+            color: #b74b4b;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid #b74b4b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
         .contact-info-text { flex: 1; }
         .contact-name { font-weight: bold; color: #b74b4b; font-size: 1.5rem; }
         .contact-phone { font-size: 1.3rem; color: #ccc; }
         .contact-actions { display: flex; gap: 0.5rem; }
-        .contact-actions button { background: transparent; border: none; cursor: pointer; font-size: 1.4rem; padding: 0.3rem; border-radius: 5px; }
-        .add-contact-form { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-        .add-contact-form input { flex: 1; padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid #b74b4b; border-radius: 10px; color: white; font-size: 1.4rem; }
+        .contact-actions button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 0.3rem;
+            border-radius: 5px;
+        }
+        .add-contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .add-contact-form input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.4rem;
+        }
+        .page-title { font-size: 4rem; margin-bottom: 2rem; }
+        .page-title span { color: #b74b4b; }
         .running-cat { display: none !important; }
-        @media (max-width: 768px) { .contact-info { flex-direction: column; } .add-contact-form { flex-direction: column; } }
+        @media (max-width: 768px) {
+            .contact-info { flex-direction: column; }
+            .add-contact-form { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
+    <div class="running-cat" style="display:none;"></div>
+    
     <header>
         <a href="index.html" class="logo">Prim</a>
         <nav>
@@ -49,14 +125,28 @@
     </header>
     
     <section class="home">
-        <div class="home-img"><img src="main.jpg" alt="Prim"></div>
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
         <div class="home-content">
             <h1 class="page-title">Contact <span>List</span></h1>
             
             <div class="contact-info">
-                <div class="info-card"><i class="fas fa-envelope"></i><h4>Email</h4><p>prim@example.com</p></div>
-                <div class="info-card"><i class="fas fa-phone"></i><h4>Phone</h4><p>+1 234 567 8900</p></div>
-                <div class="info-card"><i class="fas fa-map-marker-alt"></i><h4>Location</h4><p>New York, USA</p></div>
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email</h4>
+                    <p>prim@example.com</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <h4>Phone</h4>
+                    <p>+1 234 567 8900</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Location</h4>
+                    <p>New York, USA</p>
+                </div>
             </div>
             
             <div class="add-contact-form">
@@ -70,35 +160,31 @@
                 <div id="contactsContainer"></div>
             </div>
             
-            <div class="social-icons">
-                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <div class="social-icons" id="socialIcons">
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ========== LOGIN CHECK ==========
-        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.href = 'whale/';
-        }
-        if (sessionStorage.getItem('isAdmin') === 'true') {
-            document.getElementById('adminLink').style.display = 'inline-block';
-        }
+        // ========== LOGIN CHECK (KEEP ORIGINAL) ==========
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
+        if (sessionStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
         
-        // ========== SUPABASE SETUP ==========
+        // ========== SUPABASE CONFIG ==========
         const SUPABASE_URL = 'https://oskmksbqwanpwtsiqlmt.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9za21rc2Jxd2FucHd0c2lxbG10Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNzA2OTksImV4cCI6MjA5Mjk0NjY5OX0.ctGblHlU19in0Re9-jFKuYPEL6mokgTcvdGDcpqf4xg';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         let contacts = [];
         
         async function loadContacts() {
             const { data, error } = await supabase.from('contacts').select('*').order('id', { ascending: false });
-            if (error) { console.error('Error loading contacts:', error); return; }
+            if (error) { console.error('Supabase error:', error); return; }
             contacts = data || [];
             renderContacts();
         }
@@ -106,7 +192,7 @@
         function renderContacts() {
             const container = document.getElementById('contactsContainer');
             if (contacts.length === 0) {
-                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;">No contacts yet. Add one above!</div>';
+                container.innerHTML = '<div class="empty-messages" style="text-align:center;padding:2rem;color:#888;"><i class="fas fa-inbox"></i><p>No contacts yet</p></div>';
                 return;
             }
             container.innerHTML = contacts.map(contact => `
@@ -123,14 +209,18 @@
             `).join('');
         }
         
-        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
         
         async function addContact() {
             const name = document.getElementById('contactName').value.trim();
             const phone = document.getElementById('contactPhone').value.trim();
             if (!name || !phone) { alert('Please enter name and phone number!'); return; }
-            const { data, error } = await supabase.from('contacts').insert([{ name, phone }]).select();
-            if (error) { alert('Error adding contact: ' + error.message); return; }
+            const { error } = await supabase.from('contacts').insert([{ name, phone }]);
+            if (error) { alert('Error: ' + error.message); return; }
             document.getElementById('contactName').value = '';
             document.getElementById('contactPhone').value = '';
             loadContacts();
@@ -159,7 +249,7 @@
         document.getElementById('addContactBtn').addEventListener('click', addContact);
         loadContacts();
         
-        // ========== LOGOUT ==========
+        // ========== LOGOUT (KEEP ORIGINAL) ==========
         document.getElementById('logoutBtn').addEventListener('click', (e) => {
             e.preventDefault();
             sessionStorage.removeItem('isLoggedIn');
@@ -167,7 +257,7 @@
             window.location.href = 'whale/';
         });
         
-        // ========== MOBILE MENU ==========
+        // ========== MOBILE MENU (KEEP ORIGINAL) ==========
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('nav');
         if (window.innerWidth <= 995) hamburger.style.display = 'block';
