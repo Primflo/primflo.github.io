@@ -20,44 +20,21 @@
             align-items: center;
             transition: opacity 0.5s ease;
         }
-        .loading-screen.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
+        .loading-screen.hide { opacity: 0; pointer-events: none; }
         .loader { text-align: center; }
-        .loader .whale-icon {
-            font-size: 4rem;
-            animation: floatLoader 1.5s ease-in-out infinite;
-        }
-        @keyframes floatLoader {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-        .loader p {
-            color: #3aa8ff;
-            margin-top: 20px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 2px;
-        }
-        .main-content {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+        .loader .whale-icon { font-size: 4rem; animation: floatLoader 1.5s ease-in-out infinite; }
+        @keyframes floatLoader { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        .loader p { color: #3aa8ff; margin-top: 20px; font-family: 'Poppins', sans-serif; font-size: 1rem; letter-spacing: 2px; }
+        .main-content { opacity: 0; transition: opacity 0.5s ease; }
         .main-content.visible { opacity: 1; }
         .running-cat { display: none !important; }
         body { background: #000000; }
     </style>
 </head>
 <body>
-
     <div class="loading-screen" id="loadingScreen">
-        <div class="loader">
-            <div class="whale-icon">🐋</div>
-            <p>Verifying Access...</p>
-        </div>
+        <div class="loader"><div class="whale-icon">🐋</div><p>Verifying Access...</p></div>
     </div>
-
     <div class="main-content" id="mainContent">
         <header>
             <a href="index.html" class="logo">Prim</a>
@@ -76,15 +53,12 @@
             </nav>
             <div class="hamburger" style="display: none; font-size: 30px; cursor: pointer;">☰</div>
         </header>
-        
         <section class="home">
-            <div class="home-img">
-                <img src="main.jpg" alt="Prim">
-            </div>
+            <div class="home-img"><img src="main.jpg" alt="Prim"></div>
             <div class="home-content">
                 <h1>Hi, It's <span>Prim</span></h1>
                 <h3 class="typing-text">I'm a <span></span></h3>
-                <p>Welcome to my creative portfolio! I'm a passionate developer who loves building amazing web experiences. With expertise in modern web technologies, I create responsive, beautiful, and functional websites that leave a lasting impression.</p>
+                <p>Welcome to my creative portfolio! I'm a passionate developer who loves building amazing web experiences.</p>
                 <div class="social-icons">
                     <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
@@ -94,15 +68,10 @@
                 <button class="btn" id="workWithMeBtn">HUG ME</button>
             </div>
         </section>
-        
         <div id="imageModal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <img src="main.jpg" alt="Prim">
-            </div>
+            <div class="modal-content"><span class="close-modal">&times;</span><img src="main.jpg" alt="Prim"></div>
         </div>
     </div>
-
     <script>
         const loadingScreen = document.getElementById('loadingScreen');
         const mainContent = document.getElementById('mainContent');
@@ -138,7 +107,6 @@
             e.preventDefault();
             sessionStorage.removeItem('isLoggedIn');
             sessionStorage.removeItem('isAdmin');
-            sessionStorage.removeItem('username');
             window.location.href = 'whale/';
         });
         
