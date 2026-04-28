@@ -2,29 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Prim - Notebook</title>
     <style>
+        .notebook-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin: 2rem 0;
+        }
+        .note-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            border-left: 3px solid #b74b4b;
+            transition: all 0.3s ease;
+        }
+        .note-card:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .note-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #b74b4b;
+            margin-bottom: 0.5rem;
+        }
+        .note-body {
+            font-size: 1.4rem;
+            color: #ccc;
+            margin-bottom: 0.5rem;
+            white-space: pre-wrap;
+        }
+        .note-date {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        .note-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+            justify-content: flex-end;
+        }
+        .note-actions button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 0.3rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .add-note-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        .add-note-form input, .add-note-form textarea {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.4rem;
+        }
+        .add-note-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
         .page-title { font-size: 4rem; margin-bottom: 1rem; }
         .page-title span { color: #b74b4b; }
-        .notebook-container { max-height: 400px; overflow-y: auto; margin: 2rem 0; }
-        .note-card { background: rgba(255,255,255,0.05); padding: 1.2rem; margin-bottom: 1rem; border-radius: 12px; border-left: 3px solid #b74b4b; transition: all 0.3s ease; }
-        .note-card:hover { transform: translateX(5px); background: rgba(255,255,255,0.08); }
-        .note-title { font-size: 1.8rem; font-weight: bold; color: #b74b4b; margin-bottom: 0.5rem; }
-        .note-body { font-size: 1.4rem; color: #ccc; margin-bottom: 0.5rem; white-space: pre-wrap; }
-        .note-date { font-size: 1.1rem; color: #666; margin-top: 0.5rem; }
-        .note-actions { display: flex; gap: 0.8rem; margin-top: 0.5rem; justify-content: flex-end; }
-        .note-actions button { background: transparent; border: none; cursor: pointer; font-size: 1.4rem; padding: 0.3rem; border-radius: 5px; }
-        .add-note-form { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; display: flex; gap: 1rem; flex-direction: column; }
-        .add-note-form input, .add-note-form textarea { padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid #b74b4b; border-radius: 10px; color: white; font-size: 1.4rem; }
-        .add-note-form textarea { min-height: 100px; resize: vertical; }
         .running-cat { display: none !important; }
-        @media (max-width: 768px) { .note-title { font-size: 1.4rem; } }
+        @media (max-width: 768px) {
+            .note-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
+    <div class="running-cat" style="display:none;"></div>
+    
     <header>
         <a href="index.html" class="logo">Prim</a>
         <nav>
@@ -44,7 +107,9 @@
     </header>
     
     <section class="home">
-        <div class="home-img"><img src="main.jpg" alt="Prim"></div>
+        <div class="home-img">
+            <img src="main.jpg" alt="Prim">
+        </div>
         <div class="home-content">
             <h1 class="page-title">My <span>Notebook</span></h1>
             
@@ -56,11 +121,11 @@
             
             <div class="notebook-container" id="notesContainer"></div>
             
-            <div class="social-icons">
-                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <div class="social-icons" id="socialIcons">
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
     </section>
@@ -72,23 +137,27 @@
         
         const SUPABASE_URL = 'https://oskmksbqwanpwtsiqlmt.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9za21rc2Jxd2FucHd0c2lxbG10Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNzA2OTksImV4cCI6MjA5Mjk0NjY5OX0.ctGblHlU19in0Re9-jFKuYPEL6mokgTcvdGDcpqf4xg';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         let notes = [];
         
         async function loadNotes() {
             const { data, error } = await supabase.from('notes').select('*').order('id', { ascending: false });
-            if (error) { console.error('Error loading notes:', error); return; }
+            if (error) { console.error('Supabase error:', error); return; }
             notes = data || [];
             renderNotes();
         }
         
-        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
         
         function renderNotes() {
             const container = document.getElementById('notesContainer');
             if (notes.length === 0) {
-                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;">No notes yet. Add your first note above!</div>';
+                container.innerHTML = '<div class="empty-state" style="text-align:center;padding:2rem;color:#888;"><i class="fas fa-book-open"></i><p>No notes yet. Write your first note above!</p></div>';
                 return;
             }
             container.innerHTML = notes.map(note => `
