@@ -129,28 +129,113 @@
     </div>
 
     <script>
-        // ========== LOADING SCREEN & LOGIN CHECK ==========
-        const loadingScreen = document.getElementById('loadingScreen');
-        const mainContent = document.getElementById('mainContent');
+        <script>
+    // ========== LOADING SCREEN & LOGIN CHECK ==========
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainContent = document.getElementById('mainContent');
+    
+    // Check login status - USING SESSIONSTORAGE (matches whale login)
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    
+    if (!isLoggedIn) {
+        // Not logged in - redirect to whale login
+        window.location.href = 'whale/';
+    } else {
+        // Logged in - show main content
+        setTimeout(() => {
+            loadingScreen.classList.add('hide');
+            mainContent.classList.add('visible');
+        }, 500);
+    }
+    
+    // Show admin link if admin - USING SESSIONSTORAGE
+    if (sessionStorage.getItem('isAdmin') === 'true') {
+        document.getElementById('adminLink').style.display = 'inline-block';
+    }
+    
+    // ========== LOAD SOCIAL LINKS FROM STORAGE ==========
+    function loadSocialLinks() {
+        const socialLinks = JSON.parse(sessionStorage.getItem('socialLinks')) || {
+            linkedin: 'https://linkedin.com/in/prim',
+            github: 'https://github.com/prim',
+            twitter: 'https://twitter.com/prim',
+            instagram: 'https://instagram.com/prim'
+        };
         
-        // Check login status
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        
-        if (!isLoggedIn) {
-            // Not logged in - redirect to whale login
+        const icons = document.querySelectorAll('.social-icons a');
+        if (icons[0]) icons[0].href = socialLinks.linkedin;
+        if (icons[1]) icons[1].href = socialLinks.github;
+        if (icons[2]) icons[2].href = socialLinks.twitter;
+        if (icons[3]) icons[3].href = socialLinks.instagram;
+    }
+    loadSocialLinks();
+    
+    // ========== WORK WITH ME BUTTON ==========
+    const modal = document.getElementById('imageModal');
+    const workBtn = document.getElementById('workWithMeBtn');
+    const closeBtn = document.querySelector('.close-modal');
+    
+    if (workBtn) {
+        workBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+    
+    // ========== LOGOUT - USING SESSIONSTORAGE ==========
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAdmin');
+            sessionStorage.removeItem('username');
             window.location.href = 'whale/';
+        });
+    }
+    
+    // ========== MOBILE MENU ==========
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    
+    if (window.innerWidth <= 995 && hamburger) {
+        hamburger.style.display = 'block';
+    }
+    
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    }
+    
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 995) {
+            if (hamburger) hamburger.style.display = 'none';
+            if (nav) nav.classList.remove('active');
         } else {
-            // Logged in - show main content
-            setTimeout(() => {
-                loadingScreen.classList.add('hide');
-                mainContent.classList.add('visible');
-            }, 500);
+            if (hamburger) hamburger.style.display = 'block';
         }
-        
-        // Show admin link if admin
-        if (localStorage.getItem('isAdmin') === 'true') {
-            document.getElementById('adminLink').style.display = 'inline-block';
-        }
+    });
+    
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (nav) nav.classList.remove('active');
+        });
+    });
+</script>
         
         // ========== LOAD SOCIAL LINKS FROM STORAGE ==========
         function loadSocialLinks() {
