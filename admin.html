@@ -2,17 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Prim - Admin Panel</title>
     <style>
-        .admin-sections {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        
+        .admin-sections { display: flex; flex-direction: column; gap: 2rem; }
         .admin-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
@@ -20,47 +15,19 @@
             border: 1px solid rgba(183, 75, 75, 0.3);
             transition: all 0.3s ease;
         }
-        
-        .admin-card:hover {
-            border-color: #b74b4b;
-            box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2);
-        }
-        
-        .admin-card h2 {
-            color: #b74b4b;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .setting-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .setting-group label {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #ccc;
-        }
-        
-        .setting-group input, .setting-group select {
+        .admin-card:hover { border-color: #b74b4b; box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2); }
+        .admin-card h2 { color: #b74b4b; font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+        .setting-group { margin-bottom: 1.5rem; }
+        .setting-group label { display: block; font-size: 1.4rem; margin-bottom: 0.5rem; color: #ccc; }
+        .setting-group input {
             width: 100%;
             padding: 1rem;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid #b74b4b;
             border-radius: 10px;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
-        
-        .setting-group input:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(183, 75, 75, 0.3);
-        }
-        
         .admin-btn {
             background: #b74b4b;
             color: black;
@@ -68,77 +35,21 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
+            font-size: 1.4rem;
             margin-right: 1rem;
             margin-top: 0.5rem;
         }
-        
-        .admin-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px #b74b4b;
-        }
-        
-        .danger-btn {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .danger-btn:hover {
-            background: #ff4757;
-            box-shadow: 0 0 15px #dc3545;
-        }
-        
-        .success-btn {
-            background: #28a745;
-            color: white;
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-        
-        .page-title {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-        }
-        
-        .page-title span {
-            color: #b74b4b;
-        }
-        
-        .status-badge {
-            background: rgba(40, 167, 69, 0.2);
-            color: #28a745;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 1.2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .radio-group { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .admin-btn { margin-bottom: 0.5rem; }
-        }
+        .admin-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px #b74b4b; }
+        .danger-btn { background: #dc3545; color: white; }
+        .danger-btn:hover { background: #ff4757; box-shadow: 0 0 15px #dc3545; }
+        .success-btn { background: #28a745; color: white; }
+        .page-title { font-size: 4rem; margin-bottom: 2rem; }
+        .page-title span { color: #b74b4b; }
+        .running-cat { display: none !important; }
+        @media (max-width: 768px) { .admin-btn { margin-bottom: 0.5rem; } }
     </style>
 </head>
 <body>
-    <div class="running-cat">
-        <div class="cat-run cat-walk">🐱</div>
-        <div class="cpu-meter">
-            <div>CPU: <span class="cpu-percent">0</span>%</div>
-            <div class="cpu-bar"><div class="cpu-fill"></div></div>
-        </div>
-    </div>
-    
     <header>
         <a href="index.html" class="logo">Prim</a>
         <nav>
@@ -165,47 +76,6 @@
             <h1 class="page-title">Admin <span>Panel</span></h1>
             
             <div class="admin-sections">
-                <!-- Social Media Links -->
-                <div class="admin-card">
-                    <h2><i class="fas fa-share-alt"></i> Social Media Links</h2>
-                    <div class="setting-group">
-                        <label>LinkedIn</label>
-                        <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/in/yourprofile">
-                    </div>
-                    <div class="setting-group">
-                        <label>GitHub</label>
-                        <input type="url" id="githubUrl" placeholder="https://github.com/yourusername">
-                    </div>
-                    <div class="setting-group">
-                        <label>Twitter/X</label>
-                        <input type="url" id="twitterUrl" placeholder="https://twitter.com/yourhandle">
-                    </div>
-                    <div class="setting-group">
-                        <label>Instagram</label>
-                        <input type="url" id="instagramUrl" placeholder="https://instagram.com/yourhandle">
-                    </div>
-                    <button class="admin-btn" id="saveSocialBtn">💾 Save Social Links</button>
-                </div>
-                
-                <!-- Change Admin Password -->
-                <div class="admin-card">
-                    <h2><i class="fas fa-key"></i> Change Admin Password</h2>
-                    <div class="setting-group">
-                        <label>Current Password</label>
-                        <input type="password" id="currentAdminPassword" placeholder="Enter current password">
-                    </div>
-                    <div class="setting-group">
-                        <label>New Password</label>
-                        <input type="password" id="newAdminPassword" placeholder="Enter new password">
-                    </div>
-                    <div class="setting-group">
-                        <label>Confirm Password</label>
-                        <input type="password" id="confirmAdminPassword" placeholder="Confirm new password">
-                    </div>
-                    <button class="admin-btn" id="changeAdminPasswordBtn">🔒 Update Password</button>
-                </div>
-                
-                <!-- Pluto Credentials -->
                 <div class="admin-card">
                     <h2><i class="fas fa-moon"></i> Pluto Credentials</h2>
                     <div class="setting-group">
@@ -219,34 +89,6 @@
                     <button class="admin-btn" id="savePlutoCredsBtn">💾 Save Pluto Credentials</button>
                 </div>
                 
-                <!-- Background Settings (Image/Video) -->
-                <div class="admin-card">
-                    <h2><i class="fas fa-image"></i> Background Settings</h2>
-                    <div class="setting-group">
-                        <label>Background Type</label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="bgType" value="image" checked> 📸 Image (main.jpg)</label>
-                            <label><input type="radio" name="bgType" value="video"> 🎬 Video (live.mp4)</label>
-                        </div>
-                    </div>
-                    <div class="setting-group" id="videoUrlGroup" style="display: none;">
-                        <label>Video URL</label>
-                        <input type="text" id="videoUrl" placeholder="live.mp4">
-                    </div>
-                    <button class="admin-btn" id="saveBgSettingsBtn">💾 Save Background Settings</button>
-                </div>
-                
-                <!-- Work With Me Image -->
-                <div class="admin-card">
-                    <h2><i class="fas fa-user-circle"></i> Work With Me Image</h2>
-                    <div class="setting-group">
-                        <label>Popup Image URL</label>
-                        <input type="text" id="popupImageUrl" placeholder="main.jpg">
-                    </div>
-                    <button class="admin-btn" id="savePopupImageBtn">💾 Save Popup Image</button>
-                </div>
-                
-                <!-- Data Management -->
                 <div class="admin-card">
                     <h2><i class="fas fa-database"></i> Data Management</h2>
                     <button class="admin-btn" id="exportDataBtn">📥 Export All Data</button>
@@ -255,108 +97,41 @@
                 </div>
             </div>
             
-            <div class="social-icons" id="socialIcons">
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <div class="social-icons">
+                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
     </section>
 
     <script>
-        if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'login.html';
-        if (localStorage.getItem('isAdmin') !== 'true') { alert('Admin access only!'); window.location.href = 'index.html'; }
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
+        if (sessionStorage.getItem('isAdmin') !== 'true') { alert('Admin access only!'); window.location.href = 'index.html'; }
         
-        // Load saved settings
         function loadSettings() {
-            const social = JSON.parse(localStorage.getItem('socialLinks')) || {};
-            document.getElementById('linkedinUrl').value = social.linkedin || '';
-            document.getElementById('githubUrl').value = social.github || '';
-            document.getElementById('twitterUrl').value = social.twitter || '';
-            document.getElementById('instagramUrl').value = social.instagram || '';
-            
-            const plutoCreds = JSON.parse(localStorage.getItem('plutoCredentials')) || { username: 'pluto', password: 'pluto123' };
+            const plutoCreds = JSON.parse(sessionStorage.getItem('plutoCredentials')) || { username: 'pluto', password: 'pluto123' };
             document.getElementById('plutoUsernameSetting').value = plutoCreds.username;
             document.getElementById('plutoPasswordSetting').value = plutoCreds.password;
-            
-            const bgSettings = JSON.parse(localStorage.getItem('bgSettings')) || { type: 'image', videoUrl: 'live.mp4' };
-            document.querySelector(`input[name="bgType"][value="${bgSettings.type}"]`).checked = true;
-            document.getElementById('videoUrl').value = bgSettings.videoUrl;
-            document.getElementById('videoUrlGroup').style.display = bgSettings.type === 'video' ? 'block' : 'none';
-            
-            const popupImage = localStorage.getItem('popupImage') || 'main.jpg';
-            document.getElementById('popupImageUrl').value = popupImage;
         }
-        
-        document.querySelectorAll('input[name="bgType"]').forEach(radio => {
-            radio.addEventListener('change', () => {
-                document.getElementById('videoUrlGroup').style.display = radio.value === 'video' ? 'block' : 'none';
-            });
-        });
-        
-        document.getElementById('saveSocialBtn').addEventListener('click', () => {
-            const social = {
-                linkedin: document.getElementById('linkedinUrl').value,
-                github: document.getElementById('githubUrl').value,
-                twitter: document.getElementById('twitterUrl').value,
-                instagram: document.getElementById('instagramUrl').value
-            };
-            localStorage.setItem('socialLinks', JSON.stringify(social));
-            alert('Social links saved!');
-        });
-        
-        document.getElementById('changeAdminPasswordBtn').addEventListener('click', () => {
-            const current = document.getElementById('currentAdminPassword').value;
-            const newPass = document.getElementById('newAdminPassword').value;
-            const confirm = document.getElementById('confirmAdminPassword').value;
-            
-            if (current !== 'admin123') { alert('Current password incorrect!'); return; }
-            if (newPass !== confirm) { alert('Passwords do not match!'); return; }
-            if (newPass.length < 4) { alert('Password must be at least 4 characters!'); return; }
-            
-            alert('Password changed! (Demo - would save to backend)');
-            document.getElementById('currentAdminPassword').value = '';
-            document.getElementById('newAdminPassword').value = '';
-            document.getElementById('confirmAdminPassword').value = '';
-        });
         
         document.getElementById('savePlutoCredsBtn').addEventListener('click', () => {
             const creds = {
                 username: document.getElementById('plutoUsernameSetting').value,
                 password: document.getElementById('plutoPasswordSetting').value
             };
-            localStorage.setItem('plutoCredentials', JSON.stringify(creds));
+            sessionStorage.setItem('plutoCredentials', JSON.stringify(creds));
             alert('Pluto credentials saved!');
-        });
-        
-        document.getElementById('saveBgSettingsBtn').addEventListener('click', () => {
-            const bgSettings = {
-                type: document.querySelector('input[name="bgType"]:checked').value,
-                videoUrl: document.getElementById('videoUrl').value
-            };
-            localStorage.setItem('bgSettings', JSON.stringify(bgSettings));
-            alert('Background settings saved! Refresh to see changes.');
-        });
-        
-        document.getElementById('savePopupImageBtn').addEventListener('click', () => {
-            const url = document.getElementById('popupImageUrl').value;
-            localStorage.setItem('popupImage', url);
-            alert('Popup image saved!');
         });
         
         document.getElementById('exportDataBtn').addEventListener('click', () => {
             const data = {
-                wishes: JSON.parse(localStorage.getItem('deathListWishes')) || [],
-                movies: JSON.parse(localStorage.getItem('favoriteMovies')) || [],
-                messages: JSON.parse(localStorage.getItem('contactMessages')) || [],
-                notes: JSON.parse(localStorage.getItem('plutoNotes')) || [],
-                files: JSON.parse(localStorage.getItem('plutoFiles')) || [],
-                settings: {
-                    socialLinks: JSON.parse(localStorage.getItem('socialLinks')),
-                    plutoCredentials: JSON.parse(localStorage.getItem('plutoCredentials')),
-                    bgSettings: JSON.parse(localStorage.getItem('bgSettings'))
-                }
+                wishes: JSON.parse(sessionStorage.getItem('deathListWishes')) || [],
+                movies: JSON.parse(sessionStorage.getItem('favoriteMovies')) || [],
+                contacts: JSON.parse(sessionStorage.getItem('contacts')) || [],
+                plutoCredentials: JSON.parse(sessionStorage.getItem('plutoCredentials')) || {},
+                notes: JSON.parse(sessionStorage.getItem('plutoNotes')) || []
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const link = document.createElement('a');
@@ -367,26 +142,29 @@
         });
         
         document.getElementById('clearAllDataBtn').addEventListener('click', () => {
-            if (confirm('⚠️ DANGER: This will delete ALL your data (wishes, movies, messages, notes, files). This cannot be undone!')) {
-                localStorage.removeItem('deathListWishes');
-                localStorage.removeItem('favoriteMovies');
-                localStorage.removeItem('contactMessages');
-                localStorage.removeItem('plutoNotes');
-                localStorage.removeItem('plutoFiles');
+            if (confirm('⚠️ DANGER: This will delete ALL your data (wishes, movies, contacts). This cannot be undone!')) {
+                sessionStorage.removeItem('deathListWishes');
+                sessionStorage.removeItem('favoriteMovies');
+                sessionStorage.removeItem('contacts');
+                sessionStorage.removeItem('plutoNotes');
                 alert('All data cleared!');
             }
         });
         
         document.getElementById('resetDefaultBtn').addEventListener('click', () => {
             if (confirm('Reset to default data?')) {
-                localStorage.setItem('deathListWishes', JSON.stringify([
+                sessionStorage.setItem('deathListWishes', JSON.stringify([
                     { id: 1, text: "🪂 Skydive in New Zealand", completed: false },
                     { id: 2, text: "📝 Write a bestselling novel", completed: false },
                     { id: 3, text: "🌍 Visit all 7 continents", completed: false }
                 ]));
-                localStorage.setItem('favoriteMovies', JSON.stringify([
+                sessionStorage.setItem('favoriteMovies', JSON.stringify([
                     { id: 1, name: "Inception", year: 2010, rating: 5, genre: "Sci-Fi", watched: true },
                     { id: 2, name: "The Dark Knight", year: 2008, rating: 5, genre: "Action", watched: false }
+                ]));
+                sessionStorage.setItem('contacts', JSON.stringify([
+                    { id: 1, name: "John Doe", phone: "+1 234 567 8900" },
+                    { id: 2, name: "Jane Smith", phone: "+1 987 654 3210" }
                 ]));
                 alert('Reset to default!');
             }
@@ -394,36 +172,12 @@
         
         loadSettings();
         
-        // ========== RUNNING CAT ==========
-        let cpu = 0, dir = 1;
-        const catEl = document.querySelector('.cat-run');
-        function updateCPU() {
-            cpu += dir * (Math.random() * 10);
-            if (cpu >= 100) { cpu = 100; dir = -1; }
-            else if (cpu <= 0) { cpu = 0; dir = 1; }
-            document.querySelector('.cpu-percent').textContent = Math.floor(cpu);
-            document.querySelector('.cpu-fill').style.width = Math.floor(cpu) + '%';
-            let p = Math.floor(cpu);
-            if (p < 20) { catEl.className = 'cat-run cat-walk'; catEl.textContent = '🐱'; }
-            else if (p < 40) { catEl.className = 'cat-run cat-jog'; catEl.textContent = '🐱‍🏃'; }
-            else if (p < 60) { catEl.className = 'cat-run cat-run'; catEl.textContent = '🐈‍⬛'; }
-            else if (p < 80) { catEl.className = 'cat-run cat-sprint'; catEl.textContent = '🐈‍⬛💨'; }
-            else { catEl.className = 'cat-run cat-zoom'; catEl.textContent = '💨😾💨'; }
-            setTimeout(updateCPU, 500);
-        }
-        updateCPU();
-        
-        function loadSocialLinks() {
-            const links = JSON.parse(localStorage.getItem('socialLinks')) || { linkedin: '#', github: '#', twitter: '#', instagram: '#' };
-            const icons = document.querySelectorAll('.social-icons a');
-            if (icons[0]) icons[0].href = links.linkedin;
-            if (icons[1]) icons[1].href = links.github;
-            if (icons[2]) icons[2].href = links.twitter;
-            if (icons[3]) icons[3].href = links.instagram;
-        }
-        loadSocialLinks();
-        
-        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'login.html'; });
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAdmin');
+            window.location.href = 'whale/';
+        });
         
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('nav');
