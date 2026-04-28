@@ -2,633 +2,158 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Notebook - Pluto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Prim - Notebook</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #000000;
-            font-family: 'Poppins', system-ui, sans-serif;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-        }
-
-        /* Transparent Background Image */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('dra.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Notebook Container */
-        .notebook {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #8b0000;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
-            animation: glowPulse 3s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(2px);
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(139, 0, 0, 0.4); }
-            50% { box-shadow: 0 0 50px rgba(220, 53, 69, 0.7); }
-        }
-
-        /* Header */
-        .notebook-header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #8b0000;
-            padding-bottom: 15px;
-        }
-
-        .notebook-header h1 {
-            font-size: 2.5rem;
-            color: #dc3545;
-            text-shadow: 0 0 10px #ff0000;
-        }
-
-        .notebook-header p {
-            color: #888;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-
-        /* Two Column Layout */
-        .notebook-grid {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 25px;
-        }
-
-        /* Left Column - Notes List */
-        .notes-section {
-            background: rgba(139, 0, 0, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #8b0000;
-        }
-
-        .notes-section h3 {
-            color: #dc3545;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        /* Add Note Form */
-        .add-note-form {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .add-note-form input, .add-note-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #8b0000;
-            border-radius: 8px;
-            color: white;
-            font-size: 0.9rem;
-        }
-
-        .add-note-form textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .add-note-form input:focus, .add-note-form textarea:focus {
-            outline: none;
-            border-color: #dc3545;
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
-        }
-
-        .btn-add {
-            background: linear-gradient(135deg, #8b0000, #dc3545);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn-add:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(220, 53, 69, 0.5);
-        }
-
-        /* Notes Container */
-        .notes-container {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .note-card {
-            background: rgba(0, 0, 0, 0.6);
-            border-left: 3px solid #dc3545;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .note-card:hover {
-            background: rgba(139, 0, 0, 0.4);
-            transform: translateX(3px);
-        }
-
-        .note-card.active {
-            border-left: 3px solid #ff6666;
-            background: rgba(139, 0, 0, 0.5);
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
-        }
-
-        .note-title-preview {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #dc3545;
-            margin-bottom: 5px;
-        }
-
-        .note-preview {
-            font-size: 0.8rem;
-            color: #aaa;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        .note-date {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .note-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-            justify-content: flex-end;
-        }
-
-        .note-actions button {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-edit-note {
-            color: #ffc107;
-        }
-
-        .btn-delete-note {
-            color: #dc3545;
-        }
-
-        .btn-edit-note:hover, .btn-delete-note:hover {
-            transform: scale(1.05);
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .page-btn {
-            background: rgba(139, 0, 0, 0.3);
-            border: 1px solid #8b0000;
-            color: #dc3545;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-        }
-
-        .page-btn:hover {
-            background: #8b0000;
-            color: white;
-        }
-
-        .page-btn.active {
-            background: #dc3545;
-            color: white;
-            border-color: #dc3545;
-        }
-
-        /* Right Column - Note List Sidebar */
-        .notelist-section {
-            background: rgba(139, 0, 0, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #8b0000;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .notelist-section h3 {
-            color: #dc3545;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #8b0000;
-            padding-bottom: 8px;
-        }
-
-        .notelist-container {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .notelist-item {
-            padding: 8px;
-            margin-bottom: 5px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            color: #ccc;
-        }
-
-        .notelist-item:hover {
-            background: rgba(139, 0, 0, 0.4);
-            transform: translateX(3px);
-        }
-
-        .notelist-item.active {
-            background: #8b0000;
-            color: white;
-        }
-
-        .notelist-title {
-            font-weight: bold;
-            color: #dc3545;
-        }
-
-        .notelist-date {
-            font-size: 0.7rem;
-            color: #666;
-        }
-
-        /* Empty State */
-        .empty-notes {
-            text-align: center;
-            color: #666;
-            padding: 40px;
-        }
-
-        /* Navigation Links */
-        .nav-links {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #8b0000;
-        }
-
-        .nav-links a {
-            color: #dc3545;
-            text-decoration: none;
-            margin: 0 15px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            text-shadow: 0 0 10px #ff0000;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #8b0000;
-            border-radius: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 800px) {
-            .notebook-grid {
-                grid-template-columns: 1fr;
-            }
-            .notelist-section {
-                position: static;
-            }
-            .notebook-header h1 {
-                font-size: 1.8rem;
-            }
-        }
+        .page-title { font-size: 4rem; margin-bottom: 1rem; }
+        .page-title span { color: #b74b4b; }
+        .notebook-container { max-height: 400px; overflow-y: auto; margin: 2rem 0; }
+        .note-card { background: rgba(255,255,255,0.05); padding: 1.2rem; margin-bottom: 1rem; border-radius: 12px; border-left: 3px solid #b74b4b; transition: all 0.3s ease; }
+        .note-card:hover { transform: translateX(5px); background: rgba(255,255,255,0.08); }
+        .note-title { font-size: 1.8rem; font-weight: bold; color: #b74b4b; margin-bottom: 0.5rem; }
+        .note-body { font-size: 1.4rem; color: #ccc; margin-bottom: 0.5rem; white-space: pre-wrap; }
+        .note-date { font-size: 1.1rem; color: #666; margin-top: 0.5rem; }
+        .note-actions { display: flex; gap: 0.8rem; margin-top: 0.5rem; justify-content: flex-end; }
+        .note-actions button { background: transparent; border: none; cursor: pointer; font-size: 1.4rem; padding: 0.3rem; border-radius: 5px; }
+        .add-note-form { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; display: flex; gap: 1rem; flex-direction: column; }
+        .add-note-form input, .add-note-form textarea { padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid #b74b4b; border-radius: 10px; color: white; font-size: 1.4rem; }
+        .add-note-form textarea { min-height: 100px; resize: vertical; }
+        .running-cat { display: none !important; }
+        @media (max-width: 768px) { .note-title { font-size: 1.4rem; } }
     </style>
 </head>
 <body>
-
-    <div class="notebook">
-        <div class="notebook-header">
-            <h1><i class="fas fa-book"></i> My Notebook</h1>
-            <p>1000+ pages | Write, Edit, Delete, Save your notes</p>
-        </div>
-
-        <div class="notebook-grid">
-            <!-- Left Column - Notes List with Pagination -->
-            <div class="notes-section">
-                <h3><i class="fas fa-pen"></i> Write a New Note</h3>
-                
-                <div class="add-note-form">
-                    <input type="text" id="noteTitle" placeholder="Note Title">
-                    <textarea id="noteBody" placeholder="Write your note here..."></textarea>
-                    <button class="btn-add" id="addNoteBtn">
-                        <i class="fas fa-plus"></i> Add Note
-                    </button>
-                </div>
-
-                <h3><i class="fas fa-list"></i> My Notes (15 per page)</h3>
-                
-                <div class="notes-container" id="notesContainer"></div>
-                
-                <div class="pagination" id="pagination"></div>
+    <header>
+        <a href="index.html" class="logo">Prim</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="deathlist.html">List of Death</a>
+            <a href="favorites.html">Favorite Content</a>
+            <a href="contact.html">Contact</a>
+            <a href="pluto.html">Pluto</a>
+            <a href="admin.html" id="adminLink" style="display: none;">Admin</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="hamburger" style="display: none;">☰</div>
+    </header>
+    
+    <section class="home">
+        <div class="home-img"><img src="main.jpg" alt="Prim"></div>
+        <div class="home-content">
+            <h1 class="page-title">My <span>Notebook</span></h1>
+            
+            <div class="add-note-form">
+                <input type="text" id="noteTitle" placeholder="Note Title">
+                <textarea id="noteBody" placeholder="Write your note here..."></textarea>
+                <button class="btn" id="addNoteBtn" style="padding: 1rem 2rem;">➕ Add Note</button>
             </div>
-
-            <!-- Right Column - Note List Sidebar -->
-            <div class="notelist-section">
-                <h3><i class="fas fa-th-list"></i> All Notes List</h3>
-                <div class="notelist-container" id="notelistContainer"></div>
+            
+            <div class="notebook-container" id="notesContainer"></div>
+            
+            <div class="social-icons">
+                <a href="https://linkedin.com/in/prim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/prim" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
+    </section>
 
-        <div class="nav-links">
-            <a href="pluto.html"><i class="fas fa-globe"></i> Back to Pluto</a>
-            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ========== CHECK PLUTO LOGIN ==========
-        if (sessionStorage.getItem('isPlutoLoggedIn') !== 'true') {
-            window.location.href = 'index.html';
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
+        if (sessionStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
+        
+        const SUPABASE_URL = 'https://oskmksbqwanpwtsiqlmt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9za21rc2Jxd2FucHd0c2lxbG10Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNzA2OTksImV4cCI6MjA5Mjk0NjY5OX0.ctGblHlU19in0Re9-jFKuYPEL6mokgTcvdGDcpqf4xg';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        let notes = [];
+        
+        async function loadNotes() {
+            const { data, error } = await supabase.from('notes').select('*').order('id', { ascending: false });
+            if (error) { console.error('Error loading notes:', error); return; }
+            notes = data || [];
+            renderNotes();
         }
-
-        // ========== NOTEBOOK DATA ==========
-        let notes = JSON.parse(localStorage.getItem('plutoNotebook')) || [];
-        let currentPage = 1;
-        const notesPerPage = 15;
-        let currentEditId = null;
-
-        function saveNotes() {
-            localStorage.setItem('plutoNotebook', JSON.stringify(notes));
-            renderAll();
-        }
-
-        function renderAll() {
-            renderNotesList();
-            renderNotelist();
-            renderPagination();
-        }
-
-        function renderNotesList() {
+        
+        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        
+        function renderNotes() {
             const container = document.getElementById('notesContainer');
-            const start = (currentPage - 1) * notesPerPage;
-            const end = start + notesPerPage;
-            const pageNotes = notes.slice().reverse().slice(start, end);
-
-            if (pageNotes.length === 0) {
-                container.innerHTML = '<div class="empty-notes"><i class="fas fa-book-open"></i><p>No notes yet. Write your first note above!</p></div>';
+            if (notes.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:2rem;color:#888;">No notes yet. Add your first note above!</div>';
                 return;
             }
-
-            container.innerHTML = pageNotes.map(note => `
-                <div class="note-card" onclick="loadNoteToEdit(${note.id})">
-                    <div class="note-title-preview">✏️ ${escapeHtml(note.title) || 'Untitled'}</div>
-                    <div class="note-preview">${escapeHtml(note.body.substring(0, 80))}${note.body.length > 80 ? '...' : ''}</div>
-                    <div class="note-date">📅 ${note.date}</div>
-                    <div class="note-actions" onclick="event.stopPropagation()">
-                        <button class="btn-edit-note" onclick="editNote(${note.id})"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="btn-delete-note" onclick="deleteNote(${note.id})"><i class="fas fa-trash"></i> Delete</button>
+            container.innerHTML = notes.map(note => `
+                <div class="note-card">
+                    <div class="note-title">📝 ${escapeHtml(note.title)}</div>
+                    <div class="note-body">${escapeHtml(note.body)}</div>
+                    <div class="note-date">📅 ${note.date || new Date().toLocaleString()}</div>
+                    <div class="note-actions">
+                        <button onclick="editNote(${note.id})" style="color:#ffc107;"><i class="fas fa-edit"></i> Edit</button>
+                        <button onclick="deleteNote(${note.id})" style="color:#dc3545;"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
         }
-
-        function renderNotelist() {
-            const container = document.getElementById('notelistContainer');
-            
-            if (notes.length === 0) {
-                container.innerHTML = '<div class="empty-notes"><p>No notes yet</p></div>';
-                return;
-            }
-
-            // Show all notes in sidebar (not paginated)
-            const allNotes = [...notes].reverse();
-            
-            container.innerHTML = allNotes.map(note => `
-                <div class="notelist-item" onclick="jumpToNote(${note.id})">
-                    <div class="notelist-title">📄 ${escapeHtml(note.title) || 'Untitled'}</div>
-                    <div class="notelist-date">${note.date}</div>
-                </div>
-            `).join('');
-        }
-
-        function renderPagination() {
-            const container = document.getElementById('pagination');
-            const totalPages = Math.ceil(notes.length / notesPerPage);
-            
-            if (totalPages <= 1) {
-                container.innerHTML = '';
-                return;
-            }
-
-            let paginationHtml = '';
-            
-            // Previous button
-            paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:0.5"' : ''}>◀ Prev</button>`;
-            
-            // Page numbers (show max 10 pages at a time)
-            let startPage = Math.max(1, currentPage - 5);
-            let endPage = Math.min(totalPages, startPage + 9);
-            
-            for (let i = startPage; i <= endPage; i++) {
-                paginationHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-            }
-            
-            // Next button
-            paginationHtml += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:0.5"' : ''}>Next ▶</button>`;
-            
-            container.innerHTML = paginationHtml;
-        }
-
-        function changePage(page) {
-            const totalPages = Math.ceil(notes.length / notesPerPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderNotesList();
-            renderPagination();
-        }
-
-        function addNote() {
+        
+        async function addNote() {
             const title = document.getElementById('noteTitle').value.trim();
             const body = document.getElementById('noteBody').value.trim();
-
-            if (!title && !body) {
-                alert('Please enter a title or content for your note!');
-                return;
-            }
-
-            const newId = notes.length > 0 ? Math.max(...notes.map(n => n.id)) + 1 : 1;
-            
-            notes.unshift({
-                id: newId,
-                title: title || 'Untitled',
-                body: body || 'No content',
-                date: new Date().toLocaleString()
-            });
-
-            // Clear form
+            if (!title && !body) { alert('Please enter a title or content!'); return; }
+            const date = new Date().toLocaleString();
+            await supabase.from('notes').insert([{ title: title || 'Untitled', body: body || 'No content', date }]);
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteBody').value = '';
-            
-            // Go to first page
-            currentPage = 1;
-            saveNotes();
+            loadNotes();
         }
-
-        function editNote(id) {
+        
+        async function editNote(id) {
             const note = notes.find(n => n.id === id);
             const newTitle = prompt('Edit title:', note.title);
             const newBody = prompt('Edit content:', note.body);
-            
-            if (newTitle !== null) note.title = newTitle.trim() || 'Untitled';
-            if (newBody !== null) note.body = newBody.trim() || 'No content';
-            
-            saveNotes();
+            if (newTitle && newTitle.trim()) {
+                await supabase.from('notes').update({ title: newTitle.trim() }).eq('id', id);
+            }
+            if (newBody && newBody.trim()) {
+                await supabase.from('notes').update({ body: newBody.trim() }).eq('id', id);
+            }
+            loadNotes();
         }
-
-        function deleteNote(id) {
-            if (confirm('Delete this note? This cannot be undone.')) {
-                notes = notes.filter(n => n.id !== id);
-                
-                // Adjust current page if needed
-                const totalPages = Math.ceil(notes.length / notesPerPage);
-                if (currentPage > totalPages && totalPages > 0) {
-                    currentPage = totalPages;
-                } else if (notes.length === 0) {
-                    currentPage = 1;
-                }
-                
-                saveNotes();
+        
+        async function deleteNote(id) {
+            if (confirm('Delete this note?')) {
+                await supabase.from('notes').delete().eq('id', id);
+                loadNotes();
             }
         }
-
-        function loadNoteToEdit(id) {
-            const note = notes.find(n => n.id === id);
-            document.getElementById('noteTitle').value = note.title;
-            document.getElementById('noteBody').value = note.body;
-            currentEditId = id;
-            
-            // Change button text
-            const addBtn = document.getElementById('addNoteBtn');
-            addBtn.innerHTML = '<i class="fas fa-save"></i> Update Note';
-            addBtn.onclick = () => updateNote(id);
-        }
-
-        function updateNote(id) {
-            const note = notes.find(n => n.id === id);
-            const newTitle = document.getElementById('noteTitle').value.trim();
-            const newBody = document.getElementById('noteBody').value.trim();
-            
-            if (newTitle) note.title = newTitle;
-            if (newBody) note.body = newBody;
-            
-            // Reset form
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteBody').value = '';
-            currentEditId = null;
-            
-            const addBtn = document.getElementById('addNoteBtn');
-            addBtn.innerHTML = '<i class="fas fa-plus"></i> Add Note';
-            addBtn.onclick = addNote;
-            
-            saveNotes();
-        }
-
-        function jumpToNote(id) {
-            // Find which page the note is on
-            const noteIndex = [...notes].reverse().findIndex(n => n.id === id);
-            const page = Math.floor(noteIndex / notesPerPage) + 1;
-            currentPage = page;
-            renderNotesList();
-            renderPagination();
-            
-            // Highlight in notelist (simple scroll)
-            setTimeout(() => {
-                const notesContainer = document.getElementById('notesContainer');
-                notesContainer.scrollTop = 0;
-            }, 100);
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function logout() {
-            sessionStorage.removeItem('isPlutoLoggedIn');
-            window.location.href = 'index.html';
-        }
-
-        // ========== EVENT LISTENERS ==========
+        
         document.getElementById('addNoteBtn').addEventListener('click', addNote);
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        loadNotes();
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            logout();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAdmin');
+            window.location.href = 'whale/';
         });
-
-        // Initialize
-        renderAll();
+        
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 995) hamburger.style.display = 'block';
+        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
+            else hamburger.style.display = 'block';
+        });
+        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
     </script>
 </body>
 </html>
