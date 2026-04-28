@@ -7,53 +7,17 @@
     <link rel="stylesheet" href="style.css">
     <title>Prim - List of Death</title>
     <style>
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 1px solid rgba(183, 75, 75, 0.3);
-            transition: all 0.3s ease;
-        }
+        .stats-container { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 1.5rem; text-align: center; border: 1px solid rgba(183,75,75,0.3); transition: all 0.3s ease; }
         .stat-card:hover { transform: translateY(-5px); border-color: #b74b4b; }
         .stat-number { font-size: 2.5rem; font-weight: bold; color: #b74b4b; }
         .stat-label { font-size: 1.2rem; color: #ccc; }
         .progress-container { margin: 2rem 0; }
         .progress-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 1.3rem; }
-        .global-progress-bar {
-            width: 100%;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .global-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #b74b4b, #ff6b6b);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
+        .global-progress-bar { width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+        .global-progress-fill { height: 100%; background: linear-gradient(90deg,#b74b4b,#ff6b6b); border-radius: 10px; width: 0%; transition: width 0.5s ease; }
         .wishlist-container { max-height: 400px; overflow-y: auto; padding-right: 10px; margin: 2rem 0; }
-        .wish-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            transition: all 0.3s ease;
-            border-left: 3px solid #b74b4b;
-            flex-wrap: wrap;
-        }
+        .wish-item { background: rgba(255,255,255,0.05); padding: 1.2rem; margin-bottom: 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-left: 3px solid #b74b4b; }
         .wish-item.completed { opacity: 0.6; border-left-color: #00ff00; }
         .wish-item.completed .wish-text { text-decoration: line-through; }
         .wish-content { flex: 1; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
@@ -63,31 +27,12 @@
         .wish-actions button { background: transparent; border: none; cursor: pointer; font-size: 1.6rem; padding: 0.5rem; border-radius: 8px; }
         .edit-btn { color: #ffc107; }
         .delete-btn { color: #dc3545; }
-        .add-wish-form {
-            display: flex;
-            gap: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        .add-wish-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #b74b4b;
-            color: white;
-            padding: 1rem;
-            font-size: 1.5rem;
-            border-radius: 10px;
-        }
+        .add-wish-form { display: flex; gap: 1rem; background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; margin-top: 1rem; flex-wrap: wrap; }
+        .add-wish-input { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid #b74b4b; color: white; padding: 1rem; font-size: 1.5rem; border-radius: 10px; }
         .page-title { font-size: 4rem; margin-bottom: 0.5rem; }
         .subtitle { font-size: 1.4rem; color: #ccc; margin-bottom: 2rem; }
         .running-cat { display: none !important; }
-        @media (max-width: 768px) {
-            .stats-container { grid-template-columns: 1fr; }
-            .add-wish-form { flex-direction: column; }
-        }
+        @media (max-width: 768px) { .stats-container { grid-template-columns: 1fr; } .add-wish-form { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -110,9 +55,7 @@
     </header>
     
     <section class="home">
-        <div class="home-img">
-            <img src="main.jpg" alt="Prim">
-        </div>
+        <div class="home-img"><img src="main.jpg" alt="Prim"></div>
         <div class="home-content">
             <h1 class="page-title">List of <span>Death</span></h1>
             <p class="subtitle">⚡ Things I must do before I die</p>
@@ -144,18 +87,21 @@
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
         if (sessionStorage.getItem('isAdmin') === 'true') document.getElementById('adminLink').style.display = 'inline-block';
         
-        let wishes = JSON.parse(sessionStorage.getItem('deathListWishes')) || [
-            { id: 1, text: "🪂 Skydive in New Zealand", completed: false },
-            { id: 2, text: "📝 Write a bestselling novel", completed: false },
-            { id: 3, text: "🌍 Visit all 7 continents", completed: false }
-        ];
+        const SUPABASE_URL = 'https://oskmksbqwanpwtsiqlmt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9za21rc2Jxd2FucHd0c2lxbG10Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNzA2OTksImV4cCI6MjA5Mjk0NjY5OX0.ctGblHlU19in0Re9-jFKuYPEL6mokgTcvdGDcpqf4xg';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        function saveWishes() {
-            sessionStorage.setItem('deathListWishes', JSON.stringify(wishes));
+        let wishes = [];
+        
+        async function loadWishes() {
+            const { data, error } = await supabase.from('wishes').select('*').order('id', { ascending: false });
+            if (error) { console.error('Error loading wishes:', error); return; }
+            wishes = data || [];
             renderWishes();
             updateStats();
         }
@@ -172,11 +118,7 @@
             document.getElementById('globalProgressFill').style.width = percent + '%';
         }
         
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
         
         function renderWishes() {
             const container = document.getElementById('wishlistContainer');
@@ -198,41 +140,42 @@
             `).join('');
         }
         
-        function toggleComplete(id) {
+        async function toggleComplete(id) {
             const wish = wishes.find(w => w.id === id);
-            if (wish) wish.completed = !wish.completed;
-            saveWishes();
-        }
-        
-        function editWish(id) {
-            const wish = wishes.find(w => w.id === id);
-            const newText = prompt('Edit wish:', wish.text);
-            if (newText && newText.trim()) wish.text = newText.trim();
-            saveWishes();
-        }
-        
-        function deleteWish(id) {
-            if (confirm('Delete this wish?')) {
-                wishes = wishes.filter(w => w.id !== id);
-                saveWishes();
+            if (wish) {
+                await supabase.from('wishes').update({ completed: !wish.completed }).eq('id', id);
+                loadWishes();
             }
         }
         
-        function addWish() {
+        async function editWish(id) {
+            const wish = wishes.find(w => w.id === id);
+            const newText = prompt('Edit wish:', wish.text);
+            if (newText && newText.trim()) {
+                await supabase.from('wishes').update({ text: newText.trim() }).eq('id', id);
+                loadWishes();
+            }
+        }
+        
+        async function deleteWish(id) {
+            if (confirm('Delete this wish?')) {
+                await supabase.from('wishes').delete().eq('id', id);
+                loadWishes();
+            }
+        }
+        
+        async function addWish() {
             const input = document.getElementById('newWishInput');
             const text = input.value.trim();
             if (!text) { alert('Please enter a wish!'); return; }
-            const newId = wishes.length > 0 ? Math.max(...wishes.map(w => w.id)) + 1 : 1;
-            wishes.push({ id: newId, text: text, completed: false });
+            await supabase.from('wishes').insert([{ text, completed: false }]);
             input.value = '';
-            saveWishes();
+            loadWishes();
         }
         
         document.getElementById('addWishBtn').addEventListener('click', addWish);
         document.getElementById('newWishInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addWish(); });
-        
-        renderWishes();
-        updateStats();
+        loadWishes();
         
         document.getElementById('logoutBtn').addEventListener('click', (e) => {
             e.preventDefault();
