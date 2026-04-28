@@ -5,48 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Prim - Admin Panel</title>
+    <title>Prim - Admin</title>
     <style>
-        .admin-sections { display: flex; flex-direction: column; gap: 2rem; }
-        .admin-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(183, 75, 75, 0.3);
+        .page-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .page-title span {
+            color: #b74b4b;
+        }
+        .typing-subtitle {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            min-width: 280px;
+        }
+        .typing-subtitle span {
+            color: #b74b4b;
+            position: relative;
+        }
+        .typing-subtitle span::before {
+            content: "Pritam";
+            color: #b74b4b;
+            animation: adminWords 4s infinite;
+        }
+        .typing-subtitle span::after {
+            content: "";
+            background-color: black;
+            position: absolute;
+            width: calc(100% + 8px);
+            height: 100%;
+            border-left: 3px solid black;
+            right: -8px;
+            animation: cursor 0.6s infinite;
+        }
+        @keyframes cursor {
+            to { border-left: 3px solid #b74b4b; }
+        }
+        @keyframes adminWords {
+            0%, 100% { content: "Pritam"; }
+        }
+        .running-cat {
+            display: none !important;
+        }
+        .admin-container {
+            text-align: center;
+        }
+        .admin-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 3px solid #b74b4b;
             transition: all 0.3s ease;
         }
-        .admin-card:hover { border-color: #b74b4b; box-shadow: 0 5px 20px rgba(183, 75, 75, 0.2); }
-        .admin-card h2 { color: #b74b4b; font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
-        .setting-group { margin-bottom: 1.5rem; }
-        .setting-group label { display: block; font-size: 1.4rem; margin-bottom: 0.5rem; color: #ccc; }
-        .setting-group input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #b74b4b;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.4rem;
+        .admin-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(183, 75, 75, 0.6);
         }
-        .admin-btn {
-            background: #b74b4b;
-            color: black;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.4rem;
-            margin-right: 1rem;
-            margin-top: 0.5rem;
+        @media (max-width: 768px) {
+            .typing-subtitle { font-size: 1.8rem; }
+            .admin-img { width: 180px; height: 180px; }
         }
-        .admin-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px #b74b4b; }
-        .danger-btn { background: #dc3545; color: white; }
-        .danger-btn:hover { background: #ff4757; box-shadow: 0 0 15px #dc3545; }
-        .success-btn { background: #28a745; color: white; }
-        .page-title { font-size: 4rem; margin-bottom: 2rem; }
-        .page-title span { color: #b74b4b; }
-        .running-cat { display: none !important; }
-        @media (max-width: 768px) { .admin-btn { margin-bottom: 0.5rem; } }
     </style>
 </head>
 <body>
@@ -65,36 +85,18 @@
             <a href="admin.html" class="active">Admin</a>
             <a href="#" id="logoutBtn">Logout</a>
         </nav>
-        <div class="hamburger" style="display: none;">☰</div>
+        <div class="hamburger" style="display: none; font-size: 30px; cursor: pointer;">☰</div>
     </header>
-    
+
     <section class="home">
         <div class="home-img">
             <img src="main.jpg" alt="Prim">
         </div>
-        <div class="home-content">
+        <div class="home-content admin-container">
             <h1 class="page-title">Admin <span>Panel</span></h1>
             
-            <div class="admin-sections">
-                <div class="admin-card">
-                    <h2><i class="fas fa-moon"></i> Pluto Credentials</h2>
-                    <div class="setting-group">
-                        <label>Pluto Username</label>
-                        <input type="text" id="plutoUsernameSetting" placeholder="pluto">
-                    </div>
-                    <div class="setting-group">
-                        <label>Pluto Password</label>
-                        <input type="password" id="plutoPasswordSetting" placeholder="pluto123">
-                    </div>
-                    <button class="admin-btn" id="savePlutoCredsBtn">💾 Save Pluto Credentials</button>
-                </div>
-                
-                <div class="admin-card">
-                    <h2><i class="fas fa-database"></i> Data Management</h2>
-                    <button class="admin-btn" id="exportDataBtn">📥 Export All Data</button>
-                    <button class="admin-btn danger-btn" id="clearAllDataBtn">🗑️ Clear All Data</button>
-                    <button class="admin-btn success-btn" id="resetDefaultBtn">🔄 Reset to Default</button>
-                </div>
+            <div class="typing-subtitle">
+                I am <span></span>
             </div>
             
             <div class="social-icons">
@@ -103,91 +105,53 @@
                 <a href="https://twitter.com/prim" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="https://instagram.com/prim" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
+            
+            <button class="btn" onclick="location.href='contact.html'">HUG ME</button>
         </div>
     </section>
 
     <script>
-        if (sessionStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'whale/';
-        if (sessionStorage.getItem('isAdmin') !== 'true') { alert('Admin access only!'); window.location.href = 'index.html'; }
-        
-        function loadSettings() {
-            const plutoCreds = JSON.parse(sessionStorage.getItem('plutoCredentials')) || { username: 'pluto', password: 'pluto123' };
-            document.getElementById('plutoUsernameSetting').value = plutoCreds.username;
-            document.getElementById('plutoPasswordSetting').value = plutoCreds.password;
+        // ========== LOGIN CHECK ==========
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'whale/';
         }
         
-        document.getElementById('savePlutoCredsBtn').addEventListener('click', () => {
-            const creds = {
-                username: document.getElementById('plutoUsernameSetting').value,
-                password: document.getElementById('plutoPasswordSetting').value
-            };
-            sessionStorage.setItem('plutoCredentials', JSON.stringify(creds));
-            alert('Pluto credentials saved!');
-        });
-        
-        document.getElementById('exportDataBtn').addEventListener('click', () => {
-            const data = {
-                wishes: JSON.parse(sessionStorage.getItem('deathListWishes')) || [],
-                movies: JSON.parse(sessionStorage.getItem('favoriteMovies')) || [],
-                contacts: JSON.parse(sessionStorage.getItem('contacts')) || [],
-                plutoCredentials: JSON.parse(sessionStorage.getItem('plutoCredentials')) || {},
-                notes: JSON.parse(sessionStorage.getItem('plutoNotes')) || []
-            };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `prim-portfolio-backup-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            alert('Data exported!');
-        });
-        
-        document.getElementById('clearAllDataBtn').addEventListener('click', () => {
-            if (confirm('⚠️ DANGER: This will delete ALL your data (wishes, movies, contacts). This cannot be undone!')) {
-                sessionStorage.removeItem('deathListWishes');
-                sessionStorage.removeItem('favoriteMovies');
-                sessionStorage.removeItem('contacts');
-                sessionStorage.removeItem('plutoNotes');
-                alert('All data cleared!');
-            }
-        });
-        
-        document.getElementById('resetDefaultBtn').addEventListener('click', () => {
-            if (confirm('Reset to default data?')) {
-                sessionStorage.setItem('deathListWishes', JSON.stringify([
-                    { id: 1, text: "🪂 Skydive in New Zealand", completed: false },
-                    { id: 2, text: "📝 Write a bestselling novel", completed: false },
-                    { id: 3, text: "🌍 Visit all 7 continents", completed: false }
-                ]));
-                sessionStorage.setItem('favoriteMovies', JSON.stringify([
-                    { id: 1, name: "Inception", year: 2010, rating: 5, genre: "Sci-Fi", watched: true },
-                    { id: 2, name: "The Dark Knight", year: 2008, rating: 5, genre: "Action", watched: false }
-                ]));
-                sessionStorage.setItem('contacts', JSON.stringify([
-                    { id: 1, name: "John Doe", phone: "+1 234 567 8900" },
-                    { id: 2, name: "Jane Smith", phone: "+1 987 654 3210" }
-                ]));
-                alert('Reset to default!');
-            }
-        });
-        
-        loadSettings();
-        
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+        // ========== LOGOUT ==========
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
             e.preventDefault();
             sessionStorage.removeItem('isLoggedIn');
             sessionStorage.removeItem('isAdmin');
             window.location.href = 'whale/';
         });
         
+        // ========== MOBILE MENU ==========
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('nav');
-        if (window.innerWidth <= 995) hamburger.style.display = 'block';
-        hamburger.addEventListener('click', () => nav.classList.toggle('active'));
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 995) { hamburger.style.display = 'none'; nav.classList.remove('active'); }
-            else hamburger.style.display = 'block';
+        
+        if (window.innerWidth <= 995 && hamburger) {
+            hamburger.style.display = 'block';
+        }
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+        }
+        
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 995) {
+                if (hamburger) hamburger.style.display = 'none';
+                if (nav) nav.classList.remove('active');
+            } else {
+                if (hamburger) hamburger.style.display = 'block';
+            }
         });
-        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+        
+        document.querySelectorAll('nav a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (nav) nav.classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>
