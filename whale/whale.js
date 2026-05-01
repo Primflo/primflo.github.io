@@ -117,8 +117,8 @@ defs = '<defs><linearGradient gradientTransform="matrix(0 -2038 1116.5 0 -157 26
 
 // ========= LOGIN LOGIC =========
 // Admin credentials
-const VALID_USER = "admin";
-const VALID_PASS = "admin123";
+const VALID_USER = "prim";
+const VALID_PASS = "7890131451";
 
 // Check existing session - FIXED: use sessionStorage
 if (sessionStorage.getItem('isLoggedIn') === 'true') {
